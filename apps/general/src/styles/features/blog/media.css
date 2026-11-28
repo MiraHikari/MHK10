@@ -1,0 +1,187 @@
+/* ============================================================================
+   media.css — 正文媒体样式：照片游记（PhotoFigure / PhotoSet）与代码块
+   （Shiki 包装 + 长块折叠）。
+   ========================================================================== */
+
+/* ---- Photo journal（PhotoFigure / PhotoSet） --------------------------
+   照片游记的正文单元：单张 = 全栏节拍，photo-set = contact-sheet 组。
+   全屏细看交给 Lightbox（点击由 enhanceArticleImages 增强），这里只负责
+   阅读流里的节奏与图注。图注用站内 mono 元信息语言（// 前缀）。 */
+.prose-mh .photo-figure {
+  margin: 1.75rem 0;
+}
+.prose-mh .photo-figure img {
+  display: block;
+  margin: 0;
+  background: var(--neutral-910); /* lazy 加载期的占位底色，配合 width/height 防 CLS */
+  transition:
+    border-color 0.25s var(--ease-brand),
+    transform 0.25s var(--ease-brand);
+}
+@media (hover: hover) {
+  .prose-mh .photo-figure:hover img {
+    border-color: color-mix(in srgb, var(--section-accent-soft) 55%, transparent);
+    transform: translateY(-2px);
+  }
+}
+.prose-mh .photo-figure figcaption {
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+.prose-mh .photo-figure figcaption::before {
+  content: '// ';
+  color: var(--section-accent-soft);
+  opacity: 0.7;
+}
+.prose-mh .photo-set {
+  display: grid;
+  grid-template-columns: repeat(var(--photo-set-cols, 2), minmax(0, 1fr));
+  gap: 1rem 0.9rem;
+  align-items: start;
+  margin: 1.75rem 0;
+}
+.prose-mh .photo-set .photo-figure {
+  margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .prose-mh .photo-figure img {
+    transition: none;
+  }
+  .prose-mh .photo-figure:hover img {
+    transform: none;
+  }
+}
+
+/* ---- Code blocks (Shiki + JS-enhanced wrapper) ----------------------- */
+.prose-mh pre,
+.code-block pre {
+  margin: 0;
+  padding: 1.2rem 1.35rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+  border-radius: 0 0 6px 6px;
+}
+.code-block {
+  margin: 1.75rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--code-bg);
+}
+.code-block__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.code-block__lang {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+.code-block__copy {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+@media (pointer: fine) {
+  .code-block__copy {
+    cursor: none;
+  }
+}
+.code-block__copy:hover {
+  color: var(--section-accent-soft);
+  border-color: var(--section-accent-soft);
+}
+.code-block__copy[data-copied='true'] {
+  color: var(--section-accent);
+  border-color: var(--section-accent);
+}
+
+/* ---- Code block collapse（长块折叠，enhanceCodeBlocks 加 is-collapsed） -- */
+.code-block__bar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.code-block__toggle {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+@media (pointer: fine) {
+  .code-block__toggle {
+    cursor: none;
+  }
+}
+.code-block__toggle:hover {
+  color: var(--section-accent-soft);
+  border-color: var(--section-accent-soft);
+}
+.code-block pre {
+  transition: max-height 0.32s var(--ease-brand);
+}
+.code-block.is-collapsed {
+  position: relative;
+}
+.code-block.is-collapsed pre {
+  max-height: 20rem;
+  overflow: hidden;
+}
+/* `max-height: none → 20rem` is not interpolable, so the 展开 / 折叠 toggle
+   used to snap in every browser. Where the platform can interpolate intrinsic
+   sizes, animate `block-size` between `auto` and the collapsed length instead;
+   browsers without interpolate-size keep the max-height clamp above. */
+@supports (interpolate-size: allow-keywords) {
+  .code-block {
+    interpolate-size: allow-keywords;
+  }
+  .code-block pre {
+    max-height: none;
+    block-size: auto;
+    transition: block-size 0.32s var(--ease-brand);
+  }
+  .code-block.is-collapsed pre {
+    max-height: none;
+    block-size: 20rem;
+  }
+}
+.code-block.is-collapsed::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3.5rem;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--code-bg) 25%, transparent);
+}

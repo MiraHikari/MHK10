@@ -1,0 +1,396 @@
+html[data-desktop-landing] [data-classic-root],
+html[data-display-mode='win95'] [data-classic-root] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fusion-desktop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  contain: layout paint;
+  background: var(--neutral-950);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.fusion-desktop[data-visible='true'] {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* In classic mode a hairline of the live section accent sits at the top of the
+   glass pill; the control belongs to the current page, not to a global chrome. */
+.fusion-mode-toggle {
+  /* Keep the Tailwind `fixed` placement; the button itself is the containing
+     block for the accent hairline pseudo-element. */
+  width: 2.75rem;
+  transition:
+    width 260ms var(--ease-brand),
+    opacity 220ms var(--ease-brand),
+    background-color 220ms var(--ease-brand);
+}
+
+.fusion-mode-toggle:hover,
+.fusion-mode-toggle:focus-visible {
+  width: 6.25rem;
+}
+
+/* Win95 has no section-dot column: return the chip to the viewport edge.
+   Keyed on the committed presentation signal, so the offset follows the
+   classic chrome rather than the click-time target. */
+html[data-display-mode='win95'] .fusion-mode-toggle {
+  right: 0.5rem;
+}
+
+/* Desktop classic: sit above the section-dot column, inside the right gutter.
+   The resting chip never overlaps the 64px content padding or the hero's
+   bottom rail; only its hover label expands leftwards. */
+@media (min-width: 1024px) {
+  html:not([data-display-mode='win95']) .fusion-mode-toggle {
+    top: calc(50% - 8rem);
+    right: 0.75rem;
+    transform: none;
+    translate: 0 0;
+  }
+}
+
+/* Phones have no dot column either, and the vertical centre is where hero and
+   section copy lives. Anchor the chip in the bottom-left thumb zone instead of
+   over the text; the bottom-right corner belongs to the reading TOC button. */
+@media (max-width: 767px) {
+  html:not([data-display-mode='win95']) .fusion-mode-toggle {
+    top: auto;
+    right: auto;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    left: max(0.75rem, env(safe-area-inset-left));
+    transform: none;
+    translate: 0 0;
+  }
+}
+
+@media (min-width: 640px) {
+  html[data-display-mode='win95'] .fusion-mode-toggle {
+    right: 0.75rem;
+  }
+}
+
+.fusion-mode-toggle__label {
+  max-width: 0;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  transition:
+    max-width 260ms var(--ease-brand),
+    margin-left 260ms var(--ease-brand),
+    opacity 160ms var(--ease-brand);
+}
+
+.fusion-mode-toggle:hover .fusion-mode-toggle__label,
+.fusion-mode-toggle:focus-visible .fusion-mode-toggle__label {
+  max-width: 3.75rem;
+  margin-left: 0.45rem;
+  opacity: 1;
+}
+
+.fusion-mode-toggle[data-mode='classic']::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  left: 0.55rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--section-accent-soft), transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* In Win95 the host's return control becomes a small silver window button:
+   the same affordance, wearing the active presentation's chrome. */
+.fusion-mode-toggle[data-mode='win95'] {
+  border: 2px solid;
+  border-color: var(--win95-white) var(--win95-black) var(--win95-black) var(--win95-white);
+  border-radius: 0;
+  background: var(--win95-silver);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.fusion-mode-toggle[data-mode='win95'] {
+  opacity: 0.78;
+}
+
+.fusion-mode-toggle[data-mode='win95']:hover,
+.fusion-mode-toggle[data-mode='win95']:focus-visible {
+  background: var(--win95-white);
+  opacity: 1;
+}
+
+.fusion-mode-toggle[data-mode='win95'] .fusion-mode-toggle__label {
+  color: color-mix(in srgb, var(--win95-black) 68%, transparent);
+}
+
+.fusion-mode-toggle[data-mode='win95']:hover .fusion-mode-toggle__label {
+  color: var(--win95-black);
+}
+
+/* The first-visit desktop hint already owns the entry surface; do not stack
+   the generic keyboard toast on top of it (both would fade at the same time). */
+body:has(.about-entry__hint) .shortcut-hint,
+body:has([data-back-to-start]) .shortcut-hint {
+  display: none;
+}
+
+:where(.presentation-prism, .presentation-handoff[data-mode='win95']) {
+  --fusion-pixel-line: linear-gradient(
+    90deg,
+    var(--win95-navy) 0 12.5%,
+    var(--win95-blue) 12.5% 25%,
+    var(--win95-desktop) 25% 37.5%,
+    var(--win95-aqua) 37.5% 50%,
+    var(--win95-silver) 50% 62.5%,
+    var(--win95-white) 62.5% 75%,
+    var(--win95-silver) 75% 87.5%,
+    var(--win95-navy) 87.5%
+  );
+}
+
+.presentation-prism {
+  --fusion-prism-travel: -0.85rem;
+  position: fixed;
+  z-index: 91;
+  top: 1rem;
+  left: calc(50% - 6rem);
+  display: grid;
+  align-items: center;
+  inline-size: 12rem;
+  block-size: 4px;
+  pointer-events: none;
+}
+
+.presentation-prism[data-docked='true'] {
+  --fusion-prism-travel: -6.7rem;
+}
+
+.presentation-prism > i {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform-origin: left center;
+}
+
+.presentation-prism__light {
+  block-size: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--neutral-50) 13%,
+    var(--section-accent-soft) 31%,
+    var(--win95-aqua) 56%,
+    var(--section-accent-soft) 79%,
+    transparent
+  );
+  box-shadow: 0 1px 4px var(--section-accent-soft);
+  animation: presentation-prism-light var(--fusion-entry-duration, 0.26s) var(--ease-brand) both;
+}
+
+.presentation-prism__pixels {
+  block-size: 4px;
+  background: var(--fusion-pixel-line);
+  box-shadow: 0 1px var(--win95-black);
+  animation: presentation-prism-pixels var(--fusion-entry-duration, 0.26s) steps(4, end) both;
+}
+
+@keyframes presentation-prism-light {
+  from {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+  }
+  24% {
+    opacity: 0.95;
+    transform: translateX(calc(var(--fusion-prism-travel) * 0.08)) scaleX(0.86);
+  }
+  61%,
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--fusion-prism-travel) * 0.45)) scaleX(0.34);
+  }
+}
+
+@keyframes presentation-prism-pixels {
+  from,
+  30% {
+    opacity: 0;
+    transform: translateX(0) scaleX(0.37);
+  }
+  57% {
+    opacity: 1;
+    transform: translateX(calc(var(--fusion-prism-travel) * 0.45)) scaleX(0.34);
+  }
+  82% {
+    opacity: 1;
+    transform: translateX(var(--fusion-prism-travel)) scaleX(0.28);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(var(--fusion-prism-travel)) scaleX(0.25);
+  }
+}
+
+.presentation-handoff:not([hidden]) {
+  --signal-ink: var(--win95-navy);
+  position: fixed;
+  z-index: 101;
+  inset-inline-end: max(1rem, env(safe-area-inset-right));
+  inset-block-end: max(1rem, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  inline-size: max-content;
+  max-inline-size: calc(100% - 2rem);
+  padding: 0.65rem 0.7rem 0.55rem 0.95rem;
+  border: 1px solid var(--signal-ink);
+  background: color-mix(in srgb, var(--neutral-50) 97%, var(--section-accent));
+  color: var(--neutral-950);
+  box-shadow: 3px 3px color-mix(in srgb, var(--signal-ink) 22%, transparent);
+}
+
+.presentation-handoff[data-docked='true']:not([hidden]) {
+  inset-inline-end: auto;
+  inset-block-end: auto;
+  transform: translateX(calc(-100% - 0.95rem));
+}
+
+@media (max-width: 767px) {
+  .presentation-handoff:not([hidden]) {
+    inset-inline-start: max(1rem, env(safe-area-inset-left));
+    inset-inline-end: auto;
+  }
+}
+
+.presentation-handoff::before {
+  content: '';
+  position: absolute;
+  inset: -2px 0.85rem auto auto;
+  inline-size: 4.75rem;
+  block-size: 4px;
+  background: var(--fusion-pixel-line, var(--section-accent-soft));
+}
+
+.presentation-handoff::after {
+  content: '';
+  position: absolute;
+  inset: -5px auto auto -5px;
+  inline-size: 9px;
+  block-size: 9px;
+  background:
+    linear-gradient(var(--signal-ink) 0 0) center / 1px 100% no-repeat,
+    linear-gradient(var(--signal-ink) 0 0) center / 100% 1px no-repeat;
+  pointer-events: none;
+}
+
+.presentation-handoff__copy {
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.presentation-handoff__copy p {
+  margin: 0;
+}
+
+.presentation-handoff__label {
+  color: var(--signal-ink);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+}
+
+.presentation-handoff__cancel {
+  flex: none;
+  min-block-size: 44px;
+  min-inline-size: 44px;
+  padding-inline: 0.8rem;
+  border: 2px solid;
+  border-color: var(--win95-white) var(--win95-black) var(--win95-black) var(--win95-white);
+  background: var(--win95-silver);
+  color: var(--win95-black);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.presentation-handoff__cancel:hover {
+  background: var(--win95-white);
+}
+
+.presentation-handoff__cancel:focus-visible {
+  outline: 2px solid var(--signal-ink);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Failure / reading notices                                                 */
+/* ------------------------------------------------------------------------- */
+
+.fusion-failure {
+  position: fixed;
+  z-index: 93;
+  left: 50%;
+  bottom: max(2rem, env(safe-area-inset-bottom));
+  transform: translate(-50%, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.8rem;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  padding: 0.75rem 1rem;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 1rem;
+  background: rgb(12 12 12 / 92%);
+  color: var(--neutral-50);
+  font-size: 0.8rem;
+  backdrop-filter: blur(16px);
+}
+
+.fusion-failure button {
+  min-height: 44px;
+  padding-inline: 0.5rem;
+  color: var(--ink-on-dark-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fusion-failure button:focus-visible {
+  outline: 2px solid var(--neutral-50);
+  outline-offset: 2px;
+}
+
+.fusion-failure--reading {
+  bottom: max(8rem, calc(env(safe-area-inset-bottom) + 6rem));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-forced) .presentation-prism {
+    display: none;
+  }
+
+  html:not(.motion-forced) .fusion-mode-toggle,
+  html:not(.motion-forced) .fusion-mode-toggle__label {
+    transition: none;
+  }
+}
+
+html.motion-suppressed .presentation-prism {
+  display: none;
+}
+
+html.motion-suppressed .fusion-mode-toggle,
+html.motion-suppressed .fusion-mode-toggle__label {
+  transition: none;
+}

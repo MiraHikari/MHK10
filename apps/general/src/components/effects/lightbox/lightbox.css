@@ -1,0 +1,99 @@
+/**
+ * YARL（yet-another-react-lightbox）皮肤 — 对齐站点暗色极简语言。
+ * 作用域限定在 .pf-lightbox（Lightbox.tsx 传入的 className）。
+ * 自定义 chrome（分类 / 信息栏 / 计数 / 缩略图条 / 项目卡片）由组件内
+ * Tailwind 类负责，这里只覆写 YARL 内建件：背景、工具栏、导航箭头、加载态。
+ */
+
+.pf-lightbox.yarl__root {
+  /* 背景放在 root：container 随 portal 的淡入淡出一起过渡。
+     96% 不透明遮罩下 blur 不可见，却是全视口离屏 backdrop pass。 */
+  background: rgb(0 0 0 / 0.96);
+  --yarl__color_backdrop: transparent;
+
+  /* 内建按钮（fullscreen / slideshow / share）统一到
+     44px 触达、white/50 → white、无默认投影。 */
+  --yarl__button_padding: 12px;
+  --yarl__button_filter: none;
+  --yarl__color_button: rgb(255 255 255 / 0.5);
+  --yarl__color_button_active: var(--ink-on-dark-strong);
+  --yarl__color_button_disabled: rgb(255 255 255 / 0.5);
+  --yarl__icon_size: 20px;
+
+  /* 工具栏对齐旧顶栏 px-4 py-3（≥md 时 px-8 py-5，见下方媒体查询）。 */
+  --yarl__toolbar_padding: 12px 16px;
+
+  /* 导航箭头：44px 方形热区（内容 28px 图标）。 */
+  --yarl__navigation_button_padding: 8px;
+}
+
+.pf-lightbox .yarl__button {
+  transition: color 0.3s;
+}
+.pf-lightbox .yarl__button:disabled {
+  opacity: 0.3;
+}
+.pf-lightbox .yarl__button:focus-visible {
+  outline: 2px solid var(--section-accent);
+  outline-offset: -2px;
+}
+
+/* 导航箭头：桌面显示、移动端隐藏（移动端横滑翻页），hover 转 accent 并微移。 */
+.pf-lightbox .yarl__navigation_prev,
+.pf-lightbox .yarl__navigation_next {
+  display: none;
+  color: rgb(255 255 255 / 0.4);
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+}
+.pf-lightbox .yarl__navigation_prev svg,
+.pf-lightbox .yarl__navigation_next svg {
+  transition: transform 0.3s var(--ease-brand);
+}
+.pf-lightbox .yarl__navigation_prev:hover,
+.pf-lightbox .yarl__navigation_next:hover {
+  color: var(--section-accent-ink);
+  background-color: rgb(255 255 255 / 0.05);
+}
+.pf-lightbox .yarl__navigation_prev:hover svg {
+  transform: translateX(-2px);
+}
+.pf-lightbox .yarl__navigation_next:hover svg {
+  transform: translateX(2px);
+}
+
+/* 缩略图条为 Lightbox.tsx 自绘（render.controls），样式在组件内。 */
+/* Gallery 幻灯片为顶部工具栏与底部缩略图条留出轨道，照片主体不压住控件。 */
+.pf-lightbox:not(.pf-lightbox--project) .yarl__slide {
+  padding: 64px 16px 104px;
+}
+
+@media (max-width: 767px) {
+  .pf-lightbox:not(.pf-lightbox--project) .yarl__slide {
+    padding: 56px 12px 88px;
+  }
+}
+
+/* 未缩放的图片提示可放大（缩放态的 grab 光标由 Zoom 插件区域接管）。 */
+.pf-lightbox .yarl__slide_image {
+  cursor: zoom-in;
+}
+
+@media (min-width: 768px) {
+  .pf-lightbox.yarl__root {
+    --yarl__toolbar_padding: 20px 32px;
+  }
+  .pf-lightbox .yarl__navigation_prev,
+  .pf-lightbox .yarl__navigation_next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pf-lightbox .yarl__navigation_prev {
+    left: 24px;
+  }
+  .pf-lightbox .yarl__navigation_next {
+    right: 24px;
+  }
+}

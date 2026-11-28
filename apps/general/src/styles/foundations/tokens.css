@@ -1,0 +1,144 @@
+/* ============================================================================
+   tokens.css — 静态设计 token 唯一来源。
+   品牌色 / 中性色 / 表面 / 边框 / 文本层级 / 阴影 / 圆角 / 焦点样式全部定义
+   于此；theme.css 负责映射为 Tailwind 语义类。组件与页面样式只允许引用本
+   文件的变量（或 `--section-accent*` 动态章节色），禁止散落颜色 / 圆角 /
+   阴影字面量（白名单见 AGENTS.md 与 docs/style-system.md）。
+   ========================================================================== */
+
+:root {
+  /* ---- 品牌色 ------------------------------------------------------------ */
+  /* 品牌蓝唯一来源位置之一（其余见 AGENTS.md「品牌色字面量限制」白名单）；
+     章节主题色数据源在 src/lib/sections.ts。 */
+  --brand: #254378;
+  --brand-hover: #4a6ba0;
+  --brand-soft: #7a9bcb; /* 深底上的品牌蓝亮阶 */
+  --brand-on: #ffffff;
+
+  /* ---- 中性色阶 ---------------------------------------------------------- */
+  /* 全站黑白 / 灰阶字面量的统一替换入口。 */
+  --neutral-50: #fafafa; /* 浅底背景 */
+  --neutral-100: #f5f5f5; /* 浅底次级表面 */
+  --neutral-300: #e5e5e5; /* 浅色边框 / 输入框 */
+  --neutral-400: #888888; /* 深底弱文本 */
+  --neutral-500: #737373; /* 浅底弱文本 */
+  --neutral-800: #1a1a1a; /* 深底次级表面 */
+  --neutral-900: #141414; /* 深色卡片 */
+  --neutral-910: #101010; /* 深色列表表面（relations / series / metric-grid） */
+  --neutral-925: #0f0f0f; /* 灯箱 project 卡 / 深色浮层 */
+  --neutral-950: #0a0a0a; /* 深底背景 */
+  --neutral-975: #0c0c0f; /* SurfacePanel 深色表面 */
+
+  /* 固定 accent 蓝（博客/评论区等暗色界面的静态 accent 蓝阶，不随章节切换） */
+  --accent-blue: #6f93c4; /* 安静 accent（eyebrow / 链接 / hover 边框） */
+  --accent-blue-bright: #8aa9d6; /* 亮阶 accent（强调文本 / 徽标） */
+  --accent-blue-strong: #dce8fa; /* 强阶 accent（hover 文本） */
+
+  /* 代码块表面（GitHub dark 语系的固定深色） */
+  --code-bg: #0d1117;
+
+  /* ---- Win95 呈现（仅 host 的连接/让位层） ------------------------------ */
+  /* 用于 mode-aware 进度条与握手指示的 16 色语汇；不参与通用版正文配色。 */
+  --win95-desktop: #008080;
+  --win95-navy: #000080;
+  --win95-silver: #c0c0c0;
+  --win95-aqua: #00ffff;
+  --win95-blue: #0000ff;
+  --win95-white: #ffffff;
+  --win95-black: #000000;
+
+  /* 深色界面上的文本层级（ink-on-dark） */
+  --ink-on-dark: #f0f0f0; /* 深底主文本 */
+  --ink-on-dark-strong: #ffffff; /* 深底强调文本 */
+  --ink-on-dark-soft: rgba(255, 255, 255, 0.55); /* 深底次级文本 */
+  --ink-on-dark-faint: rgba(255, 255, 255, 0.4); /* 深底弱文本 */
+  --ink-on-dark-hairline: rgba(255, 255, 255, 0.08); /* 深底边框 */
+
+  /* ---- 表面 / 文本（shadcn 语义名，theme.css 映射 Tailwind 类） ---------- */
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #254378;
+  --accent-hover: #4a6ba0;
+  --accent-text-on-dark: #7a9bcb;
+  --accent-text-on-light: #254378;
+  --accent-foreground: #0a0a0a;
+  --destructive: oklch(0.577 0.245 27.325);
+
+  /* ---- 边框 / 输入 / 焦点环 ---------------------------------------------- */
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #254378;
+
+  /* ---- 文本层级 ----------------------------------------------------------- */
+  /* 固定字号 token + 响应式断点（base.css），不再用视口宽度直接缩放字体。
+     正文字距统一为 0；标签字距（--tracking-*）是 mono eyebrow 语言的刻意例外。 */
+  --text-display-m: 2.25rem; /* 章节 quiet 标题（≤767px 覆盖为 1.5rem） */
+  --text-display-m--line-height: 1.15;
+  --text-caption: 0.6875rem; /* 11px */
+  --text-micro: 0.625rem; /* 10px; absorbs former 9px */
+  --tracking-label: 0.3em;
+  --tracking-eyebrow: 0.22em;
+  --tracking-mono: 0.14em;
+
+  /* ---- 阴影层级 ----------------------------------------------------------- */
+  /* 统一替换 shadow-2xl / shadow-xl / 任意值阴影的入口。 */
+  --shadow-panel:
+    0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06); /* 深色浮层（SurfacePanel dark） */
+  --shadow-panel-light:
+    0 12px 36px rgba(17, 17, 26, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8); /* 浅色浮层（SurfacePanel light） */
+  --shadow-pop: 0 8px 24px rgba(17, 17, 26, 0.1); /* 提示气泡（SkillRow tooltip） */
+  --shadow-lift: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* 悬浮层（原 shadow-2xl） */
+
+  /* ---- 圆角 --------------------------------------------------------------- */
+  --radius: 0.25rem; /* 基础 4px；sm/md/lg/xl 由 theme.css 派生 */
+
+  /* ---- 全站深色 UI（原生滚动条 / select 弹层 / 表单控件）跟随暗色主题；
+       resume.astro 是独立浅色页，不加载本文件。 */
+  color-scheme: dark;
+
+  /* 品牌缓动静态回退：实际值由页面根节点（Layout.astro）从 src/lib/motion.ts
+     的 motionEaseCss 内联覆盖发布为 --ease-brand。此处为唯一保留的 CSS
+     字面量，样式文件一律只引用 var(--ease-brand)。 */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Live section identity colours, re-published by `useSectionAccent` on every
+     transition. The brand blue is the pre-hydration fallback. */
+  --section-accent: #254378;
+  --section-accent-soft: #7a9bcb;
+  --section-accent-ink: #7a9bcb;
+  --section-accent-on: #ffffff;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f0f0f0;
+  --card: #141414;
+  --card-foreground: #f0f0f0;
+  --popover: #141414;
+  --popover-foreground: #f0f0f0;
+  --primary: #f0f0f0;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f0f0f0;
+  --muted: #1a1a1a;
+  --muted-foreground: #888888;
+  --accent: #254378;
+  --accent-hover: #4a6ba0;
+  --accent-text-on-dark: #7a9bcb;
+  --accent-text-on-light: #254378;
+  --accent-foreground: #0a0a0a;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #254378;
+}

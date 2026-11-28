@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ReaderShell from '../../lib/apps/reader/ReaderShell.astro';
+import ReaderLibrary from '../../lib/apps/reader/ReaderLibrary.astro';
+---
+
+<SiteLayout
+  title="MHK10 Reader — Library"
+  description="MiraHikari 的技术记录、项目思考与旅行随笔。"
+  active="blog"
+  showNavigation={false}
+>
+  <ReaderShell>
+    <div slot="library">
+      <ReaderLibrary />
+    </div>
+  </ReaderShell>
+</SiteLayout>

@@ -1,0 +1,41 @@
+/* Fusion Pixel Font 2026.09.25, native 12px proportional Simplified Chinese.
+   Unmodified OFL-1.1 font and source notices: /fonts/fusion-pixel/. */
+@font-face {
+  font-family: 'MHK CJK';
+  src: url('/fonts/fusion-pixel/fusion-pixel-12px-proportional-zh-hans.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 11px English controls keep MSS; this CJK-only fallback still draws native 12px glyphs. */
+@font-face {
+  font-family: 'MHK CJK UI';
+  src: url('/fonts/fusion-pixel/fusion-pixel-12px-proportional-zh-hans.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 109.090909%;
+  ascent-override: 83.333333%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+  unicode-range: U+2E80-9FFF, U+F900-FAFF, U+FE30-FEFF, U+FF00-FFEF, U+20000-3134F;
+}
+
+.cjk-pixel {
+  font-family: 'MHK CJK', SimSun, monospace;
+  font-size: 24px;
+  line-height: 36px;
+  font-synthesis: none;
+}
+
+.is-embedded .cjk-pixel,
+.hybrid-ui .cjk-pixel,
+.hybrid-ui [data-cjk] {
+  font-family: 'MHK CJK', SimSun, monospace;
+  font-size: 12px;
+  line-height: 18px;
+  font-synthesis: none;
+  font-kerning: none;
+  letter-spacing: 0;
+}

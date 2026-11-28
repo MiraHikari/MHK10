@@ -1,0 +1,337 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import Button from '../../../components/hybrid/Button.astro';
+import Toolbar from '../../../components/hybrid/Toolbar.astro';
+import Tree from '../../../components/hybrid/Tree.astro';
+import StatusBar from '../../../components/hybrid/StatusBar.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import PortfolioImage from '../../../components/PortfolioImage.astro';
+import { profile, portfolio, projects } from '../../../data/profile';
+import { mediaHref } from '../../../data/media';
+import { getCollection } from 'astro:content';
+
+interface Entry {
+  id: string;
+  title: string;
+  kind: string;
+  detail: string;
+  icon: string;
+  href: string;
+  properties: string;
+  app?: string;
+  folder?: string;
+  image?: string;
+  meta?: string;
+  person?: boolean;
+  badges?: readonly string[];
+}
+// Announcements stay in the library but do not displace the latest article.
+const latest = (
+  await getCollection('posts', ({ data }) => !data.draft && data.listed && data.category !== '公告')
+).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())[0];
+const personal: Entry[] = [
+  {
+    id: 'about',
+    title: 'About',
+    kind: 'Properties',
+    detail: profile.summary,
+    icon: 'user',
+    href: '/about/',
+    properties: '/about/',
+    app: 'profile',
+    image: profile.avatar,
+    person: true,
+    badges: profile.specialties,
+  },
+  {
+    id: 'projects',
+    title: 'Projects',
+    kind: 'Folder',
+    detail: '我的桌面工具、Web 产品与硬件原型，包含独立开发和团队协作的记录。',
+    icon: 'folder',
+    href: '#folder-projects',
+    properties: '/about/#projects',
+    folder: 'projects',
+    meta: `${projects.length} projects`,
+    badges: ['Web 应用', '桌面工具', '智能硬件', 'Web3'],
+  },
+  {
+    id: 'skills',
+    title: 'Skills',
+    kind: 'Device Manager',
+    detail: '我常用的技术、工具，以及正在学习的方向。',
+    icon: 'chip',
+    href: '/skills/',
+    properties: '/about/#general',
+    app: 'skills',
+    meta: `${portfolio.skills.length} technologies`,
+    badges: [
+      `${portfolio.skillCategories.length} categories`,
+      `${portfolio.skillsCurrentlyLearning.length} learning`,
+    ],
+  },
+  {
+    id: 'pictures',
+    title: 'Pictures',
+    kind: 'Album',
+    detail: '西湖、AdventureX 与南昌的旅行和日常记录。',
+    icon: 'gallery',
+    href: '/gallery/',
+    properties: '/about/#photos',
+    app: 'gallery',
+    meta: `${portfolio.gallery.length} images`,
+    badges: ['Scenery', 'AdventureX', 'Daily life'],
+  },
+  {
+    id: 'journal',
+    title: 'Journal',
+    kind: 'Documents',
+    detail: '我写下的技术笔记、项目记录和旅行随笔。',
+    icon: 'doc',
+    href: '/blog/',
+    properties: '/about/#general',
+    app: 'blog',
+    badges: ['Articles', 'Field notes', 'Colophon'],
+  },
+  {
+    id: 'honors',
+    title: 'Honors',
+    kind: 'Properties',
+    detail: '竞赛、社区贡献和认证，附有原始记录与证书。',
+    icon: 'star',
+    href: '/about/#honors',
+    properties: '/about/#honors',
+    app: 'profile',
+    meta: `${portfolio.honors.length} records`,
+    badges: ['3 National', '2 Provincial', 'TCCP Certified'],
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
+    kind: 'Properties',
+    detail: '我的公开代码、视频和联系方式。欢迎交流项目与想法。',
+    icon: 'mail',
+    href: '/about/#contact',
+    properties: '/about/#contact',
+    app: 'profile',
+    meta: profile.email,
+    badges: ['GitHub', 'Bilibili', 'vCard 3.0'],
+  },
+];
+const projectEntries: Entry[] = projects.map((project) => ({
+  id: `project-${project.id}`,
+  title: project.title,
+  kind: 'Project',
+  detail: project.description,
+  icon: 'exe',
+  href: `/about/#project-${project.id}`,
+  properties: `/about/#project-${project.id}`,
+  app: 'profile',
+  image: project.preview,
+  meta: project.date,
+  badges: project.tags.slice(0, 4),
+}));
+const recent: Entry[] = [
+  ...projectEntries.toSorted((a, b) => (b.meta ?? '').localeCompare(a.meta ?? '')).slice(0, 2),
+  ...(latest
+    ? [
+        {
+          id: `article-${latest.id}`,
+          title: latest.data.title,
+          kind: 'Article',
+          detail: latest.data.description,
+          icon: 'doc',
+          href: `/blog/${latest.id}/`,
+          properties: '/about/#general',
+          app: 'blog',
+          meta: latest.data.published.toISOString().slice(0, 10),
+        },
+      ]
+    : []),
+];
+const folders = [
+  { id: 'home', title: 'Home', items: personal },
+  { id: 'projects', title: 'Projects', items: projectEntries },
+  { id: 'recent', title: 'Recent', items: recent },
+];
+const previews = [
+  ...new Map(folders.flatMap((folder) => folder.items).map((item) => [item.id, item])).values(),
+];
+---
+
+<SiteLayout title="Home" description={profile.summary} active="home">
+  <main class="page-shell personal-explorer" data-personal-explorer>
+    <Toolbar label="Home commands" class="explorer-toolbar">
+      <Button data-explorer-command="back" disabled>
+        <PixelIcon name="previous" size={16} /> Back
+      </Button>
+      <Button data-explorer-command="up" disabled>
+        Up
+      </Button>
+      <span role="separator"></span>
+      <Button data-explorer-command="open">
+        <PixelIcon name="folder" size={16} /> Open
+      </Button>
+      <a class="hybrid-button" href="/about/" data-app-link="profile" data-explorer-properties>
+        Properties
+      </a>
+      <Button data-explorer-command="folders" aria-pressed="true">
+        Folders
+      </Button>
+    </Toolbar>
+    <div class="explorer-address">
+      <label for="personal-location">Location</label>
+      <input id="personal-location" aria-label="Location" readonly value="MiraHikari\Home" />
+    </div>
+    <div class="explorer-workspace">
+      <Tree label="Personal folders" class="explorer-tree">
+        <a
+          href="#folder-home"
+          role="treeitem"
+          aria-selected="true"
+          aria-expanded="true"
+          data-folder="home"
+        >
+          <PixelIcon name="home" size={16} /> Home
+        </a>
+        <div role="group">
+          <a href="#folder-projects" role="treeitem" aria-selected="false" data-folder="projects">
+            <PixelIcon name="folder" size={16} /> Projects
+          </a>
+          <a href="#folder-recent" role="treeitem" aria-selected="false" data-folder="recent">
+            <PixelIcon name="folder" size={16} /> Recent
+          </a>
+        </div>
+      </Tree>
+      <div class="explorer-files">
+        {folders.map((folder) => (
+          <section
+            id={`folder-${folder.id}`}
+            data-folder-items={folder.id}
+            data-folder-name={folder.title}
+          >
+            <h2 class="explorer-fallback-heading">{folder.title}</h2>
+            <ul role="listbox" aria-label={`${folder.title} items`}>
+              {folder.items.map((item, index) => (
+                <li role="presentation">
+                  <a
+                    href={item.href}
+                    data-app-link={item.app}
+                    data-explorer-item={item.id}
+                    data-target-folder={item.folder}
+                    data-properties={item.properties}
+                    role="option"
+                    aria-selected={index === 0}
+                    tabindex={index === 0 ? 0 : -1}
+                  >
+                    <PixelIcon name={item.icon} size={16} />
+                    <span
+                      class="explorer-item-name"
+                      data-cjk={item.kind === 'Project' || item.kind === 'Article' ? '' : undefined}
+                    >
+                      {item.title}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+      <aside class="explorer-preview" aria-label="Selection details">
+        {previews.map((item) => (
+          <article data-preview={item.id}>
+            <div class="preview-kind">
+              <PixelIcon name={item.icon} size={16} />
+              <span>{item.kind}</span>
+              {item.meta && <span class="preview-kind-meta">{item.meta}</span>}
+            </div>
+            {item.person ? (
+              <div class="preview-person-card">
+                {item.image && (
+                  <a
+                    class="preview-avatar-frame"
+                    href={mediaHref(item.image)}
+                    data-app-link="acdsee"
+                    aria-label="View MiraHikari avatar"
+                  >
+                    <PortfolioImage
+                      class="explorer-preview-image preview-avatar"
+                      src={item.image}
+                      alt={profile.avatarAlt}
+                      width={64}
+                      height={64}
+                      loading="eager"
+                    />
+                  </a>
+                )}
+                <div class="preview-person-meta">
+                  <h1>{profile.name}</h1>
+                  <p class="preview-role" lang="en">
+                    {profile.role}
+                  </p>
+                  <p data-cjk lang="zh-CN">
+                    {profile.location} · 学生开发者
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <h2 data-cjk={item.kind === 'Project' || item.kind === 'Article' ? '' : undefined}>
+                  {item.title}
+                </h2>
+                {item.image && (
+                  <a
+                    class="preview-media-frame"
+                    href={mediaHref(item.image)}
+                    data-app-link="acdsee"
+                    aria-label={`View ${item.title} image`}
+                  >
+                    <PortfolioImage
+                      class="explorer-preview-image"
+                      src={item.image}
+                      alt={`${item.title} 项目画面`}
+                      width={320}
+                      height={180}
+                      loading="lazy"
+                    />
+                  </a>
+                )}
+              </>
+            )}
+            <hr class="preview-rule" aria-hidden="true" />
+            <p class="preview-detail" data-cjk lang="zh-CN">
+              {item.detail}
+            </p>
+            {item.badges && item.badges.length > 0 && (
+              <ul class="preview-badges" aria-label="Highlights">
+                {item.badges.map((badge) => (
+                  <li class="pixel-chip" data-cjk lang="zh-CN">
+                    {badge}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {item.meta && <p class="preview-meta">{item.meta}</p>}
+          </article>
+        ))}
+      </aside>
+    </div>
+    <StatusBar class="explorer-status">
+      <span data-explorer-count>{personal.length} objects</span>
+      <span data-explorer-selection>About</span>
+    </StatusBar>
+    <menu class="hybrid-popup explorer-context" role="menu" aria-label="Item actions" hidden>
+      <li role="none">
+        <Button role="menuitem" data-explorer-command="open">
+          Open
+        </Button>
+      </li>
+      <li role="none">
+        <Button role="menuitem" data-explorer-command="properties">
+          Properties
+        </Button>
+      </li>
+    </menu>
+  </main>
+</SiteLayout>

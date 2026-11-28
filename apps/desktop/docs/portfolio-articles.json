@@ -1,0 +1,927 @@
+{
+  "imported": "2026-10-06",
+  "source": "template-import",
+  "articles": [
+    {
+      "slug": "advx-2026-hangzhou",
+      "source": "src/content/blog/advx-2026-hangzhou.mdx",
+      "sourceSha256": "0f12d0403b5d9f0942bf1f7e3889609dc0398ab46747c25de89ccbacac46a7d3",
+      "headings": [
+        "序章 · 一条消息",
+        "7.20 · 南昌到杭州",
+        "7.21 · 浙大、湿地与灵隐",
+        "7.22 · 开幕，Adventure 开始",
+        "7.23–7.25 · Build 的日夜",
+        "7.26 · Expo 与闭幕",
+        "尾声"
+      ],
+      "photos": [
+        {
+          "src": "/images/blog/advx-2026/ray-message-display.webp",
+          "full": "/images/blog/advx-2026/ray-message.jpg",
+          "alt": "示例友人发来的聊天消息：创客聚会 2026 公众号推文链接，以及一句「创客聚会26 正式开启报名」",
+          "caption": "在开启报名的第一天，示例友人给我了一条消息",
+          "width": "1440",
+          "height": "1605"
+        },
+        {
+          "src": "/images/blog/advx-2026/application-done-display.webp",
+          "full": "/images/blog/advx-2026/application-done.png",
+          "alt": "创客聚会 2026 申请完成页面：恭喜！你已成功完成 创客聚会 2026 的申请",
+          "caption": "填写完申请之后",
+          "width": "1361",
+          "height": "824"
+        },
+        {
+          "src": "/images/blog/advx-2026/acceptance-mail-display.webp",
+          "full": "/images/blog/advx-2026/acceptance-mail.png",
+          "alt": "创客聚会 发来的录取邮件：/ACCEPTED，你已成功入选 创客聚会 2026",
+          "caption": "2026.6.2 · 那封邮件",
+          "width": "1045",
+          "height": "790"
+        },
+        {
+          "src": "/images/blog/advx-2026/application-status-display.webp",
+          "full": "/images/blog/advx-2026/application-status.png",
+          "alt": "申请状态查询页：恭喜你获得 创客聚会 2026 的创造者席位，行程补贴 150 CNY、活动住宿、活动三餐",
+          "caption": "创造者席位 · 还有 150 块行程补贴",
+          "width": "1120",
+          "height": "976"
+        },
+        {
+          "src": "/images/blog/advx-2026/dorm-tower-display.webp",
+          "full": "/images/blog/advx-2026/dorm-tower.jpg",
+          "alt": "宿舍书桌上用泡沫块搭起来的一座歪歪扭扭的塔",
+          "caption": "宿舍里无聊搭的神秘建筑物",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.03 · 00:17"
+        },
+        {
+          "src": "/images/blog/advx-2026/pre-trip-charging-display.webp",
+          "full": "/images/blog/advx-2026/pre-trip-charging.jpg",
+          "alt": "插线板上插满了正在充电的设备",
+          "caption": "行前补电",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.19 · 22:25"
+        },
+        {
+          "src": "/images/blog/advx-2026/nanchang-station-display.webp",
+          "full": "/images/blog/advx-2026/nanchang-station.jpg",
+          "alt": "清晨的示例市站候车大厅",
+          "caption": "示例市站",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.20 · 07:07"
+        },
+        {
+          "src": "/images/blog/advx-2026/train-at-platform-display.webp",
+          "full": "/images/blog/advx-2026/train-at-platform.jpg",
+          "alt": "站台上停靠的高铁列车",
+          "caption": "车前",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.20 · 07:21"
+        },
+        {
+          "src": "/images/blog/advx-2026/departure-display.webp",
+          "full": "/images/blog/advx-2026/departure.jpg",
+          "alt": "车窗外后退的站台，列车启动",
+          "caption": "启程",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.20 · 07:46"
+        },
+        {
+          "src": "/images/blog/advx-2026/countryside-window-display.webp",
+          "full": "/images/blog/advx-2026/countryside-window.jpg",
+          "alt": "车窗外掠过的乡野与田地",
+          "caption": "乡野",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.20 · 09:23"
+        },
+        {
+          "src": "/images/blog/advx-2026/hangzhou-east-crowd-display.webp",
+          "full": "/images/blog/advx-2026/hangzhou-east-crowd.jpg",
+          "alt": "示例市东站出站口的人流",
+          "caption": "示例市东，你好呀",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.20 · 10:27"
+        },
+        {
+          "src": "/images/blog/advx-2026/hangzhou-east-hall-display.webp",
+          "full": "/images/blog/advx-2026/hangzhou-east-hall.jpg",
+          "alt": "示例市东站站厅与出口指示牌",
+          "caption": "打辆车，带我去远方！",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.20 · 10:36"
+        },
+        {
+          "src": "/images/blog/advx-2026/taxi-garage-display.webp",
+          "full": "/images/blog/advx-2026/taxi-garage.jpg",
+          "alt": "地下车库里的网约车",
+          "caption": "坐上了",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.20 · 10:53"
+        },
+        {
+          "src": "/images/gallery/west-lake-vista-display.webp",
+          "full": "/images/gallery/west-lake-vista.jpg",
+          "alt": "盛夏的示例湖：湖面、远山与岸边的树",
+          "caption": "来了示例市，看看示例湖吧",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.20 · 14:46"
+        },
+        {
+          "src": "/images/blog/advx-2026/west-lake-roadside-flowers-display.webp",
+          "full": "/images/blog/advx-2026/west-lake-roadside-flowers.jpg",
+          "alt": "示例湖路边盛开的粉紫色花",
+          "caption": "示例湖路边的一些花",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.20 · 15:02"
+        },
+        {
+          "src": "/images/blog/advx-2026/oriental-leaf-tea-display.webp",
+          "full": "/images/blog/advx-2026/oriental-leaf-tea.jpg",
+          "alt": "手里拿着一瓶东方树叶茉莉花茶",
+          "caption": "示例市文旅卖我 12 块的水",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.20 · 15:15"
+        },
+        {
+          "src": "/images/blog/advx-2026/saizeriya-pasta-display.webp",
+          "full": "/images/blog/advx-2026/saizeriya-pasta.jpg",
+          "alt": "萨莉亚的意面",
+          "caption": "第一次吃萨莉亚，比示例湖的东方树叶便宜",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.20 · 19:14"
+        },
+        {
+          "src": "/images/blog/advx-2026/zju-gate-display.webp",
+          "full": "/images/blog/advx-2026/zju-gate.jpg",
+          "alt": "示例大学校门",
+          "caption": "第二站，看看示例大学怎么样",
+          "width": "1446",
+          "height": "1920",
+          "date": "2026.07.21 · 10:20"
+        },
+        {
+          "src": "/images/blog/advx-2026/wetland-museum-entrance-display.webp",
+          "full": "/images/blog/advx-2026/wetland-museum-entrance.jpg",
+          "alt": "中国湿地博物馆入口",
+          "caption": "第三站，看看湿地博物馆呢",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.21 · 10:42"
+        },
+        {
+          "src": "/images/blog/advx-2026/lunch-fish-display.webp",
+          "full": "/images/blog/advx-2026/lunch-fish.jpg",
+          "alt": "一盘示例市做法的鱼",
+          "caption": "来点示例市的午饭",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.21 · 13:00"
+        },
+        {
+          "src": "/images/blog/advx-2026/lunch-tofu-pot-display.webp",
+          "full": "/images/blog/advx-2026/lunch-tofu-pot.jpg",
+          "alt": "一锅腐皮汤",
+          "caption": "PS：不好吃，还被鱼刺打了",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.21 · 13:00"
+        },
+        {
+          "src": "/images/blog/advx-2026/helei-pavilion-display.webp",
+          "full": "/images/blog/advx-2026/helei-pavilion.jpg",
+          "alt": "雨中的示例亭，游人打着伞",
+          "caption": "示例山下的小雨",
+          "width": "1080",
+          "height": "1920"
+        },
+        {
+          "src": "/images/gallery/lingyin-courtyard-display.webp",
+          "full": "/images/gallery/lingyin-courtyard.jpg",
+          "alt": "示例古寺庭院里的香炉与古树",
+          "caption": "来看看示例古寺",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.21 · 16:44"
+        },
+        {
+          "src": "/images/blog/advx-2026/hotel-breakfast-display.webp",
+          "full": "/images/blog/advx-2026/hotel-breakfast.jpg",
+          "alt": "酒店早餐：炒粉和洋葱圈",
+          "caption": "在酒店吃的早餐",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.22 · 08:14"
+        },
+        {
+          "src": "/images/blog/advx-2026/advx-flags-display.webp",
+          "full": "/images/blog/advx-2026/advx-flags.jpg",
+          "alt": "创客聚会 的旗阵，写着「创意不止于方法，它源自热爱」",
+          "caption": "创客聚会 真大气吧，一堆旗子",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.22 · 09:07"
+        },
+        {
+          "src": "/images/gallery/adventurex-logo-wall-display.webp",
+          "full": "/images/gallery/adventurex-logo-wall.jpg",
+          "alt": "创客聚会 立体 Logo 墙与背后的骏马壁画",
+          "caption": "Logo",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.22 · 09:09"
+        },
+        {
+          "src": "/images/blog/advx-2026/lakeside-venue-display.webp",
+          "full": "/images/blog/advx-2026/lakeside-venue.jpg",
+          "alt": "隔着水面望向湖畔创研中心的白色建筑群，岸边插着 创客聚会 的旗帜",
+          "caption": "创造发生的地方：湖畔",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.22 · 10:12"
+        },
+        {
+          "src": "/images/blog/advx-2026/advx-badge-display.webp",
+          "full": "/images/blog/advx-2026/advx-badge.jpg",
+          "alt": "创客聚会 2026 的参赛工牌",
+          "caption": "领到工牌了",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.22 · 10:58"
+        },
+        {
+          "src": "/images/gallery/adventurex-letter-display.webp",
+          "full": "/images/gallery/adventurex-letter.jpg",
+          "alt": "创客聚会 的一封信，黑底白字，落着团队的签名",
+          "caption": "创客聚会 的一封信",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.22 · 12:58"
+        },
+        {
+          "src": "/images/blog/advx-2026/super-expo-wall-display.webp",
+          "full": "/images/blog/advx-2026/super-expo-wall.jpg",
+          "alt": "Super! 展会上的 AI 产品锐评墙，从「夯」到「拉」排成一列",
+          "caption": "从夯到拉",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.22 · 13:53"
+        },
+        {
+          "src": "/images/blog/advx-2026/opening-stage-display.webp",
+          "full": "/images/blog/advx-2026/opening-stage.jpg",
+          "alt": "开幕式现场的大屏，创客聚会 字样亮起",
+          "caption": "开幕式开场前",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.22 · 18:34"
+        },
+        {
+          "src": "/images/blog/advx-2026/rokid-whisper-hardware-display.webp",
+          "full": "/images/blog/advx-2026/rokid-whisper-hardware.jpg",
+          "alt": "从硬件工坊抢到的示例 AR 眼镜和智能戒指",
+          "caption": "抢到的硬件",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.23 · 12:49"
+        },
+        {
+          "src": "/images/blog/advx-2026/piper-arm-display.webp",
+          "full": "/images/blog/advx-2026/piper-arm.jpg",
+          "alt": "示例机械臂立在桌面上",
+          "caption": "第一个 Idea：桌面整理机器人",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.23 · 16:41"
+        },
+        {
+          "src": "/images/blog/advx-2026/linyi-at-terminal-f-display.webp",
+          "full": "/images/blog/advx-2026/linyi-at-terminal-f.jpg",
+          "alt": "Terminal F 现场偶遇的博主老师",
+          "caption": "Terminal F 偶遇博主老师",
+          "width": "1446",
+          "height": "1920",
+          "date": "2026.07.23 · 16:23"
+        },
+        {
+          "src": "/images/blog/advx-2026/whiteboard-madness-display.webp",
+          "full": "/images/blog/advx-2026/whiteboard-madness.jpg",
+          "alt": "写满涂鸦和梗的白板",
+          "caption": "一些发疯",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.24 · 00:11"
+        },
+        {
+          "src": "/images/blog/advx-2026/kid-interview-display.webp",
+          "full": "/images/blog/advx-2026/kid-interview.jpg",
+          "alt": "会场里一个正在接受采访的小朋友",
+          "caption": "一个正在接受采访的小朋友",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.24 · 14:57"
+        },
+        {
+          "src": "/images/gallery/hupan-3am-display.webp",
+          "full": "/images/gallery/hupan-3am.jpg",
+          "alt": "凌晨三点的湖畔创研中心：玻璃墙上是手绘的场馆地图，屋里还亮着灯，有人还在写代码",
+          "caption": "凌晨还在 build 的参赛选手",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.25 · 03:20"
+        },
+        {
+          "src": "/images/blog/advx-2026/morning-after-allnighter-display.webp",
+          "full": "/images/blog/advx-2026/morning-after-allnighter.jpg",
+          "alt": "熬夜后的清晨，桌上摆着一瓶外星人电解质水，背后是湖畔的弧形屋顶和蓝天",
+          "caption": "熬穿了，不知不觉",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.25 · 08:15"
+        },
+        {
+          "src": "/images/blog/advx-2026/my-pc-display.webp",
+          "full": "/images/blog/advx-2026/my-pc.jpg",
+          "alt": "我的电脑，屏幕亮着「再一次信仰之跃」，机身贴着「拍我组队」贴纸",
+          "caption": "PC",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.26 · 01:20"
+        },
+        {
+          "src": "/images/blog/advx-2026/massage-robot-display.webp",
+          "full": "/images/blog/advx-2026/massage-robot.jpg",
+          "alt": "Expo 上的按摩机器人：双机械臂正在给体验者按摩",
+          "caption": "按摩机器人，很有意思的作品",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.26 · 13:42"
+        },
+        {
+          "src": "/images/blog/advx-2026/closing-drummer-display.webp",
+          "full": "/images/blog/advx-2026/closing-drummer.jpg",
+          "alt": "闭幕式舞台上打鼓的嘉宾",
+          "caption": "热心嘉宾演奏",
+          "width": "1920",
+          "height": "1446",
+          "date": "2026.07.26 · 18:11"
+        },
+        {
+          "src": "/images/blog/advx-2026/job-wall-display.webp",
+          "full": "/images/blog/advx-2026/job-wall.jpg",
+          "alt": "Bonjour × 创客聚会 的招聘墙前还有人驻足",
+          "caption": "走之前 · 招聘墙",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.26 · 20:35"
+        },
+        {
+          "src": "/images/gallery/hupan-night-halo-display.webp",
+          "full": "/images/gallery/hupan-night-halo.jpg",
+          "alt": "夜里的湖畔创研中心，环形屋顶亮着一圈光，倒映在水面上",
+          "caption": "走之前 · 湖畔的夜",
+          "width": "1920",
+          "height": "1440",
+          "date": "2026.07.26 · 20:38"
+        },
+        {
+          "src": "/images/gallery/adventurex-closing-display.webp",
+          "full": "/images/gallery/adventurex-closing.jpg",
+          "alt": "车里，手里握着 创客聚会 的嬉皮士徽章",
+          "caption": "再会，创客聚会 26",
+          "width": "1440",
+          "height": "1920",
+          "date": "2026.07.26 · 20:44"
+        }
+      ],
+      "canonicalTextSha256": "3b071442ddb3644884e011ed84e2866ad34c802e0af52d2d45fe8b655775161f",
+      "policy": "narrative-preserved-viewer-note-updated",
+      "revisionDate": "2026-10-10",
+      "revisionNote": "Original narrative and all 44 photographs remain. Only the obsolete viewer instructions and the summary photo count were updated; canonicalTextSha256 continues to identify source prose."
+    },
+    {
+      "slug": "colophon",
+      "source": "src/content/blog/colophon.mdx",
+      "sourceSha256": "55f3eae7bad3498accc87b272c693257ea581b32e246f0f3c636ae18de9ebba2",
+      "headings": [
+        "先有连续，再谈效果",
+        "一副静态骨架，一颗交互的心",
+        "每个分区都有自己的颜色",
+        "双路正文：既要被搜索读懂，也要像应用一样打开",
+        "转场是导航的语法，不是装饰",
+        "把博客当成产品来做",
+        "机器也是这个站点的读者",
+        "图片是一条独立的管线",
+        "这个站点学会了自我更新",
+        "那些不在截图里的取舍",
+        "它还会继续生长"
+      ],
+      "photos": [],
+      "policy": "rewritten-for-current-MHK10",
+      "revisionDate": "2026-10-10"
+    },
+    {
+      "slug": "privacy",
+      "source": "src/content/blog/privacy.mdx",
+      "sourceSha256": "62470e782b4853c5a49ef32338db3ff71f8a8404d55e4f8afbd4ec8924a06af1",
+      "headings": [
+        "中文原文",
+        "本站如何处理信息",
+        "本机存储",
+        "管理端（非访客）",
+        "第三方",
+        "你的选择",
+        "联系",
+        "English original",
+        "What we process",
+        "On-device storage",
+        "Admin only",
+        "Third parties",
+        "Your choices",
+        "Contact"
+      ],
+      "photos": [],
+      "canonicalTextSha256": "0fd7044bf0b65be07088eb73fa20d489009191c54e23a0b34696f6975a51eaff",
+      "policy": "retired-by-owner-2026-10-10",
+      "redirect": "/blog/colophon/"
+    }
+  ],
+  "privacySources": [
+    {
+      "path": "src/data/privacy.ts",
+      "sha256": "a3d759c2e1e39ba02e4ca3d90ab25b07e1a9b9a38d0a79e30a55ded750e1a982"
+    },
+    {
+      "path": "src/lib/storage/keys.ts",
+      "sha256": "46436c8c087821119bc81f0736de4092517c92655c98d5b1edfb048d7e9f5c25"
+    }
+  ],
+  "assets": [
+    {
+      "source": "/images/blog/advx-2026/ray-message-display.webp",
+      "target": "/images/blog/advx-2026/ray-message-display.webp",
+      "sha256": "e70427998993ff8922576cad1dc51d1101d39351776de13761cc09e110733af7"
+    },
+    {
+      "source": "/images/blog/advx-2026/application-done-display.webp",
+      "target": "/images/blog/advx-2026/application-done-display.webp",
+      "sha256": "c60fcf3df6492117b3bf3209afcb575c7385cbefdfc75cf2eb76e26299db8444"
+    },
+    {
+      "source": "/images/blog/advx-2026/acceptance-mail-display.webp",
+      "target": "/images/blog/advx-2026/acceptance-mail-display.webp",
+      "sha256": "ad3488ffdd43a78c054600a98e3ec5719d6459cdaa7009d9502522a03997282c"
+    },
+    {
+      "source": "/images/blog/advx-2026/application-status-display.webp",
+      "target": "/images/blog/advx-2026/application-status-display.webp",
+      "sha256": "83e97b1264bcd73f50b4a3c0d264516291b527d1e71f443e91334fe3d4b1f6f2"
+    },
+    {
+      "source": "/images/blog/advx-2026/dorm-tower-display.webp",
+      "target": "/images/blog/advx-2026/dorm-tower-display.webp",
+      "sha256": "d996897ea6080bdb6354003ed9b609ee3e064df4d5b03a196f872af34bf61f48"
+    },
+    {
+      "source": "/images/blog/advx-2026/pre-trip-charging-display.webp",
+      "target": "/images/blog/advx-2026/pre-trip-charging-display.webp",
+      "sha256": "13f926b6a1dbe1ec752214cbb068ee4bf8f1b543a5ef47dcbbab5ff8aefc41dd"
+    },
+    {
+      "source": "/images/blog/advx-2026/nanchang-station-display.webp",
+      "target": "/images/blog/advx-2026/nanchang-station-display.webp",
+      "sha256": "0576898e28d755af158cf469c3f9b7030c5a4a064ee760fa9a737ae436336f7f"
+    },
+    {
+      "source": "/images/blog/advx-2026/train-at-platform-display.webp",
+      "target": "/images/blog/advx-2026/train-at-platform-display.webp",
+      "sha256": "6bbebdca5d253611dbc36d048159982f50f18bb6de06da35c02c17ff9c265e32"
+    },
+    {
+      "source": "/images/blog/advx-2026/departure-display.webp",
+      "target": "/images/blog/advx-2026/departure-display.webp",
+      "sha256": "5915f79e48246b24b892dd7d8d4bb631978e18714185b82be5f6bf570ab8ef44"
+    },
+    {
+      "source": "/images/blog/advx-2026/countryside-window-display.webp",
+      "target": "/images/blog/advx-2026/countryside-window-display.webp",
+      "sha256": "c424bbcbf46ec0874affa5160a0cdf9463caa18a24c356429444671ddf4b574f"
+    },
+    {
+      "source": "/images/blog/advx-2026/hangzhou-east-crowd-display.webp",
+      "target": "/images/blog/advx-2026/hangzhou-east-crowd-display.webp",
+      "sha256": "b859bdc8fa06d04727ed348579601bf9768139e884ec50bee550653acebed4a7"
+    },
+    {
+      "source": "/images/blog/advx-2026/hangzhou-east-hall-display.webp",
+      "target": "/images/blog/advx-2026/hangzhou-east-hall-display.webp",
+      "sha256": "eaefcae02361b5784745b2cef70aa6ada2520efea63f46157383c2520d9b496e"
+    },
+    {
+      "source": "/images/blog/advx-2026/taxi-garage-display.webp",
+      "target": "/images/blog/advx-2026/taxi-garage-display.webp",
+      "sha256": "68894aa5db56241ad435406ed5d01cdbdbb954a57e972ffc458e075a935b3bfc"
+    },
+    {
+      "source": "/images/gallery/west-lake-vista-display.webp",
+      "target": "/images/gallery/west-lake-vista-display.webp",
+      "sha256": "cd91675d9778dfec79ec4f80da7f160df720b5a82cce7fb82ba3ed2c99d69d96"
+    },
+    {
+      "source": "/images/blog/advx-2026/west-lake-roadside-flowers-display.webp",
+      "target": "/images/blog/advx-2026/west-lake-roadside-flowers-display.webp",
+      "sha256": "07c4ddfe2acc44ab6bd8154df45d9f37670afe4dc259569fac6aaf3329ada393"
+    },
+    {
+      "source": "/images/blog/advx-2026/oriental-leaf-tea-display.webp",
+      "target": "/images/blog/advx-2026/oriental-leaf-tea-display.webp",
+      "sha256": "f632f986f589753c50502af5f37d36a2ebbb6611f5200e3957fddaad7c050b3e"
+    },
+    {
+      "source": "/images/blog/advx-2026/saizeriya-pasta-display.webp",
+      "target": "/images/blog/advx-2026/saizeriya-pasta-display.webp",
+      "sha256": "937d1bd5e42d771145fa3656ede7edc8e1e86bfba14d3076b8b2b81f6f28941d"
+    },
+    {
+      "source": "/images/blog/advx-2026/zju-gate-display.webp",
+      "target": "/images/blog/advx-2026/zju-gate-display.webp",
+      "sha256": "3ecf1f26216ac1e3a098442e254edd51a8ed6f47d061d9156ba126003092b6cd"
+    },
+    {
+      "source": "/images/blog/advx-2026/wetland-museum-entrance-display.webp",
+      "target": "/images/blog/advx-2026/wetland-museum-entrance-display.webp",
+      "sha256": "281d3682e0e643c038cbe1c51cb2412e225516eaab65abac01c1b8250ee2d9dc"
+    },
+    {
+      "source": "/images/blog/advx-2026/lunch-fish-display.webp",
+      "target": "/images/blog/advx-2026/lunch-fish-display.webp",
+      "sha256": "5586df5018aee603bb0d13f01e2b1c548f93825c575615877743c515654214c4"
+    },
+    {
+      "source": "/images/blog/advx-2026/lunch-tofu-pot-display.webp",
+      "target": "/images/blog/advx-2026/lunch-tofu-pot-display.webp",
+      "sha256": "952c0f8c18a2b039f852b106ac4cf7ade02f2c790bb9656d62a35d805448e6fe"
+    },
+    {
+      "source": "/images/blog/advx-2026/helei-pavilion-display.webp",
+      "target": "/images/blog/advx-2026/helei-pavilion-display.webp",
+      "sha256": "45f07e10a0b6ad3cde403b73d45f8442b312797fd9d1c43be41d0920452ba924"
+    },
+    {
+      "source": "/images/gallery/lingyin-courtyard-display.webp",
+      "target": "/images/gallery/lingyin-courtyard-display.webp",
+      "sha256": "f8dbce22a0fb9a21400f50759d2cd7a96be6a50cc723e671b9db514794a346c5"
+    },
+    {
+      "source": "/images/blog/advx-2026/hotel-breakfast-display.webp",
+      "target": "/images/blog/advx-2026/hotel-breakfast-display.webp",
+      "sha256": "80a3b19a61a47e83e7d6b090822ffd870322dc50bff1b38a05ef7bcb66fec6d5"
+    },
+    {
+      "source": "/images/blog/advx-2026/advx-flags-display.webp",
+      "target": "/images/blog/advx-2026/advx-flags-display.webp",
+      "sha256": "3c1673f65f589218f063f241b9f172f72bd9ab40659f592a74258dc6b76b7191"
+    },
+    {
+      "source": "/images/gallery/adventurex-logo-wall-display.webp",
+      "target": "/images/gallery/adventurex-logo-wall-display.webp",
+      "sha256": "454ad246e30931f7bb9fc650898af717ddeb9dcd6aae266938d4707f34c1a950"
+    },
+    {
+      "source": "/images/blog/advx-2026/lakeside-venue-display.webp",
+      "target": "/images/blog/advx-2026/lakeside-venue-display.webp",
+      "sha256": "3c0def22c1e2a895bfb3b66889d499caa62ce6470c8d0f1517b29ca789d4583b"
+    },
+    {
+      "source": "/images/blog/advx-2026/advx-badge-display.webp",
+      "target": "/images/blog/advx-2026/advx-badge-display.webp",
+      "sha256": "98b95dfa33807e3251c51bd093e882918d7d5bde958699df6a068291b3cb150f"
+    },
+    {
+      "source": "/images/gallery/adventurex-letter-display.webp",
+      "target": "/images/gallery/adventurex-letter-display.webp",
+      "sha256": "a847179b612812583bee90966e8ba63910906afddda59378ed37a43ebae9c8e9"
+    },
+    {
+      "source": "/images/blog/advx-2026/super-expo-wall-display.webp",
+      "target": "/images/blog/advx-2026/super-expo-wall-display.webp",
+      "sha256": "69ef3f2b0131c6850c74f840eee2a5d3cc06c27bc8d1438653bcf621e62c853a"
+    },
+    {
+      "source": "/images/blog/advx-2026/opening-stage-display.webp",
+      "target": "/images/blog/advx-2026/opening-stage-display.webp",
+      "sha256": "28953c827d5f00a3317b66ea2a8917725988453330bec038c08c2229f78619be"
+    },
+    {
+      "source": "/images/blog/advx-2026/rokid-whisper-hardware-display.webp",
+      "target": "/images/blog/advx-2026/rokid-whisper-hardware-display.webp",
+      "sha256": "164b553b0f0c60f7299047b548f770dbf10085db1ed685a0bf11beb6aaec1df1"
+    },
+    {
+      "source": "/images/blog/advx-2026/piper-arm-display.webp",
+      "target": "/images/blog/advx-2026/piper-arm-display.webp",
+      "sha256": "a39cce7c46fd9873cf262fc0dce355aaa512ef1df79b0089909343d682612992"
+    },
+    {
+      "source": "/images/blog/advx-2026/linyi-at-terminal-f-display.webp",
+      "target": "/images/blog/advx-2026/linyi-at-terminal-f-display.webp",
+      "sha256": "3681605a43c6e3219a4d7809c8b143dc2f517e4ea605fccdbed69642f5dd10a8"
+    },
+    {
+      "source": "/images/blog/advx-2026/whiteboard-madness-display.webp",
+      "target": "/images/blog/advx-2026/whiteboard-madness-display.webp",
+      "sha256": "258b237d8e2182d66516a306483a123d00c6db24561e0273f232e94d580fa45a"
+    },
+    {
+      "source": "/images/blog/advx-2026/kid-interview-display.webp",
+      "target": "/images/blog/advx-2026/kid-interview-display.webp",
+      "sha256": "938ac94e20b232593dd46a40156edee9edb54d26cab6a208e64aae9d57ae784f"
+    },
+    {
+      "source": "/images/gallery/hupan-3am-display.webp",
+      "target": "/images/gallery/hupan-3am-display.webp",
+      "sha256": "10145fba85c61b54c3b5faf3a1912bce95f40e198f01c1d67b20711f1ec5f5b6"
+    },
+    {
+      "source": "/images/blog/advx-2026/morning-after-allnighter-display.webp",
+      "target": "/images/blog/advx-2026/morning-after-allnighter-display.webp",
+      "sha256": "7098aa6e0f3364308718e25b09a45f955fb3c386be6e83d875e2233206ad185b"
+    },
+    {
+      "source": "/images/blog/advx-2026/my-pc-display.webp",
+      "target": "/images/blog/advx-2026/my-pc-display.webp",
+      "sha256": "7f02fefc0e63d37cf26a014b349ca86adbd2f201b58ec125c0355144b4eb7bb2"
+    },
+    {
+      "source": "/images/blog/advx-2026/massage-robot-display.webp",
+      "target": "/images/blog/advx-2026/massage-robot-display.webp",
+      "sha256": "b4770e6cb58d92d532a2ae193e3ab4b852c38b6ea450d07ab9f951c73d4fbce3"
+    },
+    {
+      "source": "/images/blog/advx-2026/closing-drummer-display.webp",
+      "target": "/images/blog/advx-2026/closing-drummer-display.webp",
+      "sha256": "21c51e4d64fba711f6e6370db21fce45e81f6e0baeafb0fae4b1e7f69bfe903b"
+    },
+    {
+      "source": "/images/blog/advx-2026/job-wall-display.webp",
+      "target": "/images/blog/advx-2026/job-wall-display.webp",
+      "sha256": "e99fe871f932091619109f28604293eaf0425bf247d3d97727ad62b9aca4027e"
+    },
+    {
+      "source": "/images/gallery/hupan-night-halo-display.webp",
+      "target": "/images/gallery/hupan-night-halo-display.webp",
+      "sha256": "7c3d3df4dac903f5afb5bf25995e318763419d2a1c82b3e2ebf46196c7b6e08b"
+    },
+    {
+      "source": "/images/gallery/adventurex-closing-display.webp",
+      "target": "/images/gallery/adventurex-closing-display.webp",
+      "sha256": "58103361cd4b48db6b0a85dfc9b5711ed8219b413811bf0c772ec1c6619308f1"
+    },
+    {
+      "source": "/images/og/adventurex-2026-hangzhou.webp",
+      "target": "/images/og/adventurex-2026-hangzhou.webp",
+      "sha256": "325da0a16aa67adf2fb07f31bf3083727da4694b69b428250dc7683336b3a0c6"
+    },
+    {
+      "source": "/images/og/default.webp",
+      "target": "/images/og/default.webp",
+      "sha256": "db4dd6c07fd6116181ad0cef3a675354395d45ca982c14d83fb73a1cf6410430"
+    }
+  ],
+  "remoteAssets": [
+    {
+      "source": "/images/blog/advx-2026/ray-message.jpg",
+      "target": "/images/blog/advx-2026/ray-message.jpg",
+      "sha256": "120669a05191b68fc676063538a48e80629ad75ad5e840f7dd3ccae4ce2da99c"
+    },
+    {
+      "source": "/images/blog/advx-2026/application-done.png",
+      "target": "/images/blog/advx-2026/application-done.png",
+      "sha256": "dd83d8b811644c3c8830597b4152be72ee347a26e680ae16b7bfa027a601294a"
+    },
+    {
+      "source": "/images/blog/advx-2026/acceptance-mail.png",
+      "target": "/images/blog/advx-2026/acceptance-mail.png",
+      "sha256": "067a84a0f1661df273942a1cd38da882ea6a6caff1b1f212c3e139d3a9be430a"
+    },
+    {
+      "source": "/images/blog/advx-2026/application-status.png",
+      "target": "/images/blog/advx-2026/application-status.png",
+      "sha256": "62e6ea163afe4b47861ad35e4cf211f5b9a79e3c61d5badd2eb2ef4aec47fcee"
+    },
+    {
+      "source": "/images/blog/advx-2026/dorm-tower.jpg",
+      "target": "/images/blog/advx-2026/dorm-tower.jpg",
+      "sha256": "9878bb02890671fa875f4ea84d318ef95e27b1ee7bf32313b0ccc28f7347c8cc"
+    },
+    {
+      "source": "/images/blog/advx-2026/pre-trip-charging.jpg",
+      "target": "/images/blog/advx-2026/pre-trip-charging.jpg",
+      "sha256": "19a0d2432338be495b99342ab9deac031b69ea5979ce87f3714ea13af5dd8b47"
+    },
+    {
+      "source": "/images/blog/advx-2026/nanchang-station.jpg",
+      "target": "/images/blog/advx-2026/nanchang-station.jpg",
+      "sha256": "10330b14dcbaf196299dc684080c908fd55938b659c53c69b754ab7f00495c93"
+    },
+    {
+      "source": "/images/blog/advx-2026/train-at-platform.jpg",
+      "target": "/images/blog/advx-2026/train-at-platform.jpg",
+      "sha256": "b78e2973333684d197457c4c69efa129810989ebc9abcfde3ca435fb8d5b0acc"
+    },
+    {
+      "source": "/images/blog/advx-2026/departure.jpg",
+      "target": "/images/blog/advx-2026/departure.jpg",
+      "sha256": "abfd00f0ff2445f8f3eb36c42b216ebf1b765c0ff2c1e533f7025236f772ab59"
+    },
+    {
+      "source": "/images/blog/advx-2026/countryside-window.jpg",
+      "target": "/images/blog/advx-2026/countryside-window.jpg",
+      "sha256": "681d08d15f4c3b6a4d5cddb6dd96f4b856ddfafb8fd95dcf63c1585d8de2e3c9"
+    },
+    {
+      "source": "/images/blog/advx-2026/hangzhou-east-crowd.jpg",
+      "target": "/images/blog/advx-2026/hangzhou-east-crowd.jpg",
+      "sha256": "129ba28157f419dff4d7408e55c630329f8ec8b5a7aac509a56afe2fe5b06f7b"
+    },
+    {
+      "source": "/images/blog/advx-2026/hangzhou-east-hall.jpg",
+      "target": "/images/blog/advx-2026/hangzhou-east-hall.jpg",
+      "sha256": "a194af840ae158e80fc5df2494fb53e7ef488a9234c83be1f38bd5aee903f43e"
+    },
+    {
+      "source": "/images/blog/advx-2026/taxi-garage.jpg",
+      "target": "/images/blog/advx-2026/taxi-garage.jpg",
+      "sha256": "2a8701de85f8e46bda13011f365e479978a3f6c131e40f7d1574098ce28cf2dc"
+    },
+    {
+      "source": "/images/gallery/west-lake-vista.jpg",
+      "target": "/images/gallery/west-lake-vista.jpg",
+      "sha256": "875d71cd165994135f45d3204902e36e87335cdbd70aa25ffe84481fe33e1a43"
+    },
+    {
+      "source": "/images/blog/advx-2026/west-lake-roadside-flowers.jpg",
+      "target": "/images/blog/advx-2026/west-lake-roadside-flowers.jpg",
+      "sha256": "c21ec6b35c402f2d4d9cbfd2a522de329ecc74e822ccf41235e11ed5eb956e30"
+    },
+    {
+      "source": "/images/blog/advx-2026/oriental-leaf-tea.jpg",
+      "target": "/images/blog/advx-2026/oriental-leaf-tea.jpg",
+      "sha256": "c4ccdeb14d33d57de0b5866d4278971ba2fb697d52ce630855f2251a235867ee"
+    },
+    {
+      "source": "/images/blog/advx-2026/saizeriya-pasta.jpg",
+      "target": "/images/blog/advx-2026/saizeriya-pasta.jpg",
+      "sha256": "000bdc95791055d74257893914f49c26c5b8cf846097bafda724621ca9f294e2"
+    },
+    {
+      "source": "/images/blog/advx-2026/zju-gate.jpg",
+      "target": "/images/blog/advx-2026/zju-gate.jpg",
+      "sha256": "cbd022d725dc26d7da843e3892c8fae6f61de69f21fc60cd1fa0fb3bb7c63e72"
+    },
+    {
+      "source": "/images/blog/advx-2026/wetland-museum-entrance.jpg",
+      "target": "/images/blog/advx-2026/wetland-museum-entrance.jpg",
+      "sha256": "f15e871f7f2d4ee3c95f1f01ebef30019cc720ec3095ab9e4766c79d5da6d3ba"
+    },
+    {
+      "source": "/images/blog/advx-2026/lunch-fish.jpg",
+      "target": "/images/blog/advx-2026/lunch-fish.jpg",
+      "sha256": "4746566bf4928dcb69aa5c3d2958cc4217657527d93342157a5b34c5f3b0dd48"
+    },
+    {
+      "source": "/images/blog/advx-2026/lunch-tofu-pot.jpg",
+      "target": "/images/blog/advx-2026/lunch-tofu-pot.jpg",
+      "sha256": "dccfa0e42539833f30adfa949294daf14a334a12897c0c6c02cb148607e619b8"
+    },
+    {
+      "source": "/images/blog/advx-2026/helei-pavilion.jpg",
+      "target": "/images/blog/advx-2026/helei-pavilion.jpg",
+      "sha256": "c6f19250dfccf01bbf724d06de093344a0dac353272bc54bba351baf2c9a30ae"
+    },
+    {
+      "source": "/images/gallery/lingyin-courtyard.jpg",
+      "target": "/images/gallery/lingyin-courtyard.jpg",
+      "sha256": "7bb6a3cfafbadfd3a34513e4277dc360ec992a9ee85008a754881cce77a4bca5"
+    },
+    {
+      "source": "/images/blog/advx-2026/hotel-breakfast.jpg",
+      "target": "/images/blog/advx-2026/hotel-breakfast.jpg",
+      "sha256": "c4d16cd80203d1167382a0576b6b28686e0ed29631cb1f0415cdec1efc04279b"
+    },
+    {
+      "source": "/images/blog/advx-2026/advx-flags.jpg",
+      "target": "/images/blog/advx-2026/advx-flags.jpg",
+      "sha256": "363668704c2a377559c185323190c813b1dd61b9958dd780b0359d71f9c26994"
+    },
+    {
+      "source": "/images/gallery/adventurex-logo-wall.jpg",
+      "target": "/images/gallery/adventurex-logo-wall.jpg",
+      "sha256": "da52b395e9bfe595d661e6c84919028f2def4ddcc85af4947ca64fd58ef16a00"
+    },
+    {
+      "source": "/images/blog/advx-2026/lakeside-venue.jpg",
+      "target": "/images/blog/advx-2026/lakeside-venue.jpg",
+      "sha256": "2c42c094e1bacfbbc4b12831fca2199d328e755f4ff5023d23cb0b4bb605bb74"
+    },
+    {
+      "source": "/images/blog/advx-2026/advx-badge.jpg",
+      "target": "/images/blog/advx-2026/advx-badge.jpg",
+      "sha256": "d5e0845d71f99bb3de04285138653a21a2c9c30d917e15514b429f1d00dd52ce"
+    },
+    {
+      "source": "/images/gallery/adventurex-letter.jpg",
+      "target": "/images/gallery/adventurex-letter.jpg",
+      "sha256": "96f837f1cbd88925cee70c81deb22fad977c55976787a04cc5d2f7a17ab421e2"
+    },
+    {
+      "source": "/images/blog/advx-2026/super-expo-wall.jpg",
+      "target": "/images/blog/advx-2026/super-expo-wall.jpg",
+      "sha256": "1b60a22525175abf18e0606b2ebcab069e4a2e099efc31154094e68f545dc95e"
+    },
+    {
+      "source": "/images/blog/advx-2026/opening-stage.jpg",
+      "target": "/images/blog/advx-2026/opening-stage.jpg",
+      "sha256": "3a9e54efa20291581d2ee72aca4a48e660dc05f61ed342e4431e169a2ed78ccb"
+    },
+    {
+      "source": "/images/blog/advx-2026/rokid-whisper-hardware.jpg",
+      "target": "/images/blog/advx-2026/rokid-whisper-hardware.jpg",
+      "sha256": "831e5121eadee21cac66fc57d6fd7e69ad9272000350721a139182c1c2d69832"
+    },
+    {
+      "source": "/images/blog/advx-2026/piper-arm.jpg",
+      "target": "/images/blog/advx-2026/piper-arm.jpg",
+      "sha256": "cbf018859a5d51918bf2da2f527ef9026bffbbf0740325ed988014f980e8c0fa"
+    },
+    {
+      "source": "/images/blog/advx-2026/linyi-at-terminal-f.jpg",
+      "target": "/images/blog/advx-2026/linyi-at-terminal-f.jpg",
+      "sha256": "44d1bf705d44e8337ceb18cce995d5d383d821e64ed93d624ab5514a835b8e37"
+    },
+    {
+      "source": "/images/blog/advx-2026/whiteboard-madness.jpg",
+      "target": "/images/blog/advx-2026/whiteboard-madness.jpg",
+      "sha256": "14433249d2d6f142fd64be7a348d179c420adc66451b6b83d0a7523636b9b420"
+    },
+    {
+      "source": "/images/blog/advx-2026/kid-interview.jpg",
+      "target": "/images/blog/advx-2026/kid-interview.jpg",
+      "sha256": "1a97a1bf29477c68b3d952dfe0457365c647cb4cd72333437a594e5cabd35dd0"
+    },
+    {
+      "source": "/images/gallery/hupan-3am.jpg",
+      "target": "/images/gallery/hupan-3am.jpg",
+      "sha256": "3d467396ee9b4d148be7bce92db4664d113a145225c829f816abc73d06e448cd"
+    },
+    {
+      "source": "/images/blog/advx-2026/morning-after-allnighter.jpg",
+      "target": "/images/blog/advx-2026/morning-after-allnighter.jpg",
+      "sha256": "3fbb07762344e996b3bce99092d2d5afaa5c022ccdbf6756b341da5a88629568"
+    },
+    {
+      "source": "/images/blog/advx-2026/my-pc.jpg",
+      "target": "/images/blog/advx-2026/my-pc.jpg",
+      "sha256": "5f2e1b2cc7506dce97be5a5e3d938d8e29945a94f71020cad23466e99a059cfa"
+    },
+    {
+      "source": "/images/blog/advx-2026/massage-robot.jpg",
+      "target": "/images/blog/advx-2026/massage-robot.jpg",
+      "sha256": "ebdbb971b33e5f620170cdd8718249b940b352cff8975ffd8d235d3c4594e81f"
+    },
+    {
+      "source": "/images/blog/advx-2026/closing-drummer.jpg",
+      "target": "/images/blog/advx-2026/closing-drummer.jpg",
+      "sha256": "164c6e9f8cd13275f2dfff4c045f064ccfca82a84b35f6b4ee0195441990d5ad"
+    },
+    {
+      "source": "/images/blog/advx-2026/job-wall.jpg",
+      "target": "/images/blog/advx-2026/job-wall.jpg",
+      "sha256": "722d5479273f4fcc87f73e20593538e277f856c85383d7b8df8ac87db621150f"
+    },
+    {
+      "source": "/images/gallery/hupan-night-halo.jpg",
+      "target": "/images/gallery/hupan-night-halo.jpg",
+      "sha256": "3869695aaeaeeb02b080142bc150859342322b518ab4103ddf69e2f9594814af"
+    },
+    {
+      "source": "/images/gallery/adventurex-closing.jpg",
+      "target": "/images/gallery/adventurex-closing.jpg",
+      "sha256": "c7d3c6337ac8c60c264376dba91d50dc10d3f49a50cab9d32e6f1f9f5c48d650"
+    }
+  ]
+}

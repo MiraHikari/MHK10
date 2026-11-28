@@ -1,0 +1,13 @@
+---
+interface Props {
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  disabled?: boolean;
+  [key: string]: unknown;
+}
+const { type = 'button', class: className = '', ...attributes } = Astro.props;
+---
+
+<button type={type} class:list={['hybrid-button', className]} {...attributes}>
+  <slot />
+</button>

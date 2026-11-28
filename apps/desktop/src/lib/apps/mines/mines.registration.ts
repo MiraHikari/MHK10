@@ -1,0 +1,18 @@
+export const registration = {
+  id: 'mines',
+  name: 'Minesweeper',
+  icon: 'mine',
+  kind: 'canvas',
+  route: '/apps/mines/',
+  title: 'Minesweeper',
+  w: 174,
+  h: 236,
+  x: 90,
+  y: 40,
+  ctl: 'x',
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  shortcut: true,
+  startMenuFolder: 'games',
+  runAliases: ['winmine'],
+} as const;

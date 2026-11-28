@@ -1,0 +1,30 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { id, title, class: className = '', ...attributes } = Astro.props;
+---
+
+<dialog
+  id={id}
+  aria-labelledby={title ? `${id}-title` : undefined}
+  class:list={['hybrid-dialog', className]}
+  {...attributes}
+>
+  {title && (
+    <h2 id={`${id}-title`} class="hybrid-dialog-title">
+      {title}
+    </h2>
+  )}
+  <div class="hybrid-dialog-content">
+    <slot />
+  </div>
+  {Astro.slots.has('actions') && (
+    <footer class="hybrid-dialog-actions">
+      <slot name="actions" />
+    </footer>
+  )}
+</dialog>

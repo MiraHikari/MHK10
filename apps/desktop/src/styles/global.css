@@ -1,0 +1,46 @@
+@import './cjk-pixel.css';
+
+/* MHK10 — global styles.
+   The canvas engine (src/lib/gfx/text.ts) measures text with the family
+   names 'MSS' (Windows 95 dialog font, regular + bold) and 'PS2P'
+   (Press Start 2P, 8x8 text mode). The @font-face aliases below must
+   keep those exact family names. */
+
+/* MS Sans Serif woff2 files ship inside the 98.css npm package (MIT). */
+@font-face {
+  font-family: MSS;
+  src: url('98.css/dist/ms_sans_serif.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: MSS;
+  src: url('98.css/dist/ms_sans_serif_bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+/* Short-name alias the engine measures with. The full 'Press Start 2P'
+   family itself is registered by `import '@fontsource/press-start-2p'`
+   in src/layouts/Layout.astro; this alias points at the same latin
+   400 woff2 from that package. */
+@font-face {
+  font-family: PS2P;
+  src: url('@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+}
+
+* {
+  box-sizing: border-box;
+}

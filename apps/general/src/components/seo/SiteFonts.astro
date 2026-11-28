@@ -1,0 +1,23 @@
+---
+import { Font } from 'astro:assets';
+
+interface Props {
+  mode?: 'site' | 'resume';
+}
+
+const { mode = 'site' } = Astro.props;
+---
+
+<Font cssVariable="--font-space-grotesk" preload={[{ subset: 'latin', style: 'normal' }]} />
+<Font cssVariable="--font-harmonyos" preload />
+
+{mode === 'site' && (
+  <>
+    {/* 代码块 / 终端字均 latin 字形（中文语境无 Mono 字形），只 preload latin 子集 */}
+    <Font cssVariable="--font-jetbrains" preload={[{ subset: 'latin', style: 'normal' }]} />
+    <Font cssVariable="--font-instrument-serif" />
+    {/* 色带竖排标题使用 Dancing Script；首屏（根章节）无 rail，不 preload，
+        随章节切换按需加载。 */}
+    <Font cssVariable="--font-dancing-script" />
+  </>
+)}

@@ -1,0 +1,373 @@
+---
+import { blogPostingJsonLd, breadcrumbJsonLd } from '@mhk/site-core/content-model/json-ld';
+import { FUSION_QUERY } from '@mhk/site-core/fusion/protocol-model';
+import '../styles/desktop.css';
+import '../styles/hybrid-ui.css';
+import PixelIcon from '../components/PixelIcon.astro';
+import DesktopHost from '../components/DesktopHost.astro';
+import '../styles/global.css';
+import '../styles/personal.css';
+import { profile } from '../data/profile';
+import { pageShortcuts as shortcuts } from '../data/desktop-apps';
+import { resolveAppId } from '../data/app-catalog';
+import { THEMES, THEME_NAMES } from '../lib/gfx/palette';
+import { STORAGE_KEYS } from '../data/storage-keys';
+import { SITE_ORIGIN } from '../data/site-origin';
+import { imageBaseUrl } from '../data/images';
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+  image?: string;
+  imageAlt?: string;
+  lang?: string;
+  noindex?: boolean;
+  showNavigation?: boolean;
+  article?: { published: string; modified?: string; tags?: string[]; section?: string };
+}
+const {
+  title,
+  description = profile.summary,
+  active = 'home',
+  image = '/social-card.png',
+  imageAlt = 'MHK10 — MiraHikari 的个人站点与像素桌面',
+  lang = 'zh-CN',
+  noindex = false,
+  showNavigation = true,
+  article,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/^\/404\/?$/, '/404.html'), Astro.site);
+const origin = Astro.site ?? new URL(SITE_ORIGIN);
+const websiteId = new URL('/#website', origin).href;
+const personId = new URL('/about/#person', origin).href;
+const imageUrl = new URL(image, origin).href;
+const resolvedImageBase = imageBaseUrl();
+const imageOrigin = resolvedImageBase ? new URL(resolvedImageBase).origin : '';
+const fullTitle = `${title} · ${profile.name} | MHK10`;
+const imageType = imageUrl.endsWith('.webp')
+  ? 'image/webp'
+  : imageUrl.endsWith('.jpg') || imageUrl.endsWith('.jpeg')
+    ? 'image/jpeg'
+    : 'image/png';
+const current = shortcuts.find((app) => app.id === resolveAppId(active, 'hybrid'));
+const personalNavigation = [
+  { id: 'home', href: '/', label: 'Home' },
+  { id: 'profile', href: '/about/', label: 'About' },
+  { id: 'profile', href: '/about/#projects', label: 'Projects' },
+  { id: 'skills', href: '/skills/', label: 'Skills' },
+  { id: 'gallery', href: '/gallery/', label: 'Pictures' },
+  { id: 'blog', href: '/blog/', label: 'Journal' },
+];
+const breadcrumbItems = [
+  { name: 'Home', item: new URL('/', origin).href },
+  ...(article ? [{ name: 'Journal', item: new URL('/blog/', origin).href }] : []),
+  ...(active !== 'home' && !article ? [{ name: title, item: canonical.href }] : []),
+  ...(article ? [{ name: title, item: canonical.href }] : []),
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: profile.name,
+      url: new URL('/about/', origin).href,
+      sameAs: [profile.github, profile.bilibili],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      name: 'MHK10 — MiraHikari',
+      url: origin.href,
+      description: profile.summary,
+      inLanguage: lang,
+      publisher: { '@id': personId },
+    },
+    {
+      '@type': active === 'profile' ? 'ProfilePage' : 'WebPage',
+      '@id': `${canonical.href}#webpage`,
+      url: canonical.href,
+      name: title,
+      description,
+      inLanguage: lang,
+      isPartOf: { '@id': websiteId },
+      primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl, caption: imageAlt },
+      ...(article
+        ? {
+            datePublished: article.published,
+            dateModified: article.modified ?? article.published,
+          }
+        : {}),
+      ...(active === 'profile' ? { mainEntity: { '@id': personId } } : {}),
+    },
+    ...(article
+      ? [
+          blogPostingJsonLd({
+            id: `${canonical.href}#article`,
+            headline: title,
+            description,
+            datePublished: article.published,
+            dateModified: article.modified ?? article.published,
+            inLanguage: lang,
+            author: { '@id': personId },
+            publisher: { '@id': personId },
+            mainEntityOfPage: { '@id': `${canonical.href}#webpage` },
+            image: imageUrl,
+            keywords: article.tags,
+            articleSection: article.section,
+            isPartOf: { '@id': websiteId },
+          }),
+        ]
+      : []),
+    {
+      '@id': `${canonical.href}#breadcrumb`,
+      ...breadcrumbJsonLd(breadcrumbItems),
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang} data-theme="std">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#008080" />
+    <link rel="stylesheet" href="/themes.css" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}
+    />
+    <link rel="canonical" href={canonical} />
+    <link rel="author" href="/about/" />
+    {imageOrigin && <link rel="preconnect" href={imageOrigin} />}
+    {imageOrigin && <link rel="dns-prefetch" href={imageOrigin} />}
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-pixel-32.png" />
+    <link rel="apple-touch-icon" href="/favicon-pixel-180.png" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${profile.name} documents`}
+      href="/rss.xml"
+    />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="MHK10 — MiraHikari" />
+    <meta property="og:locale" content={lang === 'zh-CN' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:type" content={imageType} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    {article && <meta property="article:published_time" content={article.published} />}
+    {article && (
+      <meta property="article:modified_time" content={article.modified ?? article.published} />
+    )}
+    {article?.tags?.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+    <script
+      is:inline
+      define:vars={{
+        themeNames: THEME_NAMES,
+        themeKey: STORAGE_KEYS.theme,
+        fusionQuery: FUSION_QUERY,
+      }}
+    >
+      // Fusion: ?shell=full inside an iframe keeps the full desktop instead of
+      // the stripped single-window embed form.
+      const fullShell =
+        new URLSearchParams(location.search).get(fusionQuery.shell) === fusionQuery.full;
+      const embedded = window.self !== window.top;
+      document.documentElement.classList.add(
+        embedded && !fullShell ? 'is-embedded' : 'hybrid-mode',
+      );
+      try {
+        const theme = localStorage.getItem(themeKey);
+        if (themeNames.includes(theme)) document.documentElement.dataset.theme = theme;
+        else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches)
+          document.documentElement.dataset.theme = 'night';
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <DesktopHost />
+    <a class="skip-link" href="#main-content">
+      Skip to window content
+    </a>
+    <div id="desktop" class="desktop">
+      <nav class="desktop-icons" aria-label="Desktop applications">
+        {shortcuts.map((app) => (
+          <a href={app.href} data-desktop-app={app.id} title={`${app.name} — Double-click to open`}>
+            <PixelIcon name={app.icon} size={40} />
+            <span>{app.name}</span>
+          </a>
+        ))}
+      </nav>
+      <section
+        id="primary-window"
+        class="os-window initial-window is-active"
+        data-window={active}
+        aria-label={title}
+      >
+        <header class="window-titlebar" data-drag>
+          <span class="window-caption">
+            <PixelIcon name={current?.icon ?? 'exe'} size={18} />
+            {title}
+          </span>
+          <div class="window-controls">
+            <button data-window-action="minimize" type="button" aria-label="Minimize window">
+              _
+            </button>
+            <button
+              data-window-action="maximize"
+              type="button"
+              aria-label="Maximize or restore window"
+            >
+              □
+            </button>
+            <button data-window-action="close" type="button" aria-label="Close window">
+              ×
+            </button>
+          </div>
+        </header>
+        <div class="window-content" id="main-content" tabindex="-1">
+          {showNavigation && active !== 'home' && (
+            <nav class="site-navigation" aria-label="Personal site navigation" lang="en">
+              {personalNavigation.map((item) => (
+                <a
+                  href={item.href}
+                  data-app-link={item.id}
+                  aria-current={
+                    item.id === resolveAppId(active, 'hybrid') && !item.href.includes('#')
+                      ? 'page'
+                      : undefined
+                  }
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          )}
+          <slot />
+        </div>
+        <footer class="window-status">
+          <span>Ready</span>
+          <span>{profile.name}</span>
+          <span aria-hidden="true">▨</span>
+        </footer>
+      </section>
+    </div>
+    <footer class="taskbar" aria-label="System taskbar">
+      <button
+        id="start-button"
+        class="start-button"
+        aria-expanded="false"
+        aria-controls="start-menu"
+      >
+        <PixelIcon name="start" size={24} />
+        <b>Start</b>
+      </button>
+      <button id="show-desktop" title="Show desktop" aria-label="Show desktop">
+        <PixelIcon name="display" size={20} />
+      </button>
+      <div id="task-buttons" class="task-buttons" aria-label="Open windows"></div>
+      <button class="doom-tray" data-app-link="pdoom" title="Open P(doom) Properties">
+        <span>P(doom)</span>
+        <b id="doom-value">5%</b>
+      </button>
+      <time id="clock" class="system-clock">
+        00:00
+      </time>
+    </footer>
+    <nav id="start-menu" class="start-menu" aria-label="Start menu" hidden>
+      <div class="start-brand">
+        MHK<b>10</b>
+      </div>
+      <div class="start-items">
+        <p>{profile.name}</p>
+        {shortcuts.map((app) => (
+          <a href={app.href} data-app-link={app.id}>
+            <PixelIcon name={app.icon} size={24} />
+            {app.name}
+          </a>
+        ))}
+        <div class="start-separator"></div>
+        <a href="/apps/train/" data-app-link="train">
+          <PixelIcon name="chart" size={24} />
+          train.exe
+        </a>
+        <a href="/apps/training/" data-app-link="training">
+          <PixelIcon name="folder" size={24} />
+          Training Data
+        </a>
+        <a href="/lab/" data-app-link="lab">
+          <PixelIcon name="computer" size={24} />
+          MHK10 desktop
+        </a>
+        <label for="theme-select">
+          Scheme{' '}
+          <select id="theme-select">
+            {Object.entries(THEMES).map(([id, theme]) => (
+              <option value={id}>{theme.name}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+    </nav>
+    <script>
+      import { FUSION_QUERY } from '@mhk/site-core/fusion/protocol-model';
+      import { mountHybridUi } from '../lib/ui/browser/hybrid-ui';
+      const disposers: (() => void)[] = [mountHybridUi()];
+      import { mountKounterStatus } from '../lib/kounter';
+      import { mountNativeDesktop } from '../lib/os/host/desktop';
+      import { mountImagePresentation } from '../lib/ui/browser/image-presentation';
+      const fullShell =
+        new URLSearchParams(location.search).get(FUSION_QUERY.shell) === FUSION_QUERY.full;
+      const embedded = window.self !== window.top;
+      disposers.push(mountImagePresentation());
+      if (!embedded) mountKounterStatus();
+      if (embedded && !fullShell) mountNativeDesktop();
+      // Mount client interactions after the window bridge can honor their activation links.
+      const explorer = document.querySelector<HTMLElement>('[data-personal-explorer]');
+      if (explorer) {
+        const { mountPersonalExplorer } = await import('../lib/apps/home/personal-explorer');
+        disposers.push(mountPersonalExplorer(explorer));
+      }
+      const properties = document.querySelector<HTMLElement>('[data-personal-properties]');
+      if (properties) {
+        const { mountPersonalProperties } = await import('../lib/apps/profile/personal-properties');
+        disposers.push(mountPersonalProperties(properties));
+      }
+      if (!embedded || fullShell) {
+        const { mountHybridDesktop } = await import('../lib/os/host/hybrid-desktop');
+        const shell = await mountHybridDesktop();
+        // 融合协议宿主仅在「确实被 A 站 iframe 嵌入」时挂载：直开 ?shell=full
+        // 时没有父页面可移交控制，Classic Site 入口不该出现。
+        if (embedded && fullShell) {
+          const { mountEmbedHost } = await import('../lib/os/host/embed-host');
+          disposers.push(mountEmbedHost(shell));
+        }
+      }
+      window.addEventListener(
+        'pagehide',
+        (event) => {
+          if (event.persisted) return;
+          for (const dispose of disposers.reverse()) dispose();
+        },
+        { once: true },
+      );
+    </script>
+  </body>
+</html>

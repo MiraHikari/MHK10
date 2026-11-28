@@ -1,0 +1,243 @@
+---
+import { canvasAppRoutes } from '../../data/app-catalog';
+import AssistantComposer from '../../components/AssistantComposer.astro';
+export function getStaticPaths() {
+  return canvasAppRoutes.map((app) => ({ params: { id: app.slug }, props: { app } }));
+}
+const { app } = Astro.props;
+const id = app.id;
+const textApp = id === 'notepad';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="stylesheet" href="/themes.css" />
+    <title>{app.name} · MHK10</title>
+  </head>
+  <body>
+    <main data-app={id} id="app-host">
+      <header class="app-titlebar">
+        <h1>{app.name}</h1>
+        <a href="/" aria-label="Return to MHK10 desktop">
+          Desktop
+        </a>
+      </header>
+      <nav data-app-menu aria-label="Application menu"></nav>
+      <div class="canvas-stage">
+        <div class="app-raster">
+          <canvas tabindex="0" aria-label={`${id} interactive application`}>
+            This application requires Canvas support.
+          </canvas>
+          {id === 'chat' && <AssistantComposer />}
+        </div>
+      </div>
+      <p data-app-status role={id === 'chat' ? undefined : 'status'}></p>
+      {id === 'mines' && (
+        <div class="touch-actions">
+          <button id="right-click-toggle" type="button" aria-pressed="false">
+            Right click
+          </button>
+          <span>To flag a cell: select Right click, then tap the cell.</span>
+        </div>
+      )}
+      {textApp && (
+        <form data-text-entry>
+          <label for="app-text">Text input</label>
+          <div class="text-row">
+            <input
+              data-text-input
+              id="app-text"
+              autocomplete="off"
+              placeholder="Select the app text area first"
+            />
+            <button type="submit">Insert</button>
+            <button type="button" data-app-key="Enter">
+              Enter
+            </button>
+            {id === 'notepad' && (
+              <button type="button" data-app-key="Save">
+                Save
+              </button>
+            )}
+          </div>
+        </form>
+      )}
+      <dialog aria-labelledby="app-message-title"></dialog>
+      <noscript>
+        Enable JavaScript to run this application.<a href="/">Return to desktop</a>
+      </noscript>
+    </main>
+    <script>
+      import { mountAppHost } from '../../lib/os/host/app-host';
+      const root = document.getElementById('app-host');
+      if (root) void mountAppHost(root);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    font-family: MSS;
+    src: url('98.css/dist/ms_sans_serif.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: MSS;
+    src: url('98.css/dist/ms_sans_serif_bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: PS2P;
+    src: url('@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2')
+      format('woff2');
+    font-display: swap;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  /* The hidden attribute must win over the canvas/menu display rules below. */
+  [hidden] {
+    display: none !important;
+  }
+  html,
+  body {
+    min-height: 100vh;
+    margin: 0;
+    min-height: 100dvh;
+    background: #c0c0c0;
+  }
+  body {
+    font:
+      11px/16px MSS,
+      'MHK CJK UI',
+      sans-serif;
+    padding: 24px 8px;
+    background: var(--desk);
+  }
+  #app-host {
+    --app-face: #c0c0c0;
+    --app-ink: #000;
+    --app-title: #000080;
+    --app-title-text: #fff;
+    background: var(--app-face);
+    color: var(--app-ink);
+    width: calc(var(--canvas-width, 460px) + 14px);
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 3px;
+    border: 1px solid;
+    border-color: var(--hi) var(--shadow) var(--shadow) var(--hi);
+    box-shadow: inset -1px -1px var(--line);
+  }
+  .app-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 22px;
+    padding: 3px 5px;
+    background: var(--app-title);
+    color: var(--app-title-text);
+  }
+  .app-titlebar h1 {
+    margin: 0;
+    font:
+      bold 11px/16px MSS,
+      'MHK CJK UI',
+      sans-serif;
+  }
+  .app-titlebar a {
+    color: inherit;
+  }
+  .is-embedded body {
+    padding: 0;
+    background: var(--face);
+  }
+  .is-embedded #app-host {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    width: 100%;
+  }
+  .is-embedded .app-titlebar {
+    display: none;
+  }
+  [data-app-menu][hidden] {
+    display: none;
+  }
+  .canvas-stage {
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+  }
+  canvas {
+    display: block;
+    width: min(100%, var(--canvas-width));
+    height: auto;
+    image-rendering: pixelated;
+    touch-action: none;
+  }
+  .app-raster {
+    position: relative;
+    width: min(100%, var(--canvas-width));
+  }
+  [data-app-status] {
+    border: 1px solid;
+    border-color: var(--line) var(--hi) var(--hi) var(--line);
+    padding: 2px 4px;
+    margin: 2px;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+  .touch-actions,
+  [data-text-entry] {
+    padding: 8px;
+    border-top: 1px solid #888;
+  }
+  .touch-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+  }
+  .touch-actions button[aria-pressed='true'] {
+    border-style: inset;
+    background: var(--app-title);
+    color: var(--app-title-text);
+  }
+  [data-text-entry] label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+  .text-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .text-row input {
+    min-width: 0;
+    flex: 1 1 140px;
+  }
+  dialog {
+    width: min(420px, calc(100% - 20px));
+    padding: 12px;
+  }
+  dialog p {
+    margin-block: 8px;
+    overflow-wrap: anywhere;
+  }
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+  }
+</style>

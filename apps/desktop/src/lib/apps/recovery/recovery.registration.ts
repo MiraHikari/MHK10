@@ -1,0 +1,16 @@
+export const registration = {
+  id: 'recovery',
+  name: 'Recovery Console',
+  icon: 'recovery',
+  kind: 'canvas',
+  route: '/apps/recovery/',
+  title: 'Recovery Console',
+  w: 444,
+  h: 302,
+  x: 98,
+  y: 22,
+  ctl: 'x',
+  menu: 'Settings',
+  desktop: ['canvas', 'hybrid'],
+  assistantVerbs: ['recovery', 'logs'],
+} as const;

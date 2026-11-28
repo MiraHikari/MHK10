@@ -1,0 +1,17 @@
+---
+/**
+ * PhotoSet — 把多张 PhotoFigure 编成 contact-sheet 照片组。
+ * 桌面按 cols 分列，移动端固定两列；同组建议使用同向（横/竖）照片，
+ * 行高即可自然对齐。全屏细看交给灯箱，组内保持紧凑节奏。
+ */
+interface Props {
+  /** 桌面端列数 */
+  cols?: 2 | 3;
+}
+
+const { cols = 2 } = Astro.props;
+---
+
+<div class="photo-set" style={`--photo-set-cols:${cols}`}>
+  <slot />
+</div>

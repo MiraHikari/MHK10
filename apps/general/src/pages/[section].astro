@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App';
+import { getActiveProjects } from '@/lib/projects';
+import { getArticleList } from '@/lib/blog';
+import { LEGACY_ROUTES, ROUTED_SECTIONS, SECTION_MAP, type SectionId } from '@/lib/sections';
+import { sectionPageTitle } from '@/lib/page-title';
+import { profile } from '@/data/profile';
+import '@/styles/global.css';
+
+interface Props {
+  initialSection: SectionId;
+}
+
+export function getStaticPaths() {
+  return [
+    ...ROUTED_SECTIONS.map((section) => ({
+      params: { section: section.id },
+      props: { initialSection: section.id },
+    })),
+    // Legacy aliases (e.g. /honors) keep a static page that opens the
+    // absorbing section, so old links never 404.
+    ...LEGACY_ROUTES.map((route) => ({
+      params: { section: route.path.replace(/^\/+/, '') },
+      props: { initialSection: route.sectionId },
+    })),
+  ];
+}
+
+const { initialSection } = Astro.props;
+const sectionInfo = SECTION_MAP[initialSection];
+const projectData = await getActiveProjects();
+const articles = await getArticleList();
+---
+
+<Layout
+  title={sectionPageTitle(initialSection)}
+  description={`MiraHikari ${sectionInfo.zh} | ${profile.summary}`}
+>
+  <App client:load projects={projectData} initialSection={initialSection} articles={articles} />
+</Layout>

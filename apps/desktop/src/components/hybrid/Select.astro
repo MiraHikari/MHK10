@@ -1,0 +1,20 @@
+---
+interface Props {
+  id?: string;
+  name?: string;
+  label?: string;
+  class?: string;
+  disabled?: boolean;
+  [key: string]: unknown;
+}
+const { label, class: className = '', ...attributes } = Astro.props;
+---
+
+<select
+  data-hybrid-select
+  aria-label={label}
+  class:list={['hybrid-select', className]}
+  {...attributes}
+>
+  <slot />
+</select>

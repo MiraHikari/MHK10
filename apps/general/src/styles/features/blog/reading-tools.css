@@ -1,0 +1,253 @@
+/* ============================================================================
+   reading-tools.css — 阅读工具样式：段落高亮（Kindle 式）、朗读 live 指示、
+   选区悬浮胶囊、阅读控件（行宽 / 专注 / 朗读）与专注模式。
+   ========================================================================== */
+
+/* ---- 段落高亮（Kindle 式，useArticleHighlights / blog-highlight）------- */
+.reading-highlight {
+  background: color-mix(in srgb, var(--section-accent) 34%, transparent);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0.05em 0.1em;
+  cursor: pointer;
+  /* 底部 accent 色条：低透明度底色在深色正文上偏隐，色条保证可辨识 */
+  box-shadow: inset 0 -0.16em 0 color-mix(in srgb, var(--section-accent) 62%, transparent);
+  transition: background-color 0.18s var(--ease-brand);
+}
+@media (pointer: fine) {
+  .reading-highlight {
+    cursor: none;
+  }
+}
+.reading-highlight:hover {
+  background: color-mix(in srgb, var(--section-accent) 52%, transparent);
+  box-shadow: inset 0 -0.16em 0 color-mix(in srgb, var(--section-accent) 80%, transparent);
+}
+
+/* 朗读进行中的当前段落（useArticleSpeech 分块朗读的 live 指示，非持久数据） */
+.reading-live {
+  background: color-mix(in srgb, var(--section-accent) 16%, transparent);
+  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--section-accent) 72%, transparent);
+  border-radius: 2px;
+  pointer-events: none;
+  transition: background-color 0.18s var(--ease-brand);
+}
+
+/* ---- 选区悬浮胶囊（SelectionQuotePill，毛玻璃参照 .article-back）------- */
+.selection-quote-pill {
+  position: fixed;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  border-radius: 999px;
+  transform: translate(-50%, -100%);
+}
+.selection-quote-pill button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 0;
+  background: transparent;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition:
+    color 0.16s,
+    background-color 0.16s;
+}
+.selection-quote-pill button:hover {
+  color: var(--ink-on-dark-strong);
+  background: color-mix(in srgb, var(--section-accent) 24%, transparent);
+}
+
+/* ---- 阅读控件（ReadingPrefsControls：行宽 / 专注 / 朗读）----------------
+   阅读胶囊通栏等宽分布（<1024px 两行网格的第二行），≥1024px 收回内容宽。 */
+.article-read-prefs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.article-read-prefs .article-tool-cluster {
+  width: 100%;
+}
+.article-read-prefs .article-tool-cluster > * {
+  flex: 1;
+}
+.article-read-prefs .article-tool-cluster .article-tool-button {
+  width: 100%;
+  justify-content: center;
+}
+@media (min-width: 1024px) {
+  .article-read-prefs .article-tool-cluster {
+    width: auto;
+  }
+  .article-read-prefs .article-tool-cluster > * {
+    flex: none;
+  }
+  .article-read-prefs .article-tool-cluster .article-tool-button {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+.article-read-prefs__tts-progress {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  color: var(--section-accent-ink);
+  white-space: nowrap;
+  user-select: none;
+}
+.article-read-prefs__width {
+  position: relative;
+}
+.article-read-prefs__aa {
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+  color: var(--section-accent-ink);
+}
+.article-read-prefs__menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 10rem;
+  padding: 0.35rem;
+  border: 1px solid rgba(111, 147, 196, 0.35);
+  background: rgba(12, 12, 12, 0.98);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+}
+.article-read-prefs__menu button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+  transition:
+    color 0.16s,
+    background-color 0.16s;
+}
+.article-read-prefs__menu button:hover,
+.article-read-prefs__menu button:focus-visible {
+  color: var(--ink-on-dark-strong);
+  background: color-mix(in srgb, var(--section-accent) 22%, transparent);
+  outline: 0;
+}
+.article-read-prefs__menu button.is-active {
+  color: var(--section-accent-ink);
+}
+.article-read-prefs__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.35);
+}
+.article-read-prefs__menu button.is-active .article-read-prefs__value {
+  color: var(--section-accent-ink);
+}
+/* 专注模式固定右下角「退出专注」按钮：portal 挂到 body，可见性与进出场
+   动效由 ReadingPrefsControls 的 AnimatePresence + motion 承接，此处只留静态外观。 */
+.zen-exit-fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    color 0.18s,
+    border-color 0.18s;
+}
+.zen-exit-fab:hover {
+  color: var(--ink-on-dark-strong);
+  border-color: var(--section-accent-soft);
+}
+
+/* ---- 专注模式（html.reading-zen）---------------------------------------
+   布局折叠终态：chrome 区块的淡出/聚焦动画由 ZenBlock（motion）承接，
+   淡出相位结束后才挂本类——隐藏元素不占布局、退出无障碍树。 */
+html.reading-zen .article-actions,
+html.reading-zen .article-relations,
+html.reading-zen .article-comments,
+html.reading-zen .article-legal,
+html.reading-zen .post-nav,
+html.reading-zen .article-series,
+html.reading-zen .selection-quote-pill {
+  display: none !important;
+}
+/* 专注布局折叠/展开瞬间的宽度形变过渡（列宽、间距与居中收窄） */
+.blog-post__body {
+  transition:
+    grid-template-columns 0.32s var(--ease-brand),
+    gap 0.32s var(--ease-brand);
+}
+@media (min-width: 1280px) {
+  .article-flow > * {
+    transition: max-width 0.32s var(--ease-brand);
+  }
+}
+/* 移动端 TOC 悬浮按钮与 bottom sheet 经 portal 挂到 body，按专属类名隐藏 */
+html.reading-zen .mobile-toc-fab,
+html.reading-zen .mobile-toc-sheet {
+  display: none !important;
+}
+/* 专注时正文取 wide 宽度：移动端单列直接收窄；桌面端保留双轨（第二轨收为 0、
+   间距归零），与基础态轨数一致，grid-template-columns 才能连续插值。 */
+html.reading-zen .blog-post__body {
+  grid-template-columns: minmax(0, var(--article-reading-width, 84ch));
+}
+@media (min-width: 1024px) {
+  html.reading-zen .blog-post__body {
+    grid-template-columns: minmax(0, var(--article-reading-width, 84ch)) 0px;
+    gap: 0;
+  }
+  /* TOC 列折叠但保留 DOM（轨道宽度动画需要），visibility 使其退出无障碍树；
+     内容的淡出由列内 ZenBlock 承接。 */
+  html.reading-zen .blog-post__aside {
+    opacity: 0;
+    visibility: hidden;
+  }
+  /* AI 徽章跟随专注行宽，避免被 70ch 上限收窄 */
+  html.reading-zen .ai-badge {
+    max-width: var(--article-reading-width, 84ch);
+  }
+}
+/* ≥1280px 阅读单元居中收窄到专注行宽，max-width 过渡承接宽度形变 */
+@media (min-width: 1280px) {
+  html.reading-zen .article-flow > * {
+    max-width: var(--article-reading-width, 84ch);
+  }
+}
+/* 专注态垂直节奏放宽一档，强化沉浸阅读体感 */
+html.reading-zen .prose-mh > * {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+html.reading-zen .prose-mh p {
+  margin: 1.25rem 0;
+}

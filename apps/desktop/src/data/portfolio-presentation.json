@@ -1,0 +1,206 @@
+{
+  "currentLabels": ["学习方向", "在读", "项目"],
+  "journey": {
+    "2021": {
+      "description": "我从写些没什么用的小东西开始，那时还谈不上工程化。"
+    },
+    "2022": {
+      "description": "我开始尝试 Node.js，想把页面背后的接口和数据也接起来。"
+    },
+    "2023": {
+      "description": "我开始探索 Tauri 和 Rust，把想法装进桌面应用里。"
+    },
+    "2024": {
+      "description": "我参与开发的示例工具箱获得了开发者社区年度盛典的社区贡献奖。"
+    },
+    "2025": {
+      "description": "我升入示例市第一中学，加入人工智能社团，开始跟着学校做硬件原型。"
+    },
+    "2026": {
+      "description": "我把 AI 接进了硬件和 Web3 作品，也继续琢磨自己想做什么。"
+    }
+  },
+  "principles": {
+    "Apeiron": {
+      "icon": "apeiron",
+      "meaning": "希腊语里指没有边界、还没有被规定成某一种东西。",
+      "description": "学习先不限定在单一方向，Web、桌面和硬件可以放在一起看。"
+    },
+    "Kairos": {
+      "icon": "kairos",
+      "meaning": "希腊语里指恰切的时机，不是钟表上依次走过的时间。",
+      "description": "事情准备好了再做，比赶着完成更重要。"
+    },
+    "Ecstasis": {
+      "icon": "ecstasis",
+      "meaning": "希腊语里指从惯常的位置上挪开，暂时站到事情外面去看。",
+      "description": "先看清眼前的具体问题，再慢慢把它做完。"
+    }
+  },
+  "experiences": {
+    "示例中学人工智能社团": {
+      "summary": "我在社团参与硬件原型开发和赛事备战，也代表学校参加 STEM 创客与机器人竞赛。"
+    },
+    "星桥开发团队": {
+      "summary": "我在团队参与全栈开发、系统架构与技术选型，也是星闪工具箱的核心开发者之一。"
+    },
+    "谜题小镇团队": {
+      "summary": "我负责页面设计、账户系统和前端架构，也参与需求分析与技术方案制定。"
+    }
+  },
+  "honors": {
+    "全国青少年科技创新示范赛": {
+      "description": "中国区选拔赛的参赛项目。"
+    },
+    "开发者社区年度盛典 · 卓越社区价值贡献奖": {
+      "description": "星闪工具箱获得的社区贡献认可。"
+    },
+    "创客聚会 2026 青年黑客松": {
+      "description": "D70 展位展示的作品是 xEngine。"
+    },
+    "省级青少年科技创新赛": {
+      "description": "省赛之后进入全国选拔。"
+    },
+    "市级青少年科技创新赛": {
+      "description": "市赛之后继续准备省赛。"
+    },
+    "省级青少年创客与机器人大赛": {
+      "description": "学校组队参加的省级比赛。"
+    },
+    "市级青少年创客与机器人大赛": {
+      "description": "学校组队参加的市级比赛。"
+    }
+  },
+  "skillCategories": [
+    {
+      "id": "LANGUAGES",
+      "label": "Languages",
+      "description": "日常使用的编程语言。",
+      "skills": ["TypeScript", "JavaScript", "PHP", "Python", "Golang", "Shell", "C++"]
+    },
+    {
+      "id": "WEB",
+      "label": "Web & interface",
+      "description": "页面、界面框架和 Web 运行时。",
+      "skills": [
+        "React",
+        "HTML",
+        "Astro",
+        "TailwindCSS",
+        "Next.js",
+        "CSS",
+        "Node.js",
+        "Vite",
+        "Vue",
+        "WordPress",
+        "NestJS",
+        "FastAPI",
+        "SolidJS",
+        "Svelte",
+        "TanStack Query",
+        "Socket.IO"
+      ]
+    },
+    {
+      "id": "DESKTOP",
+      "label": "Desktop & systems",
+      "description": "桌面应用和系统环境。",
+      "skills": ["Rust", "Tauri", "Linux", "Electron"]
+    },
+    {
+      "id": "HARDWARE",
+      "label": "Hardware & embedded",
+      "description": "硬件原型和嵌入式工具。",
+      "skills": ["UNIHIKER", "PlatformIO", "HuskyLens", "MQTT", "ESP32-S3", "NearLink"]
+    },
+    {
+      "id": "DATA",
+      "label": "Data",
+      "description": "数据库、缓存和存储。",
+      "skills": ["SQL", "MongoDB", "Supabase", "SQLAlchemy", "Redis", "IPFS"]
+    },
+    {
+      "id": "INFRASTRUCTURE",
+      "label": "Infrastructure",
+      "description": "版本、部署和运行环境。",
+      "skills": [
+        "GitHub",
+        "Cloudflare",
+        "Git",
+        "Vercel",
+        "Tencent Cloud",
+        "Nginx",
+        "Netlify",
+        "Docker"
+      ]
+    },
+    {
+      "id": "ONCHAIN",
+      "label": "On-chain",
+      "description": "合约、钱包和链上交互。",
+      "skills": [
+        "Solidity",
+        "Injective EVM",
+        "Polymarket Gamma API",
+        "Viem / Wagmi",
+        "Foundry",
+        "Ethereum"
+      ]
+    },
+    {
+      "id": "AGENTS",
+      "label": "Agents & libraries",
+      "description": "应用库与智能体编排。",
+      "skills": ["Google A2A", "Celery", "PydanticAI"]
+    }
+  ],
+  "learningCategories": {
+    "AI Harness Engineering": "AGENTS",
+    "嵌入式 / ESP32-S3": "HARDWARE",
+    "Rust": "DESKTOP",
+    "WebGPU": "WEB",
+    "Web3 / 智能合约": "ONCHAIN"
+  },
+  "featuredPhotoPaths": [
+    "/images/gallery/west-lake-vista-display.webp",
+    "/images/gallery/hello-hangzhou-display.webp",
+    "/images/gallery/adventurex-logo-wall-display.webp",
+    "/images/gallery/hupan-3am-display.webp",
+    "/images/gallery/back-in-nanchang-display.webp",
+    "/images/gallery/nanchang-sunset-display.webp"
+  ],
+  "projects": {
+    "nearlink-toolbox": {
+      "description": "我参与开发的串口与固件工具，把设备调试、固件管理和图形化操作放在一起。",
+      "summary": "我在团队里参与开发这款 Rust / Tauri 工具。"
+    },
+    "xengine": {
+      "description": "我和队友在创客聚会 2026 做的自然语言投保 dApp，运行在 Injective EVM 测试网。",
+      "summary": "五天黑客松里，我们把问卷、方案组合、USDC 支付和结算接成了一条流程。"
+    },
+    "water-cleaning-usv": {
+      "description": "我参与的无人清洁船原型：一边监测水质，一边识别和打捞水面垃圾。",
+      "summary": "我们把目标放在校园池塘、社区湖泊和城市景观水体。"
+    },
+    "daka": {
+      "description": "我参与的博物馆打卡工具，用行空板 K10 记录展项，并提供中文 AI 导览。",
+      "summary": "我在学校社团参与这个展陈互动原型，仓库里保留了固件、语音识别服务和展示资料。"
+    },
+    "cloudflare-vmail": {
+      "description": "我做的开源临时邮箱工具，可以收发邮件、自定义别名和接入多个域名。",
+      "summary": "我用 Cloudflare Workers 和 D1 搭起这套邮箱服务，让部署和使用都尽量简单。"
+    },
+    "riddle-town-hunt": {
+      "description": "我参与建设的线上 Puzzle Hunt 活动，负责页面、账户和游戏系统。",
+      "summary": "我完成了约 95% 的开发，从前端页面、后端接口到数据库；活动吸引了超过 1000 名用户参与。"
+    },
+    "xunxing": {
+      "description": "我参与的生涯探索工作站，用兴趣卡片和行空板 M10 生成成长报告。",
+      "summary": "我们把 RIASEC 兴趣卡片、视觉识别和 AI 报告接到了一台硬件原型上。"
+    },
+    "nlchat-webui": {
+      "description": "我把串口调试做成了聊天式界面，用来收发数据、检查格式和整理日志。",
+      "summary": "这个小工具用 Web Serial API 连接串口设备，界面由 React 和 TypeScript 编写。"
+    }
+  }
+}

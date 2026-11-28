@@ -1,0 +1,53 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ReaderShell from '../../lib/apps/reader/ReaderShell.astro';
+export async function getStaticPaths() {
+  return (await getCollection('posts', ({ data }) => !data.draft)).map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const published = post.data.published.toISOString();
+const updated = post.data.updated?.toISOString();
+const publication = {
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  body: post.body ?? '',
+  published,
+  updated,
+  sourceArchive: post.data.sourceArchive,
+  aiLevel: post.data.aiLevel,
+  aiModel: post.data.aiModel,
+  category: post.data.category,
+  tags: post.data.tags,
+  comments: post.data.comments !== false,
+  author: post.data.author,
+  related: post.data.related,
+  series: post.data.series,
+  seriesOrder: post.data.seriesOrder,
+  version: post.data.version,
+  updates: post.data.updates.map((update) => ({ ...update, date: update.date.toISOString() })),
+};
+---
+
+<SiteLayout
+  title={post.data.title}
+  description={post.data.description}
+  active="blog"
+  article={{ published, modified: updated, tags: post.data.tags, section: post.data.category }}
+  image={post.data.heroImage}
+  imageAlt={post.data.heroAlt ?? post.data.title}
+  noindex={!post.data.listed}
+  showNavigation={false}
+>
+  <ReaderShell publication={publication} headings={headings}>
+    <Content />
+  </ReaderShell>
+</SiteLayout>

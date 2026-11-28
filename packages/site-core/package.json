@@ -1,0 +1,35 @@
+{
+  "name": "@mhk/site-core",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./fusion/*": "./src/fusion/*.ts",
+    "./kounter/*": "./src/kounter/*.ts",
+    "./media/*": "./src/media/*.ts",
+    "./storage/*": "./src/storage/*.ts",
+    "./config/*": "./src/config/*.ts",
+    "./browser/*.css": "./src/browser/*.css",
+    "./browser/*": "./src/browser/*.ts",
+    "./content-model/*": "./src/content-model/*.ts",
+    "./content/*": "./content/*"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "vp test run",
+    "lint": "vp lint",
+    "verify:architecture": "node scripts/verify-architecture.mjs"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite-plus": "1.0.0"
+  },
+  "engines": {
+    "node": "24.x",
+    "npm": "11.x"
+  },
+  "packageManager": "npm@11.9.0"
+}

@@ -1,0 +1,23 @@
+{
+  "advx-2026-hangzhou": {
+    "viewerNote": "这是一篇包含 44 张照片的游记。点击照片可在 MHK10 的 ACDSee 中查看、缩放和切换图片，也可以通过原图入口打开源文件。图注与拍摄时间记录的是 2026 年 7 月的杭州行。",
+    "metadata": {
+      "updated": "2026-10-10",
+      "aiLevel": "assisted",
+      "version": "1.1.0",
+      "updates": [
+        {
+          "version": "1.1.0",
+          "date": "2026-10-10",
+          "summary": "将图片查看说明更新为 MHK10 的 ACDSee 入口，并纠正摘要的照片数量；旅行叙述、44 张照片、图注与拍摄时间保留。"
+        },
+        {
+          "version": "1.0.0",
+          "date": "2026-08-01",
+          "summary": "发布首版"
+        }
+      ],
+      "sourceArchive": "MiraHikari Portfolio"
+    }
+  }
+}

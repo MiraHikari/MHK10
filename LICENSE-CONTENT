@@ -1,0 +1,30 @@
+# Content license — CC BY-NC-SA 4.0
+
+The authored content of this site is licensed under the
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**
+license (CC BY-NC-SA 4.0).
+
+License text: <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode>
+
+## What this covers
+
+- The shared authored publication records in `packages/site-core/content/`
+  (`profile.json`, `projects/*.md`, `blog/*`), including the blog articles,
+  profile copy and project descriptions.
+- The desktop story text and narrative prose.
+- The photography and images bundled for display under
+  `apps/desktop/public/images/` (display WebP copies and VGA previews).
+
+In short: the writing and pictures that make up MiraHikari's personal site are
+creative works under CC BY-NC-SA 4.0 — you may share and adapt them with
+attribution, for non-commercial purposes only, under the same license.
+
+## What this does not cover
+
+- **Code** is licensed separately under the GNU General Public License
+  v3.0-or-later; see [LICENSE](LICENSE).
+- **Bundled fonts** under `apps/desktop/public/fonts/` keep their own
+  SIL Open Font License terms (see
+  [font attribution](apps/desktop/docs/fonts/ATTRIBUTION.md) for details).
+  Other third-party assets keep their own licenses as described in
+  [README.md](README.md#sources-and-licenses).

@@ -1,0 +1,13 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+  label?: string;
+  [key: string]: unknown;
+}
+const { class: className = '', label, ...attributes } = Astro.props;
+---
+
+<section aria-label={label} class:list={['hybrid-panel', className]} {...attributes}>
+  <slot />
+</section>

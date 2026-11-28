@@ -1,0 +1,15 @@
+export const registration = {
+  id: 'display',
+  name: 'Display',
+  icon: 'display',
+  kind: 'canvas',
+  route: '/apps/display/',
+  title: 'Display Properties',
+  w: 364,
+  h: 264,
+  x: 140,
+  y: 30,
+  menu: 'Settings',
+  shortcut: true,
+  applet: true,
+} as const;

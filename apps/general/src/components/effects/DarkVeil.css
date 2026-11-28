@@ -1,0 +1,35 @@
+.darkveil-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.darkveil-fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(color-mix(in srgb, var(--section-accent) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--section-accent) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      ellipse 68% 58% at 28% 44%,
+      color-mix(in srgb, var(--section-accent) 30%, transparent),
+      transparent 62%
+    ),
+    var(--neutral-950);
+  background-size:
+    64px 64px,
+    64px 64px,
+    auto,
+    auto;
+  transition: opacity 0.58s var(--ease-brand);
+}
+
+/* Light sections: the flat colour layer above already carries the page, so the
+   dark grid fallback must get out of the way. */
+.darkveil-fallback[data-paper] {
+  opacity: 0;
+}

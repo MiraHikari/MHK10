@@ -1,0 +1,208 @@
+/* ============================================================================
+   responsive.css — 博客响应式适配：视口断点（max-width）与卡片容器查询。
+   桌面布局查询（min-width 1024 / 1280）保留在各领域文件内；本文件只收
+   ≤768px / ≤640px / ≤1023px 的收窄规则与跟随列表宽度的 @container，
+   须在 index.css 中最后（打印前）导入，保证同特异性覆盖成立。
+   ========================================================================== */
+
+/* ---- Container-query card density -------------------------------------
+   卡片密度跟随列表实际宽度，而不是视口：1024px 视口下文章列（1fr 减去
+   rail 与留白）反而比 768–1023px 更窄。必须放在各领域文件之后，
+   与基础 .post-card__* 规则同特异性时靠源顺序覆盖。 */
+@container (max-width: 36rem) {
+  .post-card__link {
+    padding: 1.1rem 0.1rem 1.2rem 0.8rem;
+  }
+  .post-card__title {
+    font-size: 1.15rem;
+  }
+}
+
+/* ---- Mobile responsive ------------------------------------------------ */
+@media (max-width: 768px) {
+  .blog-tags {
+    gap: 0.25rem 0.75rem;
+  }
+  .blog-tags button {
+    font-size: var(--text-micro);
+  }
+
+  .prose-mh h2 {
+    /* 字号由 prose.css 的 clamp() 流式承接，此处只收窄节奏 */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.6rem;
+  }
+  .prose-mh h3 {
+    margin-top: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .prose-mh blockquote {
+    margin: 1.25rem 0;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  .prose-mh :not(pre) > code {
+    font-size: 0.8em;
+  }
+  .code-block pre,
+  .prose-mh pre {
+    font-size: 0.75rem;
+    padding: 1rem;
+  }
+  .code-block__bar {
+    padding: 0.35rem 0.6rem;
+  }
+  .code-block__lang,
+  .code-block__copy {
+    font-size: 9px;
+  }
+
+  /* Stack prev/next nav vertically on mobile */
+  .post-nav {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+  }
+  .post-nav__item {
+    padding: 1rem;
+  }
+  .post-nav__item--next {
+    text-align: left;
+  }
+  .post-nav__title {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* 工具栏布局由 article-shell.css 的两行网格接管，此处只保留
+     AI 分享菜单的窄屏 fixed sheet 形态。 */
+  .ai-share__menu {
+    position: fixed;
+    top: auto;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    left: max(1rem, env(safe-area-inset-left));
+    width: auto;
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .prose-mh .metric-grid {
+    grid-template-columns: 1fr;
+  }
+  .reading-progress-bar {
+    height: 3px !important;
+  }
+  .prose-mh {
+    padding: 0 0.5rem;
+    /* 字号 / 行高走阅读密度档位变量（ReadingPrefsControls 发布），
+       窄视口下行宽被视口钳制，同一偏好改经密度表达。 */
+    font-size: var(--article-prose-size, 1rem);
+    line-height: var(--article-prose-line, 1.85);
+  }
+  .prose-mh p {
+    margin: 0.85rem 0;
+  }
+  .prose-mh ul,
+  .prose-mh ol {
+    padding-left: 1.25rem;
+  }
+  .prose-mh li {
+    margin: 0.35rem 0;
+  }
+  .prose-mh h2 {
+    margin-top: 1.75rem;
+  }
+  .prose-mh img {
+    margin: 1.25rem 0;
+    border-radius: 3px;
+  }
+  .prose-mh .photo-figure {
+    margin: 1.25rem 0;
+  }
+  .prose-mh .photo-set {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem 0.55rem;
+    margin: 1.25rem 0;
+  }
+  .prose-mh .photo-set .photo-figure {
+    margin: 0;
+  }
+  .prose-mh .photo-set .photo-figure figcaption {
+    font-size: 9px;
+    margin-top: 0.35rem;
+  }
+  .prose-mh hr {
+    margin: 1.75rem 0;
+  }
+
+  /* Table overflow wrapper — guard long tables on narrow screens */
+  .prose-mh table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+  .prose-mh th,
+  .prose-mh td {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* ---- 工具栏窄视口降级：<480px 分享胶囊收为纯图标（aria-label 保底）-- */
+@media (max-width: 479px) {
+  .article-share-actions .article-tool-button__label {
+    display: none;
+  }
+  .article-share-actions .article-tool-button,
+  .article-share-actions .ai-share__trigger {
+    justify-content: center;
+    padding-inline: 0.7rem;
+  }
+}
+
+/* ---- TOC aside: desktop-only, hidden on mobile (replaced by MobileTOC) -- */
+@media (max-width: 1023px) {
+  .blog-post__aside {
+    display: none;
+  }
+}
+
+/* ---- Subscribe responsive ------------------------------------------- */
+@media (max-width: 640px) {
+  .blog-subscribe {
+    padding: 1rem;
+  }
+  .blog-subscribe__feed {
+    flex-wrap: wrap;
+  }
+  .blog-subscribe__url {
+    order: 3;
+    flex-basis: 100%;
+    white-space: normal;
+    word-break: break-all;
+  }
+  .blog-subscribe__actions {
+    order: 2;
+    margin-left: auto;
+  }
+  .blog-index-meta {
+    font-size: var(--text-micro);
+  }
+}
+
+/* ---- Article relations / legal 窄屏收窄 ------------------------------- */
+@media (max-width: 640px) {
+  .article-relations {
+    margin-top: 2.5rem;
+  }
+  .article-relations__copy small {
+    white-space: normal;
+  }
+  .article-legal__grid {
+    grid-template-columns: 1fr;
+  }
+}

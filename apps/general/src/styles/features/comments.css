@@ -1,0 +1,103 @@
+/* ============================================================================
+   comments.css — 评论区（giscus）共享样式。
+   从 blog.css 抽离：GiscusComments 直接 import 本文件，使评论区在任意章节
+   （博客文章、友链板块）挂载都自带样式；blog.css 顶部 @import 回本文件，
+   博客路由表现不变。accent 经 var(--section-accent) 跟随所在章节主题色。
+   ========================================================================== */
+
+/* ---- Giscus comments ------------------------------------------------- */
+.article-comments {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* 友链等非文章宿主：不受 blog.css 阅读栏 max-width 约束，随 SectionCanvas 内容区拉满。 */
+#friends .article-comments {
+  max-width: none;
+  width: 100%;
+}
+.article-comments__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+.article-comments__eyebrow {
+  color: var(--accent-blue);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+.article-comments__header h2 {
+  margin: 0;
+  color: var(--ink-on-dark-strong);
+  font-size: 1.2rem;
+}
+.giscus-pending {
+  margin-top: 1.25rem;
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+.giscus {
+  margin-top: 1.5rem;
+}
+
+.giscus-host {
+  position: relative;
+  min-height: 8rem;
+}
+
+/* 评论区懒加载过渡：复用站点 BootLoader 语言（accent rail + THINKING + mono log）。 */
+.comments-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 3px 1fr;
+  gap: 0.875rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 10, 0.92);
+  overflow: hidden;
+}
+
+.comments-loader__accent {
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.comments-loader__accent > div {
+  height: 100%;
+  width: 100%;
+  background: var(--section-accent, var(--brand));
+  animation: comments-loader-accent 1.2s var(--ease-brand) infinite;
+}
+
+@keyframes comments-loader-accent {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.comments-loader__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.comments-loader__log {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.comments-loader__slug {
+  color: var(--section-accent-ink, var(--accent-blue));
+}

@@ -1,0 +1,341 @@
+{
+  "repository": "https://github.com/React95/React95",
+  "revision": "1b94d9f59b5bb556b42bd9c3019051ef93bbaf24",
+  "package": "@react95/icons",
+  "license": "See LICENSE: MIT for code; Windows images remain Microsoft property",
+  "files": {
+    "Computer_32x32_4.png": "a0f6666a554fda954f48963de8162dd526d762f0d720b3c2938402f1ed89c17e",
+    "Computer_16x16_4.png": "6eca8df14bcfda12b5a59c4d2934a14303a0b883826c65a629f5cffe12e03c5a",
+    "RecycleEmpty_32x32_4.png": "5e8e21add390aadc6412cbf673eaca762f014cbe0c0239f24113c5b7727e10c5",
+    "RecycleEmpty_16x16_4.png": "c614093858416afd1d1fbd66b02376e9c35229de7695069b61b207cb510ed766",
+    "Shell323_32x32_4.png": "87fa99b43ff9c8025f406953a76b27f375312fb071a8ba02e8e8d5f1db9ef4dd",
+    "Shell323_16x16_4.png": "80c0be4f9240602358f11c3f9c77b76bfbd7c597b091867f2c2f41437ebdc87d",
+    "Folder_32x32_4.png": "c13577d5c1e43d38078ade5362e1a2c0d70abe84b3a0bad35b6936a2e17eb72f",
+    "Folder_16x16_4.png": "ba8679014401e4c447491043e57e3238d43d3a04fbfcb2d29a36982c749d4b8a",
+    "Notepad2_32x32_4.png": "00b9733e9ccf8a3ffbf2ec02e0f05409025a6266d9df65b4244959cbb534fc35",
+    "Notepad2_16x16_4.png": "bff53aa5ac4972e9aa1597cb60887a4f0c7e6865727295688be783c478158a8c",
+    "User4_32x32_4.png": "ad541f32cfc507be60cbf0215e3c9702c33d80d1b2a92650a6992f3f3aa29fc1",
+    "Textchat_32x32_4.png": "e00b86eb4bf7bfa9dd3857ab7282a0f245e6ea570d9a672ac685780f140b0472",
+    "Textchat_16x16_4.png": "3b2417fc5c4104b3eecb644feff39d30138c62a8b30ad7282d68c983441a34fe",
+    "Sysmon1000_32x32_4.png": "756c7e2bc4cf8bcc16b7d00ecee62ce5a53c9c88f9ba0aef2297bee0c93f3010",
+    "Winmine1_32x32_4.png": "243067ad4d2aa5be0d3cf4fc818ab3967e77750b32297ee416f8ada65735b8d0",
+    "Winmine1_16x16_4.png": "757519fa8702161c69fba87a98ae0abee6daee944ff5eb7755af9475bbcd2bb0",
+    "Computer3_32x32_4.png": "075714430b31caa0e3a5e9350efb4a1ed0f9cb1f14f94ec6e8a0ed4513e8b5f9",
+    "Computer3_16x16_4.png": "4eb85e9718cbd81172e76ca13973ce2dcb0b453de4a65b6623396e4d833beecc",
+    "Winhlp324000_32x32_4.png": "bee6c21812a3ced7271bdbb6986fae8e4b4faafa1b692fd814df1d93f1ef0cfb",
+    "Winhlp324000_16x16_4.png": "e3f015786aa3b3f12804397a52fd83c58d5c86474a9824143351a1be33e4d241",
+    "ComputerFind_32x32_4.png": "b74a380f963c22e4e4a8b8bf6f4cfb714c2f1e1a1567818a069e5a6f3448fb47",
+    "ComputerFind_16x16_4.png": "209e6bd23552267a9231679fc8c8349ce5cd882eea0e11d0f4a2c507f0f15fd0",
+    "User1_32x32_4.png": "c8bcc81906f5af58421c039ef5f8f930fcd16d24335fae2f23f20efdf59eb0a7",
+    "User1_16x16_4.png": "efd8c5ee2d79035652888cdc573b56407516d27fde8791588a157b5ba42cea45",
+    "User_32x32_4.png": "3dc22e250f71f8d23bfe634e7d491edcc534a8c774d0730a5e27450d11c93b6a",
+    "User_16x16_4.png": "d56f2a6794cb8bafe57cbc38fab9e953262fcc6609e5b2d8d806813ac565d549",
+    "User2_32x32_4.png": "1029729a686ec91a34474eabc1d0c648f8b78168485601258869af64834eaacb",
+    "Inetcpl1319_32x32_4.png": "c3a1a383e5f1a6da80c88cf32c184399d40cedc6aea5d5bfd85f88d0b9ac48ff",
+    "FolderSettings_32x32_4.png": "42bdccb6383bf1783e4bb2294dc5d6d998ca4e8ec55c5a469fc9ce13da4596b4",
+    "FolderSettings_16x16_4.png": "583547bf21a939d0459b572b662f3b803ecacd71531a6494a8893c137f5cf930",
+    "Shell3216_32x32_4.png": "a0f6666a554fda954f48963de8162dd526d762f0d720b3c2938402f1ed89c17e",
+    "Shell3216_16x16_4.png": "6eca8df14bcfda12b5a59c4d2934a14303a0b883826c65a629f5cffe12e03c5a",
+    "Wordpad_32x32_4.png": "3eaa986d0777dac8a7de41e59c649b4c945b3dde81e6a2f8a2a93a809b5d0b2b",
+    "Wordpad_16x16_4.png": "32aeeb3f1bd3392fdfcc2601e3f1f24743ed897f2cbf300596339253edb9a92d",
+    "MediaVideo_32x32_4.png": "2b7294f854f041101aa09fe57a9ad1333b85eb0a3d18931d655d976e6bea8ad8",
+    "MediaVideo_16x16_4.png": "da643ea43e657cbe44028b0774273c4610fcb02356a5dc4feca29bd1fc9047d0",
+    "Back_16x16_4.png": "c227ffb3ad21804aaad597725e7322bd365becf59d05c0d5e357ff1f52f85904",
+    "MsDos_32x32_32.png": "c2f6f11e61bd3d716752a43517cbb7fdd1de07d51c4d3bf9be3d57a282280a51",
+    "MsDos_16x16_32.png": "48527463bc158f15d9eb1251506fefb364e59e50dd2f85a823f750ff800cc4f6",
+    "Regedit_32x32_4.png": "f9ed475b1f1852108a88b273dd58c4d165e8e2b2b9be75946f8cfcfc4f2518a6",
+    "Regedit_16x16_4.png": "d3f0c82e480ac0961be1b6e889170ddb2f1a84382cec4addd96d6bd443b3fc5b",
+    "FolderExe_32x32_4.png": "e6a7df9f81761ef859d96046fa80fec648c53d80c92e1bc70ba17cab8e315973",
+    "FolderExe_16x16_4.png": "c6b9587fb4d80459d09f6459b657624552b1e0811c77f6af039fc5f98716db7b",
+    "Msnp32WrkgrpIcon_32x32_4.png": "bf47e8b1bdced422cda40319f10080d568b4ae54fd7aeca3fa6525609c192606",
+    "Msnp32WrkgrpIcon_16x16_4.png": "f9e2ead5d79a19bfc9e35684d7abad7066b8c0a0680c77b7b53f2f4939f6eb08",
+    "Msnp32ServerIcon_32x32_4.png": "a0f6666a554fda954f48963de8162dd526d762f0d720b3c2938402f1ed89c17e",
+    "Msnp32ServerIcon_16x16_4.png": "6eca8df14bcfda12b5a59c4d2934a14303a0b883826c65a629f5cffe12e03c5a",
+    "Regedit100_32x32_4.png": "f9ed475b1f1852108a88b273dd58c4d165e8e2b2b9be75946f8cfcfc4f2518a6",
+    "Regedit100_16x16_4.png": "d3f0c82e480ac0961be1b6e889170ddb2f1a84382cec4addd96d6bd443b3fc5b",
+    "Wmsui321000_32x32_4.png": "4a635c50390089bfd7c36cb9bc38f48eedb966cb70b264e84a0d2e1d0af69975",
+    "Wmsui321000_16x16_4.png": "b3774d1259ffcf779ec7d968f2d5684fbafbe5a64c4c7637b2e372aead83d874",
+    "Mspaint_32x32_4.png": "cc22a5bdc3fdc755980f37af8e11c8b08faed0927c94e2e8e6147ce34a11b730",
+    "Mspaint_16x16_4.png": "6a819309e1f72a98b47220849e955c5b20861ddfd7672933ddd4f97f029c3672",
+    "FolderRename_32x32_4.png": "6bdb4871b312d0a867af6bbfbeb786984d424cb3c3fa95112dc87aa9fb232db9",
+    "FolderRename_16x16_4.png": "c538d4dd2e508cb42a00e643c3b2d0ba3dfdb6632ca0eeedc38425c7f00c9b16",
+    "Star_32x32_4.png": "dc0bc8917fda19557d78e367e9877f5789af25988ab327f5d6d112fcdf25fe7b",
+    "Star_16x16_4.png": "59378fcd00aa12d8362a0373ae33fc27145d79fbf2b921ec13bffbbc775dd504",
+    "Inetcpl1301_32x32_4.png": "878c82419d320575228470ca1890f78095e1c7427a785ac327cf222ae9c32988",
+    "Inetcpl1301_16x16_4.png": "f90ed2a04ce8ab325d51fc7923008aa5f06cb4102a7f57fbed0d2492ce6abe54",
+    "Url102_32x32_4.png": "f8c25feae1534e5e1e0cd7d4c9b261152f16e2c091319aad710753cd38ccd7c4",
+    "Url102_16x16_4.png": "4d029a5a9baa440441f502702d8a916ef6795ee9735d28d52a3d1906d54d694d",
+    "Controls3000_32x32_4.png": "e2fe73da1ce1c7067543f6b431afdcb795c1924d3030259a18c5e91a6fa125ec",
+    "Controls3000_16x16_4.png": "8a6903a42a6cf877506f23320993e5abd13af274fcf38d76f82d04ca5a680c38",
+    "Mmsys101_32x32_4.png": "f1cc5ad819965b191c166325fecf833b3f1f050e14a4cdf798b1fb03979b2e51",
+    "Mmsys101_16x16_4.png": "4d438bacfb08f5c3d51e7637363997aede4bfb567ee920259884b38093c7554d",
+    "Main100_32x32_4.png": "a11eab4d0b211a0547bfb51012cfc027de0c2cc6dc5442bb0d38184e4b56d9b6",
+    "Timedate_32x32_4.png": "2ac1da6bc3b7620cb552754bb8c9d4f52ef2faecf06dbfa0459967ac1f2a747d",
+    "Timedate_16x16_4.png": "9f0af2315a27b5fafb794cd443f096ae4a147f8df4c31f61395ae99607f39e6d",
+    "Main500_32x32_4.png": "a95c91ee21911387649347afec8907b5496658b9a4fc6c63921eabc2187c1f86",
+    "Main500_16x16_4.png": "a1b1bd4a323a94f5a9179255e174392a84b5b02ba7d19e313e6c03f030b42740",
+    "Appwiz1500_32x32_4.png": "aaedcb048b3ea7111763626044adf2d3ff733f293c3d5f96f0f4a2cddf745c4e",
+    "Appwiz1500_16x16_4.png": "05518ae9abb4a1cd49c18134ba3f8af71e39b6dff7509a6e875c98c1a4654ff1",
+    "Access110_32x32_4.png": "f1a09a797ad4b1a2d3ad6b24784c03dd068def12a4065e2e54fdc7bea38f3b5b",
+    "Access110_16x16_4.png": "5043051af1eef65913eee4d34ee54894201f6f83863622b0e66a5b0b6c353de4",
+    "Dpmodemx701_32x32_4.png": "6d09da89bd36f189a02b44959836278c81dfc0f347c93719cf9eace5d899f194",
+    "Dpmodemx701_16x16_4.png": "e4467040e98fdd62d4ff380f44a35a215751a084b3a0a06616983e5f136037f8",
+    "Mplayer10_32x32_4.png": "86fbd58be62751badc55de7aae280608a7fe34c684bc062585437bbd40b3330d",
+    "Mplayer10_16x16_4.png": "3d16be434494438561a93a699def773ab5d6f32fddf7ee5faba39771e08b2876",
+    "Defrag_32x32_4.png": "6b8fe20293aaade41246bcd6c4722911d8b2f5d36d9be39dc95a9e08e73c314a",
+    "Defrag_16x16_4.png": "c02ce6a0744a225470794d19c26409fac009351f75c2f86f686f2ea98bef0d4e",
+    "Sol1_32x32_4.png": "bca9e4b90d8585c19174759ef98808407d07b3ee37b83e02bc7eecdfcd5391c8",
+    "Sol1_16x16_4.png": "8c187b53575bd6a607162b9721f3670e33b2af09a3f837f76d4a47386b0b3dd4",
+    "Mmsys116_32x32_4.png": "80e32ce7daa9641a7eead72ee1eb4b6514411f0c7dee2fe5668a8266ec27f1c2",
+    "Mmsys116_16x16_4.png": "dd296f76912257f3cc6b703beb90e8cb260ba5d96628d78dc38fba0d4aa5d5ea",
+    "Printer_32x32_4.png": "77bd6e958568810ef5470b4119e23ff8413096d47ef0c4a9de2504607eaecbd7",
+    "Printer_16x16_4.png": "ab53f29e8f04f57eafa4af68bf625bb0be42a47a7c24b15c4c57a8cdec77b7e5",
+    "Dialmon200_32x32_4.png": "85932fe3aec9225423769d57239bb018427c66a7a185faaaa4395dc84d56b5a4",
+    "Charmap1_32x32_4.png": "a503a0aec320220a3d639f39da21a1c651752eadafc255b830c22cae0c2dadb1",
+    "Charmap1_16x16_4.png": "b380931a1d4837f5ff04525544b4af7cafbab024c13267618cc76226c67749dd",
+    "Progman1_32x32_4.png": "d5e2694e91b5f27a04175baab1d582ab2744035fcfbed439ae5ccb9ffbd138d3",
+    "Scandskw1_32x32_4.png": "be0f856ebb260be30c597dd6b154ca7fa35afa5174dffaad6ebccf2b7ae9efb4",
+    "Scandskw1_16x16_4.png": "b236578f5c2665e55b74a83419fe2702d3ca9aaf24b9144dce30fc8ae78ba999",
+    "Calculator_32x32_4.png": "ee17df2ad037f4bc5bad29f625edea94c37b8a295fb9478972228456ceefaad9",
+    "Calculator_16x16_4.png": "cd9dd1ed367f8ed860d3750ee00cfa8b7f791835d90f6db439e7f593df2e6cad",
+    "Time_16x16_4.png": "24ddf18a7f4e0c1bcb2033b877e6628d360434fd9422733114f96b6ab44d0ed9",
+    "Taskman100_32x32_4.png": "a32c70420655f781ed891b3c090f40b42913b5749a3c1fc431dd6f3db997c571"
+  },
+  "applications": {
+    "home": {
+      "icon": "Inetcpl1301",
+      "small": "Inetcpl1301_16x16_4.png",
+      "large": "Inetcpl1301_32x32_4.png"
+    },
+    "acdsee": {
+      "icon": "MediaVideo",
+      "small": "MediaVideo_16x16_4.png",
+      "large": "MediaVideo_32x32_4.png"
+    },
+    "control-panel": {
+      "icon": "Controls3000",
+      "small": "Controls3000_16x16_4.png",
+      "large": "Controls3000_32x32_4.png"
+    },
+    "sounds": {
+      "icon": "Mmsys101",
+      "small": "Mmsys101_16x16_4.png",
+      "large": "Mmsys101_32x32_4.png"
+    },
+    "mouse": {
+      "icon": "Main100",
+      "small": "Main100_32x32_4.png",
+      "large": "Main100_32x32_4.png"
+    },
+    "date-time": {
+      "icon": "Timedate",
+      "small": "Timedate_16x16_4.png",
+      "large": "Timedate_32x32_4.png"
+    },
+    "system": {
+      "icon": "Main500",
+      "small": "Main500_16x16_4.png",
+      "large": "Main500_32x32_4.png"
+    },
+    "components": {
+      "icon": "Appwiz1500",
+      "small": "Appwiz1500_16x16_4.png",
+      "large": "Appwiz1500_32x32_4.png"
+    },
+    "accessibility": {
+      "icon": "Access110",
+      "small": "Access110_16x16_4.png",
+      "large": "Access110_32x32_4.png"
+    },
+    "modems": {
+      "icon": "Dpmodemx701",
+      "small": "Dpmodemx701_16x16_4.png",
+      "large": "Dpmodemx701_32x32_4.png"
+    },
+    "media-player": {
+      "icon": "Mplayer10",
+      "small": "Mplayer10_16x16_4.png",
+      "large": "Mplayer10_32x32_4.png"
+    },
+    "defrag": {
+      "icon": "Defrag",
+      "small": "Defrag_16x16_4.png",
+      "large": "Defrag_32x32_4.png"
+    },
+    "pixel": {
+      "icon": "Mspaint",
+      "small": "Mspaint_16x16_4.png",
+      "large": "Mspaint_32x32_4.png"
+    },
+    "solitaire": {
+      "icon": "Sol1",
+      "small": "Sol1_16x16_4.png",
+      "large": "Sol1_32x32_4.png"
+    },
+    "sound-recorder": {
+      "icon": "Mmsys116",
+      "small": "Mmsys116_16x16_4.png",
+      "large": "Mmsys116_32x32_4.png"
+    },
+    "print-preview": {
+      "icon": "Printer",
+      "small": "Printer_16x16_4.png",
+      "large": "Printer_32x32_4.png"
+    },
+    "dialup": {
+      "icon": "Dialmon200",
+      "small": "Dialmon200_32x32_4.png",
+      "large": "Dialmon200_32x32_4.png"
+    },
+    "network": {
+      "icon": "Url102",
+      "small": "Url102_16x16_4.png",
+      "large": "Url102_32x32_4.png"
+    },
+    "charmap": {
+      "icon": "Charmap1",
+      "small": "Charmap1_16x16_4.png",
+      "large": "Charmap1_32x32_4.png"
+    },
+    "welcome": {
+      "icon": "Winhlp324000",
+      "small": "Winhlp324000_16x16_4.png",
+      "large": "Winhlp324000_32x32_4.png"
+    },
+    "progman": {
+      "icon": "Progman1",
+      "small": "Progman1_32x32_4.png",
+      "large": "Progman1_32x32_4.png"
+    },
+    "taskbar-settings": {
+      "icon": "FolderSettings",
+      "small": "FolderSettings_16x16_4.png",
+      "large": "FolderSettings_32x32_4.png"
+    },
+    "profile": {
+      "icon": "User",
+      "small": "User_16x16_4.png",
+      "large": "User_32x32_4.png"
+    },
+    "gallery": {
+      "icon": "Inetcpl1319",
+      "small": "Inetcpl1319_32x32_4.png",
+      "large": "Inetcpl1319_32x32_4.png"
+    },
+    "blog": {
+      "icon": "Wordpad",
+      "small": "Wordpad_16x16_4.png",
+      "large": "Wordpad_32x32_4.png"
+    },
+    "skills": {
+      "icon": "Regedit",
+      "small": "Regedit_16x16_4.png",
+      "large": "Regedit_32x32_4.png"
+    },
+    "computer": {
+      "icon": "Computer",
+      "small": "Computer_16x16_4.png",
+      "large": "Computer_32x32_4.png"
+    },
+    "bin": {
+      "icon": "RecycleEmpty",
+      "small": "RecycleEmpty_16x16_4.png",
+      "large": "RecycleEmpty_32x32_4.png"
+    },
+    "train": {
+      "icon": "Sysmon1000",
+      "small": "Sysmon1000_32x32_4.png",
+      "large": "Sysmon1000_32x32_4.png"
+    },
+    "pdoom": {
+      "icon": "User2",
+      "small": "User2_32x32_4.png",
+      "large": "User2_32x32_4.png"
+    },
+    "mines": {
+      "icon": "Winmine1",
+      "small": "Winmine1_16x16_4.png",
+      "large": "Winmine1_32x32_4.png"
+    },
+    "chat": {
+      "icon": "Textchat",
+      "small": "Textchat_16x16_4.png",
+      "large": "Textchat_32x32_4.png"
+    },
+    "calculator": {
+      "icon": "Calculator",
+      "small": "Calculator_16x16_4.png",
+      "large": "Calculator_32x32_4.png"
+    },
+    "clock": {
+      "icon": "Time",
+      "small": "Time_16x16_4.png",
+      "large": "Time_16x16_4.png"
+    },
+    "task-manager": {
+      "icon": "Taskman100",
+      "small": "Taskman100_32x32_4.png",
+      "large": "Taskman100_32x32_4.png"
+    },
+    "notepad": {
+      "icon": "Notepad2",
+      "small": "Notepad2_16x16_4.png",
+      "large": "Notepad2_32x32_4.png"
+    },
+    "display": {
+      "icon": "Computer3",
+      "small": "Computer3_16x16_4.png",
+      "large": "Computer3_32x32_4.png"
+    },
+    "killswitch": {
+      "icon": "User4",
+      "small": "User4_32x32_4.png",
+      "large": "User4_32x32_4.png"
+    },
+    "system-about": {
+      "icon": "User1",
+      "small": "User1_16x16_4.png",
+      "large": "User1_32x32_4.png"
+    },
+    "training": {
+      "icon": "Folder",
+      "small": "Folder_16x16_4.png",
+      "large": "Folder_32x32_4.png"
+    },
+    "postcard": {
+      "icon": "Wmsui321000",
+      "small": "Wmsui321000_16x16_4.png",
+      "large": "Wmsui321000_32x32_4.png"
+    },
+    "recovery": {
+      "icon": "Scandskw1",
+      "small": "Scandskw1_16x16_4.png",
+      "large": "Scandskw1_32x32_4.png"
+    },
+    "connection": {
+      "icon": "Msnp32WrkgrpIcon",
+      "small": "Msnp32WrkgrpIcon_16x16_4.png",
+      "large": "Msnp32WrkgrpIcon_32x32_4.png"
+    },
+    "diagnostics": {
+      "icon": "MsDos",
+      "small": "MsDos_16x16_32.png",
+      "large": "MsDos_32x32_32.png"
+    },
+    "lab": {
+      "icon": "Shell323",
+      "small": "Shell323_16x16_4.png",
+      "large": "Shell323_32x32_4.png"
+    },
+    "$saveas": {
+      "icon": "Notepad2",
+      "small": "Notepad2_16x16_4.png",
+      "large": "Notepad2_32x32_4.png"
+    },
+    "about": {
+      "icon": "User",
+      "small": "User_16x16_4.png",
+      "large": "User_32x32_4.png"
+    }
+  }
+}

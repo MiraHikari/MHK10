@@ -1,0 +1,12 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+const { class: className = '', ...attributes } = Astro.props;
+---
+
+<footer role="status" class:list={['hybrid-status', className]} {...attributes}>
+  <slot />
+</footer>

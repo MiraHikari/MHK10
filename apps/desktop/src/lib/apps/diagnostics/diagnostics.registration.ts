@@ -1,0 +1,15 @@
+export const registration = {
+  id: 'diagnostics',
+  name: 'Diagnostics',
+  icon: 'terminal',
+  kind: 'canvas',
+  route: '/apps/diagnostics/',
+  title: 'Diagnostics - DOS / Signal Monitor',
+  w: 510,
+  h: 300,
+  x: 76,
+  y: 20,
+  menu: 'Programs',
+  register: 'L1',
+  startMenuFolder: 'system-tools',
+} as const;

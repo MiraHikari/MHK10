@@ -1,0 +1,27 @@
+---
+import { redirectedArticlePath } from '../../../data/article-redirects';
+
+const path = redirectedArticlePath(Astro.url.pathname);
+if (!path) throw new Error(`No retired article redirect for ${Astro.url.pathname}`);
+const destination = new URL(path, Astro.site);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>文章已调整 · MHK10</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={destination} />
+    <meta http-equiv="refresh" content={`0;url=${path}`} />
+  </head>
+  <body>
+    <main>
+      <h1>这篇文章已撤下</h1>
+      <p>
+        当前站点的介绍已整理到<a href={path}>MHK10 技术说明</a>。
+      </p>
+    </main>
+  </body>
+</html>

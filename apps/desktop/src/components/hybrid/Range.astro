@@ -1,0 +1,23 @@
+---
+interface Props {
+  label: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  value?: number;
+  disabled?: boolean;
+  [key: string]: unknown;
+}
+const { label, min = 0, max = 100, step = 1, value = 0, ...attributes } = Astro.props;
+---
+
+<input
+  type="range"
+  class="hybrid-range"
+  aria-label={label}
+  min={min}
+  max={max}
+  step={step}
+  value={value}
+  {...attributes}
+/>

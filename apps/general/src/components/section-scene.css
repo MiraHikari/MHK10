@@ -1,0 +1,21 @@
+@keyframes section-scene-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-scene-ready='true'] > .section-scene__heading,
+[data-scene-ready='true'] .section-scene__heading,
+.section-scene__masthead[data-scene-ready='true'] {
+  animation: section-scene-enter var(--scene-enter-duration) var(--ease-brand) both;
+}
+
+[data-scene-ready='true'] .section-scene__content {
+  animation: section-scene-enter var(--scene-enter-duration) var(--scene-content-delay)
+    var(--ease-brand) both;
+}

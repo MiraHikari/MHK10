@@ -1,0 +1,15 @@
+export const registration = {
+  id: 'pdoom',
+  name: 'P(doom) Properties',
+  icon: 'doom',
+  kind: 'canvas',
+  route: '/apps/pdoom/',
+  title: 'P(doom) Properties',
+  w: 310,
+  h: 136,
+  x: 170,
+  y: 204,
+  menu: 'Settings',
+  desktop: ['canvas'],
+  shortcut: true,
+} as const;

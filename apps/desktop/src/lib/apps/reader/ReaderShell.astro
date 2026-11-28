@@ -1,0 +1,652 @@
+---
+import MenuBar from '../../../components/hybrid/MenuBar.astro';
+import Toolbar from '../../../components/hybrid/Toolbar.astro';
+import Button from '../../../components/hybrid/Button.astro';
+import Select from '../../../components/hybrid/Select.astro';
+import Dialog from '../../../components/hybrid/Dialog.astro';
+import StatusBar from '../../../components/hybrid/StatusBar.astro';
+import Tabs from '../../../components/hybrid/Tabs.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import Discussion from '../../../components/Discussion.astro';
+import { READING_PACE } from './reader-statistics-model';
+import { READING_LIMITS } from '@mhk/site-core/fusion/reading-limits';
+import './reader.css';
+import sharedProfile from '@mhk/site-core/content-model/profile-data';
+interface Publication {
+  id: string;
+  title: string;
+  description: string;
+  body: string;
+  published: string;
+  updated?: string;
+  sourceArchive?: string;
+  aiLevel?: string;
+  aiModel?: string;
+  category?: string;
+  tags?: string[];
+  comments?: boolean;
+  author?: string;
+  related?: string[];
+  series?: string;
+  seriesOrder?: number;
+  version?: string;
+  updates?: { version: string; date: string; summary: string }[];
+}
+interface Props {
+  publication?: Publication;
+  headings?: { depth: number; slug: string; text: string }[];
+}
+const { publication, headings = [] } = Astro.props;
+---
+
+<main class="reader" id="microsoft-reader" data-reading={!!publication}>
+  <MenuBar label="Reader menus" lang="en">
+    <details>
+      <summary>File</summary>
+      <div>
+        <a href="/blog/">Library</a>
+        <Button data-reader-initializing disabled data-reader-command="properties" data-needs-book>
+          Book properties
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="print" data-needs-book>
+          Print…
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="export-book" data-needs-book>
+          Export text…
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="copy-link" data-needs-book>
+          Copy link
+        </Button>
+        <Button
+          data-reader-initializing
+          disabled
+          data-reader-command="copy-citation"
+          data-needs-book
+        >
+          Copy citation
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="save-notes" data-needs-book>
+          Save notes as…
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="export-notebook">
+          Export notebook…
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="backup-notebook">
+          Back up notebook…
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="import-notebook">
+          Import notebook…
+        </Button>
+      </div>
+    </details>
+    <details>
+      <summary>View</summary>
+      <div>
+        <Button data-reader-initializing disabled data-reader-command="jump" data-needs-book>
+          Jump to… · Ctrl+K
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="contents" data-needs-book>
+          Contents
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="notebook" data-needs-book>
+          Annotations
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="options">
+          Options…
+        </Button>
+        <Button
+          data-reader-initializing
+          disabled
+          data-reader-command="focus"
+          data-needs-book
+          aria-pressed="false"
+        >
+          Focus reading · F9
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="fullscreen">
+          Full screen
+        </Button>
+      </div>
+    </details>
+    <details>
+      <summary>Tools</summary>
+      <div>
+        <Button data-reader-initializing disabled data-reader-command="find" data-needs-book>
+          Find in book…
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="bookmark" data-needs-book>
+          Bookmark this page
+        </Button>
+        <Button
+          data-reader-initializing
+          data-reader-command="highlight"
+          data-needs-selection
+          disabled
+        >
+          Highlight selected text
+        </Button>
+        <Button data-reader-initializing disabled data-reader-command="note" data-needs-book>
+          Add note…
+        </Button>
+      </div>
+    </details>
+    <details>
+      <summary>Help</summary>
+      <div>
+        <Button data-reader-initializing disabled data-reader-command="help">
+          Reader Help
+        </Button>
+      </div>
+    </details>
+    <div class="reader-brand">
+      <strong lang="en">MHK10 Reader</strong>
+      <span class="reader-book-name" id="reader-book-name" lang="">
+        {publication?.title ?? 'Library'}
+      </span>
+    </div>
+  </MenuBar>
+  <Toolbar label="Reader tools" class="reader-tools" data-hybrid-toolbar lang="en">
+    <div class="reader-tool-group" role="group" aria-label="Navigate">
+      <a href="/blog/" class="reader-library-link" aria-label="Library" title="Library">
+        <PixelIcon name="folder" size={16} />
+        <span class="reader-tool-label">Library</span>
+      </a>
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="contents"
+        data-needs-book
+        aria-label="Contents"
+        title="Contents"
+        aria-controls="reader-sidebar"
+        aria-expanded="false"
+        aria-pressed="false"
+      >
+        <PixelIcon name="details" size={16} />
+        <span class="reader-tool-label">Contents</span>
+      </Button>
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="jump"
+        data-needs-book
+        aria-label="Jump to"
+        title="Jump to · Ctrl+K"
+        aria-keyshortcuts="Control+k Meta+k"
+      >
+        <PixelIcon name="next" size={16} />
+        <span class="reader-tool-label">Jump to</span>
+      </Button>
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="find"
+        data-needs-book
+        aria-label="Find"
+        title="Find in book · Ctrl+F"
+        aria-keyshortcuts="Control+f Meta+f"
+      >
+        <PixelIcon name="find" size={16} />
+        <span class="reader-tool-label">Find</span>
+      </Button>
+      {publication && publication.comments !== false && (
+        <Button data-comments-open="reader-comments" aria-label="Discussion" title="Discussion">
+          <PixelIcon name="mail" size={16} />
+          <span class="reader-tool-label">Discussion</span>
+        </Button>
+      )}
+    </div>
+    <div class="reader-tool-group" role="group" aria-label="Annotate">
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="bookmark"
+        data-needs-book
+        aria-label="Bookmark"
+        title="Bookmark this page · Ctrl+D"
+        aria-keyshortcuts="Control+d Meta+d"
+      >
+        <PixelIcon name="star" size={16} />
+        <span class="reader-tool-label">Bookmark</span>
+      </Button>
+      <Button
+        data-reader-initializing
+        data-reader-command="highlight"
+        data-needs-selection
+        disabled
+        aria-label="Highlight"
+        title="Highlight selected text"
+      >
+        <PixelIcon name="palette" size={16} />
+        <span class="reader-tool-label">Highlight</span>
+      </Button>
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="note"
+        data-needs-book
+        aria-label="Note"
+        title="Add a note"
+      >
+        <PixelIcon name="name" size={16} />
+        <span class="reader-tool-label">Note</span>
+      </Button>
+    </div>
+    <div class="reader-tool-group" role="group" aria-label="Reading view">
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="notebook"
+        data-needs-book
+        aria-label="Notebook"
+        title="Bookmarks and notes"
+        aria-controls="reader-sidebar"
+        aria-expanded="false"
+        aria-pressed="false"
+      >
+        <PixelIcon name="doc" size={16} />
+        <span class="reader-tool-label">Notebook</span>
+      </Button>
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="options"
+        aria-label="Reading options…"
+        title="Reading options"
+        aria-haspopup="dialog"
+        aria-controls="reader-options"
+      >
+        <PixelIcon name="controls" size={16} />
+        <span class="reader-tool-label">Options</span>
+      </Button>
+      <Button
+        data-reader-initializing
+        disabled
+        data-reader-command="focus"
+        data-needs-book
+        aria-label="Focus reading"
+        title="Focus reading · F9"
+        aria-keyshortcuts="F9"
+        aria-pressed="false"
+      >
+        <PixelIcon name="display" size={16} />
+        <span class="reader-tool-label">Focus</span>
+      </Button>
+    </div>
+  </Toolbar>
+  <section id="reader-library" class="reader-library" hidden={!!publication}>
+    <details id="reader-recent" class="reader-recent" hidden>
+      <summary lang="en">Recently opened</summary>
+      <ol id="reader-recent-items"></ol>
+    </details>
+    <slot name="library" />
+  </section>
+  <div id="reader-workspace" class="reader-workspace" hidden={!publication}>
+    <aside id="reader-sidebar" class="reader-sidebar" hidden>
+      <div class="reader-sidebar-heading" lang="en">
+        <span>Navigation</span>
+        <Button
+          data-reader-initializing
+          disabled
+          data-reader-command="close-sidebar"
+          aria-label="Close navigation"
+          title="Close navigation · Esc"
+        >
+          ×
+        </Button>
+      </div>
+      <Tabs label="Reader navigation" lang="en">
+        <Button
+          id="reader-contents-tab"
+          role="tab"
+          aria-selected="true"
+          aria-controls="reader-contents-panel"
+          data-reader-tab="contents"
+        >
+          Contents
+        </Button>
+        <Button
+          id="reader-notebook-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="reader-notebook-panel"
+          data-reader-tab="notebook"
+          tabindex="-1"
+        >
+          Notebook
+        </Button>
+      </Tabs>
+      <nav id="reader-contents-panel" role="tabpanel" aria-labelledby="reader-contents-tab">
+        <ol id="reader-contents">
+          {headings
+            .filter((heading) => heading.depth >= 2 && heading.depth <= 3)
+            .map((heading) => (
+              <li data-depth={heading.depth}>
+                <a href={`#${heading.slug}`} data-reader-anchor={heading.slug}>
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+        </ol>
+      </nav>
+      <section
+        id="reader-notebook-panel"
+        role="tabpanel"
+        aria-labelledby="reader-notebook-tab"
+        hidden
+      >
+        <div id="reader-bookmarks"></div>
+        <div id="reader-notes"></div>
+      </section>
+    </aside>
+    <div id="reader-viewport" class="reader-viewport" tabindex="0" aria-label="Reading area">
+      <article id="reader-flow" class="reader-flow" lang={publication ? undefined : ''}>
+        {publication && (
+          <header class="reader-book-header">
+            <h1>{publication.title}</h1>
+            <p lang="en">
+              {publication.category && (
+                <span
+                  class="reader-category"
+                  data-category={publication.category}
+                  lang={/[㐀-鿿]/.test(publication.category) ? 'zh-CN' : 'en'}
+                >
+                  {publication.category}
+                </span>
+              )}
+              <time datetime={publication.published}>{publication.published.slice(0, 10)}</time>
+              {publication.updated && <span> · Updated {publication.updated.slice(0, 10)}</span>}
+              {publication.aiLevel === 'generated' && (
+                <span> · AI-generated{publication.aiModel && ` · ${publication.aiModel}`}</span>
+              )}
+            </p>
+          </header>
+        )}
+        {publication?.sourceArchive && (
+          <aside class="archive-note">
+            原站文章存档 · {(publication.updated ?? publication.published).slice(0, 10)}。
+            现行内容以本页修订记录为准，照片保留来源图注与拍摄时间。
+          </aside>
+        )}
+        <div class="prose reader-prose" id="reader-prose">
+          <slot />
+        </div>
+      </article>
+    </div>
+  </div>
+  <StatusBar class="reader-status" lang="en">
+    <Button
+      data-reader-initializing
+      disabled
+      data-reader-command="previous"
+      data-needs-book
+      aria-label="Previous page"
+    >
+      ◀
+    </Button>
+    <label for="reader-page">Page</label>
+    <input id="reader-page" type="number" min="1" value="1" aria-label="Go to page" />
+    <span id="reader-page-total">of 1</span>
+    <Button
+      data-reader-initializing
+      disabled
+      data-reader-command="next"
+      data-needs-book
+      aria-label="Next page"
+    >
+      ▶
+    </Button>
+    <span id="reader-progress"></span>
+    <progress id="reader-progress-bar" max="100" value="0" aria-label="Reading progress"></progress>
+    <span
+      id="reader-estimate"
+      aria-label="Estimated remaining reading time"
+      hidden={!publication}
+    ></span>
+    <span id="reader-feedback" role="status"></span>
+  </StatusBar>
+  <Dialog id="reader-jump" title="Jump To" lang="en">
+    <form id="reader-jump-form">
+      <label for="reader-jump-query">Find a destination</label>
+      <input
+        id="reader-jump-query"
+        type="search"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-controls="reader-jump-results"
+        aria-describedby="reader-jump-count"
+        maxlength="200"
+        autocomplete="off"
+        placeholder="Chapter, bookmark, note or command"
+      />
+      <div id="reader-jump-results" role="listbox" aria-label="Jump destinations"></div>
+      <p id="reader-jump-count" role="status"></p>
+    </form>
+    <Button id="reader-jump-go" slot="actions" type="submit" form="reader-jump-form" disabled>
+      Go to
+    </Button>
+    <Button slot="actions" data-reader-navigation-close>
+      Cancel
+    </Button>
+  </Dialog>
+  <Dialog id="reader-options" title="Reading Options" lang="en">
+    <label for="reader-rendering">Text rendering</label>
+    <Select id="reader-rendering">
+      <option value="pixel">Pixel font</option>
+      <option value="smooth">Smooth font</option>
+    </Select>
+    <label for="reader-layout">Layout</label>
+    <Select id="reader-layout">
+      <option value="scroll">Scroll</option>
+      <option value="pages">Pages</option>
+    </Select>
+    <label for="reader-font">Text size</label>
+    <Select id="reader-font">
+      <option value="12">100% · 12 px</option>
+      <option value="24">200% · 24 px</option>
+      <option value="36">300% · 36 px</option>
+    </Select>
+    <label for="reader-spacing">Line spacing</label>
+    <Select id="reader-spacing">
+      <option value="compact">Compact</option>
+      <option value="normal">Normal</option>
+      <option value="wide">Wide</option>
+    </Select>
+    <label for="reader-width">Reading width</label>
+    <Select id="reader-width">
+      <option value="wide">Full width</option>
+      <option value="comfortable">Comfortable</option>
+      <option value="narrow">Narrow</option>
+    </Select>
+    <label for="reader-zoom">Zoom</label>
+    <Select id="reader-zoom">
+      <option value="50">50%</option>
+      <option value="75">75%</option>
+      <option value="100">100%</option>
+      <option value="125">125%</option>
+      <option value="150">150%</option>
+      <option value="175">175%</option>
+      <option value="200">200%</option>
+      <option value="225">225%</option>
+      <option value="250">250%</option>
+      <option value="275">275%</option>
+      <option value="300">300%</option>
+    </Select>
+    <label for="reader-theme">Theme</label>
+    <Select id="reader-theme">
+      <option value="paper">Paper</option>
+      <option value="sepia">Sepia</option>
+      <option value="night">Night</option>
+      <option value="contrast">Contrast</option>
+    </Select>
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="close-options">
+      OK
+    </Button>
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="reset-options">
+      Reset view
+    </Button>
+  </Dialog>
+  <input
+    id="reader-import-file"
+    type="file"
+    accept="application/json,.json"
+    aria-label="Import Reader notebook"
+    hidden
+  />
+  <Dialog id="reader-find" title="Find in Book" lang="en">
+    <form id="reader-find-form">
+      <label for="reader-query">Find what</label>
+      <input id="reader-query" type="search" maxlength="200" autocomplete="off" />
+      <Button type="submit">Find</Button>
+      <label>
+        <input id="reader-match-case" type="checkbox" /> Match case
+      </label>
+    </form>
+    <p id="reader-find-count" role="status"></p>
+    <ol id="reader-find-results"></ol>
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="close-find">
+      Close
+    </Button>
+  </Dialog>
+  <Dialog id="reader-note" title="Text Note" lang="en">
+    <label for="reader-note-quote">Selected text</label>
+    <textarea id="reader-note-quote" rows="3" readonly lang=""></textarea>
+    <label for="reader-note-text">Note</label>
+    <textarea id="reader-note-text" rows="4" maxlength={READING_LIMITS.noteText} lang=""></textarea>
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="save-note">
+      Save
+    </Button>
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="close-note">
+      Cancel
+    </Button>
+  </Dialog>
+  <Dialog id="reader-properties" title="Book Properties" lang="en">
+    <input id="reader-copy-address" aria-label="Article link" readonly hidden />
+    <dl id="reader-book-info">
+      <dt>Title</dt>
+      <dd id="reader-info-title" lang={publication ? 'zh-CN' : ''}>
+        {publication?.title ?? ''}
+      </dd>
+      <dt>Body text</dt>
+      <dd id="reader-info-text">—</dd>
+      <dt>Est. reading</dt>
+      <dd id="reader-info-estimate">—</dd>
+      {publication && (
+        <>
+          <dt>Author</dt>
+          <dd>{publication.author ?? sharedProfile.profile.name}</dd>
+          <dt>Published</dt>
+          <dd>{publication.published.slice(0, 10)}</dd>
+          {publication.updated && (
+            <>
+              <dt>Updated</dt>
+              <dd>{publication.updated.slice(0, 10)}</dd>
+            </>
+          )}
+          {publication.category && (
+            <>
+              <dt>Category</dt>
+              <dd>{publication.category}</dd>
+            </>
+          )}
+          {publication.version && (
+            <>
+              <dt>Version</dt>
+              <dd>{publication.version}</dd>
+            </>
+          )}
+          {publication.tags?.length && (
+            <>
+              <dt>Tags</dt>
+              <dd lang="zh-CN">{publication.tags.join(', ')}</dd>
+            </>
+          )}
+          {publication.aiLevel && (
+            <>
+              <dt>Authorship</dt>
+              <dd>
+                {publication.aiLevel === 'human'
+                  ? 'Human-written'
+                  : publication.aiLevel === 'generated'
+                    ? 'AI-generated'
+                    : 'AI-assisted'}
+                {publication.aiModel && ` · ${publication.aiModel}`}
+              </dd>
+            </>
+          )}
+        </>
+      )}
+    </dl>
+    <p class="reader-estimate-method">
+      Estimates assume {READING_PACE.wordsPerMinute} words or
+      {READING_PACE.cjkCharactersPerMinute} CJK characters per minute. Images are not timed.
+      Remaining time uses the current position, not measured reading activity.
+    </p>
+    {publication?.updates?.length && (
+      <details class="reader-revisions">
+        <summary>Revision history</summary>
+        <ul>
+          {publication.updates.map((update) => (
+            <li>
+              <strong>{update.version}</strong> · <time>{update.date.slice(0, 10)}</time>
+              <p lang="zh-CN">{update.summary}</p>
+            </li>
+          ))}
+        </ul>
+      </details>
+    )}
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="close-properties">
+      OK
+    </Button>
+  </Dialog>
+  <Dialog id="reader-help" title="MHK10 Reader Help" lang="en">
+    <p>
+      Open a title in Library to read it. Contents lists its chapters. Reading Options changes text
+      size, spacing and page or scroll layout.
+    </p>
+    <p>
+      Page Up / Page Down turn pages. Home / End go to the beginning or end. Select text, then
+      choose Highlight or Note. Notebook keeps bookmarks and annotations separately from the book.
+    </p>
+    <p>
+      Ctrl+K opens Jump To: search chapters, bookmarks, notes and Reader commands. Use Up / Down and
+      Enter to choose, or Escape to return. Ctrl+F finds text; F3 / Shift+F3 move through matches.
+      Ctrl+D bookmarks the current page. Ctrl+Plus / Ctrl+Minus zoom the text; Ctrl+0 restores 100%.
+      Escape hides the side panel. F9 toggles Focus reading; Escape returns to the full controls.
+    </p>
+    <p>
+      Reading progress, text rendering and reading options are saved locally. Discussion opens
+      GitHub Discussions in a themed window that follows the current colour scheme. Privacy opens
+      the Privacy article. Export notebook creates readable Markdown. Back up notebook creates a
+      JSON file that Import notebook can merge with existing bookmarks and notes. Repeated imports
+      skip duplicates; different notes are kept. Save notes as writes a text document through the
+      desktop file service. Copy citation places a portable title, author and canonical link on the
+      clipboard.
+    </p>
+    <Button data-reader-initializing disabled slot="actions" data-reader-command="close-help">
+      OK
+    </Button>
+  </Dialog>
+  {publication && publication.comments !== false && (
+    <Discussion id="reader-comments" term={publication.id} title="Discussion" />
+  )}
+  <script
+    type="application/json"
+    id="reader-publication"
+    set:html={JSON.stringify(publication ?? null).replace(/</g, '\\u003c')}
+  />
+</main>
+<script>
+  import { FUSION_QUERY } from '@mhk/site-core/fusion/protocol-model';
+  import { mountReader } from './reader';
+  import { mountHtmlApp } from '../../os/host/html-app-services';
+  const root = document.querySelector<HTMLElement>('#microsoft-reader');
+  if (
+    root &&
+    window.self !== window.top &&
+    new URLSearchParams(location.search).get(FUSION_QUERY.shell) !== FUSION_QUERY.full
+  ) {
+    mountHtmlApp((nativeFiles) => mountReader(root, nativeFiles));
+  }
+</script>

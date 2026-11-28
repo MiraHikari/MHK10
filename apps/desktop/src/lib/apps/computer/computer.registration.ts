@@ -1,0 +1,17 @@
+export const registration = {
+  id: 'computer',
+  name: 'My Computer',
+  icon: 'computer',
+  kind: 'canvas',
+  route: '/apps/computer/',
+  title: 'My Computer',
+  w: 404,
+  h: 284,
+  x: 94,
+  y: 18,
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  startMenuFolder: 'accessories',
+  runAliases: ['explorer'],
+  assistantVerbs: ['documents', 'files'],
+} as const;

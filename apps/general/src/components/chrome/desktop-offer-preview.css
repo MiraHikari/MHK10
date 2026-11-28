@@ -1,0 +1,34 @@
+/* ============================================================================
+   desktop-offer-preview.css — live 640×360 miniature inside the recommendation.
+   Everything is a 16-colour fill; the only interaction is dragging the title
+   bar or pressing Start. Decorative for assistive tech.
+   ========================================================================== */
+
+.desktop-preview {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 2px solid var(--win95-silver);
+  background: var(--win95-desktop);
+  font-family: var(--font-mono);
+  touch-action: none;
+  user-select: none;
+}
+
+.desktop-preview[data-draggable='true'] {
+  cursor: grab;
+}
+
+.desktop-preview[data-draggable='true']:active {
+  cursor: grabbing;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-preview {
+    cursor: default;
+  }
+}
+
+html.motion-suppressed .desktop-preview {
+  cursor: default;
+}

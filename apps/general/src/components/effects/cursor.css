@@ -1,0 +1,25 @@
+/* ============================================================================
+   cursor.css — 自定义光标（Cursor.tsx）的静态初始样式与过渡。
+   运行时的位置 / 尺寸 / 颜色由组件内 JS 直接写入 style；这里只承载
+   初始尺寸、配色与过渡（静态值不留在 React style 中）。
+   ========================================================================== */
+
+.pf-cursor {
+  width: 14px;
+  height: 14px;
+  background-color: var(--section-accent);
+  border-color: var(--ink-on-dark-strong);
+  color: var(--ink-on-dark-strong);
+  transition:
+    width 0.18s ease,
+    height 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease,
+    box-shadow 0.18s ease;
+  will-change: transform;
+}
+
+.pf-cursor__label {
+  transition: opacity 0.14s ease;
+}

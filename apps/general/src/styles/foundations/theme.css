@@ -1,0 +1,85 @@
+/* ============================================================================
+   theme.css — Tailwind 4 语义类映射。
+   把 tokens.css 的静态 token 映射为 Tailwind 语义类（颜色 / 字体 / 字号 /
+   字距 / 间距 / 圆角 / 阴影），供组件直接使用。token 值一律来自 tokens.css。
+   ========================================================================== */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* 中性色阶（tokens.css） */
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-910: var(--neutral-910);
+  --color-neutral-925: var(--neutral-925);
+  --color-neutral-950: var(--neutral-950);
+  --color-neutral-975: var(--neutral-975);
+  /* 深色界面文本层级 */
+  --color-ink-on-dark: var(--ink-on-dark);
+  --color-ink-on-dark-strong: var(--ink-on-dark-strong);
+  /* 固定 accent 蓝与代码块表面 */
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-bright: var(--accent-blue-bright);
+  --color-accent-blue-strong: var(--accent-blue-strong);
+  --color-code-bg: var(--code-bg);
+  /* 阴影层级 */
+  --shadow-panel: var(--shadow-panel);
+  --shadow-panel-light: var(--shadow-panel-light);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-lift: var(--shadow-lift);
+  /* Latin 展示字无 CJK 字形时，统一落到 HarmonyOS / 系统无衬线。 */
+  --font-cjk-fallback:
+    var(--font-harmonyos), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-space-grotesk), var(--font-cjk-fallback);
+  --font-mono:
+    var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace,
+    var(--font-cjk-fallback);
+  --font-serif:
+    var(--font-instrument-serif), ui-serif, Georgia, Cambria, 'Times New Roman', serif,
+    var(--font-cjk-fallback);
+  --color-accent-base: var(--section-accent);
+  --color-accent-soft: var(--section-accent-soft);
+  --color-accent-ink: var(--section-accent-ink);
+  --color-accent-on: var(--section-accent-on);
+  --color-accent-line: color-mix(in srgb, var(--section-accent) 34%, transparent);
+  --color-accent-wash: color-mix(in srgb, var(--section-accent) 7%, transparent);
+  /* 字号 token（固定值定义在 tokens.css，响应式覆盖见 base.css） */
+  --text-display-m: var(--text-display-m);
+  --text-display-m--line-height: var(--text-display-m--line-height);
+  --text-caption: var(--text-caption);
+  --text-micro: var(--text-micro);
+  /* 标签字距（mono eyebrow 语言的刻意留白；正文字距统一为 0） */
+  --tracking-label: var(--tracking-label);
+  --tracking-eyebrow: var(--tracking-eyebrow);
+  --tracking-mono: var(--tracking-mono);
+  --spacing-band: 1.5rem;
+  --spacing-band-lg: 2.5rem;
+  --spacing-stack: 1.25rem;
+}

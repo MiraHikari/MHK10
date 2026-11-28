@@ -1,0 +1,146 @@
+[
+  {
+    "title": "星闪工具箱 (NearLink Toolbox)",
+    "description": "一站式串口通信解决方案，基于 Rust 和 Tauri 构建，曾获得开发者社区年度盛典卓越社区价值贡献奖。",
+    "image": "/images/projects/nearlink-toolbox.webp",
+    "tags": ["Rust", "Tauri", "NearLink", "Desktop"],
+    "featured": true,
+    "link": "https://example.com/nearlink-toolbox",
+    "github": "https://github.com/example-org/nearlink-toolbox",
+    "date": "2024-12-14",
+    "order": 1,
+    "id": "nearlink-toolbox",
+    "active": true,
+    "highlights": [
+      "使用 Rust 和 Tauri 构建跨平台桌面工具",
+      "集成海思官方工具和开源方案",
+      "支持图形化操作、固件管理和开发者生态扩展"
+    ]
+  },
+  {
+    "title": "xEngine · 差分机",
+    "description": "创客聚会 2026 黑客松作品——Injective EVM 测试网上的自然语言投保 dApp：AI 风险问卷、Polymarket 检索、三档方案组合、USDC 保费支付、预言机自动结算赔付。",
+    "image": "/images/projects/xengine.webp",
+    "tags": ["Web3", "Injective EVM", "AI Agent", "FastAPI", "React"],
+    "featured": true,
+    "link": "https://example.com/gallery/projects/xengine",
+    "github": "https://github.com/example-org/xengine",
+    "date": "2026-07-26",
+    "order": 2,
+    "id": "xengine",
+    "active": true,
+    "highlights": [
+      "自然语言投保流程：AI 风险问卷 → 检索 Polymarket → 组合三档投保方案",
+      "Injective EVM 测试网部署 PolicyVault / OutcomeOracle / PolicyNFT / MockUSDC，使用 Foundry 与 Solidity 完成 fund → open → settle 全链路实测",
+      "React 19 + Vite + Tailwind v4 + viem + TanStack Query 前端；FastAPI + SQLAlchemy async + Celery + Redis + Supabase 后端",
+      "DeepSeek 多智能体、Polymarket Gamma API、自托管 WorldMonitor、博查、PandaAI 与 Rokid CXR-L 共同构成情报和交互层"
+    ]
+  },
+  {
+    "title": "零废弃智能水质巡航清洁船",
+    "description": "面向中小型静水场景的低成本无人清洁船原型，融合水质监测、AI 漂浮垃圾识别、自动打捞与远程数据平台。",
+    "image": "/images/projects/water-cleaning-usv.webp",
+    "tags": ["TypeScript", "C++", "MQTT", "HuskyLens", "USV"],
+    "featured": true,
+    "github": "https://github.com/example-org/school-ai-club/water-cleaning-usv",
+    "date": "2026-07-11",
+    "order": 3,
+    "link": "https://github.com/example-org/school-ai-club/water-cleaning-usv",
+    "id": "water-cleaning-usv",
+    "active": true,
+    "highlights": [
+      "以约 2000 元的消费级硬件实现低成本水质巡航与漂浮垃圾清理",
+      "通过 HuskyLens 识别垃圾，结合浊度等传感器、差速推进和舵机打捞机构",
+      "使用 MQTT 上报遥测数据，并由 React 数据面板提供状态可视化与远程控制"
+    ]
+  },
+  {
+    "title": "示例博物馆智能打卡工具",
+    "description": "基于 UNIHIKER K10 的博物馆展项打卡与中文 AI 导览原型，包含 PlatformIO 固件、ASR 服务和展示资料。",
+    "image": "/images/projects/daka.webp",
+    "tags": ["C++", "PlatformIO", "UNIHIKER", "AI Guide"],
+    "featured": false,
+    "github": "https://github.com/example-org/school-ai-club/daka",
+    "date": "2026-06-14",
+    "order": 4,
+    "link": "https://github.com/example-org/school-ai-club/daka",
+    "id": "daka",
+    "active": true,
+    "highlights": [
+      "使用行空板 K10 和 ESP32-S3 生态完成硬件交互",
+      "包含 MQTT、中文语音识别和徽章展示页面",
+      "参加 2026 年市级青少年创客与机器人大赛"
+    ]
+  },
+  {
+    "title": "Cloudflare Vmail",
+    "description": "一个基于 Cloudflare 的开源临时邮箱工具，关注隐私友好、无需注册和开箱即用。",
+    "image": "/images/projects/cloudflare-vmail.webp",
+    "tags": ["Cloudflare", "Email", "Open Source", "Serverless"],
+    "featured": false,
+    "link": "https://example.com",
+    "github": "https://github.com/MiraHikari/cloudflare-vmail",
+    "date": "2024-10-03",
+    "order": 5,
+    "id": "cloudflare-vmail",
+    "active": true,
+    "highlights": [
+      "基于 Cloudflare Workers 与 D1，Serverless 架构",
+      "临时邮箱收发、自定义别名与多域名支持",
+      "无需注册，部署配置与代码一同公开"
+    ]
+  },
+  {
+    "title": "Riddle Town Hunt 2",
+    "description": "以 Puzzle Hunt 形式举办的公开解密活动，包含页面设计、账户系统和活动系统建设。",
+    "image": "/images/projects/riddle-town-hunt.webp",
+    "tags": ["Astro", "WordPress", "Puzzle Hunt", "Full Stack"],
+    "link": "https://rth2.example.com/",
+    "date": "2023-01-01",
+    "order": 6,
+    "featured": false,
+    "id": "riddle-town-hunt",
+    "active": true,
+    "highlights": [
+      "以 Puzzle Hunt 形式组织线上一体化解谜",
+      "使用 WordPress 管理内容与账户",
+      "吸引超过 1000 名用户参与，覆盖前端、后端与数据库设计"
+    ]
+  },
+  {
+    "title": "寻星 Xunxing",
+    "description": "基于 UNIHIKER M10 的生涯探索成长工作站，结合 RIASEC 兴趣卡片、HuskyLens 识别和 AI 大模型生成个性化成长报告。",
+    "image": "/images/projects/xunxing.webp",
+    "tags": ["Python", "UNIHIKER", "AI", "RIASEC"],
+    "featured": false,
+    "github": "https://github.com/example-org/school-ai-club/xunxing",
+    "date": "2026-06-28",
+    "order": 7,
+    "link": "https://github.com/example-org/school-ai-club/xunxing",
+    "id": "xunxing",
+    "active": true,
+    "highlights": [
+      "使用行空板 M10 承担 UI、流程编排和本地报告展示",
+      "通过 HuskyLens 识别 RIASEC 职业兴趣卡片",
+      "接入大模型、语音识别和图像生成能力输出成长建议"
+    ]
+  },
+  {
+    "title": "NLChat WebUI",
+    "description": "基于 Web Serial API 的浏览器串口通信工具，以聊天式界面提供实时数据收发、串口参数配置、多格式显示和日志管理。",
+    "image": "/images/projects/nlchat-webui.webp",
+    "tags": ["React", "TypeScript", "Web Serial", "Ant Design"],
+    "featured": true,
+    "github": "https://github.com/example-org/nlchat-webui",
+    "date": "2024-11-03",
+    "order": 8,
+    "link": "https://github.com/example-org/nlchat-webui",
+    "id": "nlchat-webui",
+    "active": true,
+    "highlights": [
+      "支持波特率、数据位、停止位、校验位与硬件流控制配置",
+      "支持 Text、Hex、ANSI 多种数据显示格式与智能分包",
+      "提供命令历史、日志复制与导出等常用调试能力"
+    ]
+  }
+]

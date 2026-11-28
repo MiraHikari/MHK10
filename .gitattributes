@@ -1,0 +1,2 @@
+# Match the formatter and generated snapshots on every checkout, including Windows.
+* text=auto eol=lf

@@ -1,0 +1,10 @@
+import type { APIRoute } from 'astro';
+import { SITE_ORIGIN } from '../data/site-origin';
+
+export const prerender = true;
+
+export const GET: APIRoute = ({ site }) =>
+  new Response(
+    `User-agent: *\nAllow: /\n\nSitemap: ${new URL('/sitemap.xml', site ?? SITE_ORIGIN).href}\n`,
+    { headers: { 'Content-Type': 'text/plain; charset=utf-8' } },
+  );

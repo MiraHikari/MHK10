@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { label, class: className = '', ...attributes } = Astro.props;
+---
+
+<nav
+  role="tree"
+  aria-label={label}
+  data-hybrid-tree
+  class:list={['hybrid-tree', className]}
+  {...attributes}
+>
+  <slot />
+</nav>

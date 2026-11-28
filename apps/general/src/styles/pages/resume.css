@@ -1,0 +1,429 @@
+/* ============================================================================
+   pages/resume.css — 简历页（/resume）专属样式。
+   resume.astro 是独立浅色打印页，不加载 global.css；本文件自行导入
+   foundations/tokens.css 以复用品牌与中性 token，并把 color-scheme 覆写为
+   浅色（tokens 默认暗色）。正文灰阶沿用打印友好的浅色字阶（页面专属例外，
+   见 docs/style-system.md 的字面量白名单）。
+   ========================================================================== */
+
+@import '../foundations/tokens.css';
+
+:root {
+  /* resume 是浅色页：原生控件 / 滚动条跟随浅色主题。 */
+  color-scheme: light;
+}
+
+@page {
+  size: A4;
+  margin: 14mm 16mm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    var(--font-space-grotesk),
+    var(--font-harmonyos),
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: #0a0a0a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  user-select: text;
+}
+
+@media screen {
+  body {
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+}
+
+@media print {
+  html,
+  body {
+    overflow: visible !important;
+    height: auto !important;
+    background: #fff !important;
+    font-size: 10.5pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .resume-paper {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    min-height: auto !important;
+    padding: 0 !important;
+  }
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+  .page-break-before {
+    page-break-before: always;
+  }
+}
+
+/* ===== Screen-only toolbar ===== */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(8px);
+  color: #f0f0f0;
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+}
+.toolbar a,
+.toolbar button {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+.toolbar a {
+  color: rgba(240, 240, 240, 0.6);
+}
+.toolbar a:hover {
+  color: var(--brand);
+}
+.toolbar button {
+  background: var(--brand);
+  color: #000;
+  border: none;
+  padding: 8px 18px;
+}
+.toolbar button:hover {
+  background: #fff;
+}
+.toolbar .hint {
+  font-size: 10px;
+  color: rgba(240, 240, 240, 0.35);
+  letter-spacing: 0.1em;
+  text-transform: none;
+  font-weight: 400;
+}
+
+/* ===== Resume paper ===== */
+.resume-paper {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 24px auto;
+  padding: 18mm 16mm;
+  background: #fff;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.resume-paper > * + * {
+  margin-top: 18px;
+}
+
+/* ===== Header ===== */
+.r-header h1 {
+  margin: 0;
+  font-size: 32pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.r-header .label {
+  margin: 4px 0 10px;
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--brand);
+  letter-spacing: 0.02em;
+}
+.r-header .contact {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8.5pt;
+  color: #555;
+  line-height: 1.6;
+  word-break: break-all;
+}
+.r-header .contact span + span::before {
+  content: ' · ';
+  color: #bbb;
+  margin: 0 2px;
+}
+.r-header .rule {
+  height: 2px;
+  background: #0a0a0a;
+  margin-top: 12px;
+}
+
+/* ===== Section ===== */
+.r-section h2 {
+  margin: 0 0 10px;
+  font-size: 10.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--brand);
+  padding-bottom: 4px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* ===== Summary ===== */
+.r-summary p {
+  margin: 0 0 6px;
+  font-size: 10pt;
+  line-height: 1.55;
+  color: #333;
+}
+.r-summary p:last-child {
+  color: #555;
+}
+
+/* ===== Skills ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+}
+.skill-row {
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+.skill-row strong {
+  display: inline-block;
+  min-width: 130px;
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.skill-row span {
+  color: #555;
+}
+.skill-entry .skill-level {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+/* ===== Experience ===== */
+.exp-item {
+  margin-bottom: 12px;
+}
+.exp-item:last-child {
+  margin-bottom: 0;
+}
+.exp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.exp-head strong {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+.exp-head .period {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8.5pt;
+  color: #777;
+  white-space: nowrap;
+}
+.exp-role {
+  margin: 1px 0 4px;
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: var(--brand);
+}
+.exp-summary {
+  margin: 0 0 4px;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #444;
+}
+.exp-highlights {
+  margin: 0 0 4px;
+  padding-left: 14px;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #444;
+}
+.exp-highlights li {
+  margin-bottom: 2px;
+}
+.exp-stack {
+  margin: 4px 0 0;
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8pt;
+  color: #888;
+  letter-spacing: 0.02em;
+}
+
+/* ===== Projects ===== */
+.proj-item {
+  margin-bottom: 10px;
+}
+.proj-item:last-child {
+  margin-bottom: 0;
+}
+.proj-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.proj-head strong {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+.proj-head a {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8pt;
+  color: var(--brand);
+  text-decoration: none;
+  word-break: break-all;
+}
+.proj-desc {
+  margin: 2px 0 4px;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #444;
+}
+.proj-tags {
+  margin: 0;
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8pt;
+  color: #888;
+  letter-spacing: 0.02em;
+}
+
+/* ===== Education ===== */
+.edu-item {
+  margin-bottom: 8px;
+}
+.edu-item:last-child {
+  margin-bottom: 0;
+}
+.edu-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.edu-head strong {
+  font-size: 10pt;
+  font-weight: 700;
+}
+.edu-head .period {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8.5pt;
+  color: #777;
+  white-space: nowrap;
+}
+.edu-area {
+  margin: 1px 0 0;
+  font-size: 9pt;
+  color: #555;
+}
+
+/* ===== Honors ===== */
+.honor-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 9.5pt;
+  line-height: 1.4;
+}
+.honor-row:last-child {
+  border-bottom: none;
+}
+.honor-level {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand);
+  padding-top: 1px;
+}
+.honor-title {
+  font-weight: 600;
+  color: #0a0a0a;
+}
+.honor-meta {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8pt;
+  color: #777;
+  margin-top: 1px;
+}
+
+/* ===== Two-column footer ===== */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.cert-item,
+.lang-item {
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #333;
+}
+.cert-item strong {
+  color: #0a0a0a;
+}
+.cert-item .meta,
+.lang-item .meta {
+  font-family: 'Courier New', Consolas, monospace, var(--font-harmonyos), system-ui, sans-serif;
+  font-size: 8pt;
+  color: #777;
+  margin-left: 4px;
+}
+
+/* ===== Screen responsive (mobile preview) ===== */
+@media screen and (max-width: 800px) {
+  .resume-paper {
+    width: 100%;
+    min-height: auto;
+    margin: 0;
+    padding: 16mm 6mm;
+  }
+  .toolbar .hint {
+    display: none;
+  }
+  .skills-grid,
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+  .skill-row {
+    display: grid;
+    gap: 2px;
+  }
+  .skill-row strong {
+    min-width: 0;
+  }
+}

@@ -1,0 +1,248 @@
+<form class="assistant-compose" data-assistant-composer hidden aria-label="Assistant message">
+  <div class="compose-tools">
+    <fieldset class="compose-route">
+      <legend class="compose-live">Send to</legend>
+      <label>
+        <input type="radio" name="destination" value="guide" checked />
+        <span>Desktop guide</span>
+      </label>
+      <label>
+        <input type="radio" name="destination" value="online" disabled />
+        <span data-online-label>Online</span>
+      </label>
+    </fieldset>
+    <button type="button" data-action="guide" aria-expanded="false" aria-controls="assistant-guide">
+      Guide
+    </button>
+    <button type="button" data-action="log" aria-expanded="false" aria-controls="assistant-log">
+      Log
+    </button>
+    <button type="button" data-action="connection">
+      Connection
+    </button>
+  </div>
+  <div class="compose-message">
+    <label for="assistant-message">Message</label>
+    <input
+      id="assistant-message"
+      name="message"
+      type="text"
+      enterkeyhint="send"
+      autocomplete="off"
+    />
+    <button type="submit" data-action="send">
+      Send
+    </button>
+    <button type="button" data-action="stop" hidden>
+      Stop
+    </button>
+  </div>
+  <section class="compose-panel" id="assistant-guide" aria-label="Offline guide" hidden>
+    <strong>Desktop guide</strong>
+    <span>Always offline</span>
+    <div data-prompts></div>
+  </section>
+  <section class="compose-panel" id="assistant-log" aria-label="Conversation log" hidden>
+    <strong>Conversation log</strong>
+    <span>This session</span>
+    <div class="compose-history" tabindex="0" data-history></div>
+  </section>
+  <span class="compose-live" role="status" aria-atomic="true"></span>
+</form>
+
+<style>
+  .assistant-compose {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    grid-template-rows: 21px 26px;
+    gap: 2px;
+    height: 55px;
+    box-sizing: border-box;
+    padding: 2px 4px 4px;
+    transform-origin: top left;
+    background: var(--face, silver);
+    color: var(--ink, black);
+    font:
+      11px/1.15 MSS,
+      'MHK CJK UI',
+      sans-serif;
+    text-align: left;
+    cursor: default;
+  }
+  .assistant-compose[hidden],
+  .assistant-compose [hidden] {
+    display: none;
+  }
+  .compose-tools,
+  .compose-message {
+    display: flex;
+    align-items: stretch;
+    gap: 3px;
+    min-width: 0;
+  }
+  .assistant-compose label {
+    align-self: center;
+    margin: 0 2px 0 0;
+    font: inherit;
+  }
+  .assistant-compose :is(input, select, button),
+  [data-prompts] :global(button) {
+    box-sizing: border-box;
+    font: inherit;
+    color: inherit;
+    border: 1px solid;
+    border-radius: 0;
+    border-color: var(--hi, white) var(--shadow, black) var(--shadow, black) var(--hi, white);
+    background: var(--face, silver);
+    padding: 1px 5px;
+    min-height: 0;
+    min-width: 0;
+    margin: 0;
+  }
+  .assistant-compose :is(input, select) {
+    flex: 1 1 25%;
+    color: var(--ink, black);
+    background: var(--paper, white);
+    border-color: var(--line, gray) var(--hi, white) var(--hi, white) var(--line, gray);
+  }
+  .compose-message input {
+    font-size: 12px;
+  }
+  .compose-route {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .compose-route label {
+    position: relative;
+    display: flex;
+    align-self: stretch;
+    min-width: 0;
+    margin: 0;
+  }
+  .compose-route input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .compose-route span {
+    align-content: center;
+    padding: 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid var(--line, gray);
+    color: var(--ink, black);
+  }
+  .compose-route input:checked + span {
+    background: var(--accent, navy);
+    color: var(--accent-text, white);
+    border-color: var(--accent, navy);
+  }
+  .compose-route input:focus-visible + span {
+    outline: 1px dotted currentColor;
+    outline-offset: -3px;
+  }
+  .compose-route input:disabled + span {
+    border-style: dotted;
+  }
+  .compose-route label:first-of-type {
+    flex-shrink: 0;
+  }
+  .compose-message button {
+    min-width: 46px;
+    font-weight: bold;
+  }
+  .assistant-compose button[aria-expanded='true'] {
+    border-color: var(--shadow) var(--hi) var(--hi) var(--shadow);
+  }
+  .assistant-compose :focus-visible {
+    outline: 1px dotted currentColor;
+    outline-offset: -3px;
+  }
+  .assistant-compose button:disabled {
+    color: var(--line, gray);
+  }
+  .compose-panel {
+    position: absolute;
+    bottom: 100%;
+    right: 4px;
+    left: 4px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid var(--shadow, black);
+    box-shadow:
+      inset 1px 1px var(--hi, white),
+      2px 2px var(--line, gray);
+    background: var(--face, silver);
+    color: var(--ink, black);
+    max-height: var(--assistant-panel-height, 122px);
+    overflow: auto;
+  }
+  .compose-panel > span {
+    float: right;
+  }
+  [data-prompts] {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3px;
+    margin-top: 4px;
+  }
+  [data-prompts] :global(button) {
+    min-height: 20px;
+  }
+  .compose-history {
+    margin-top: 4px;
+    padding: 4px;
+    background: var(--paper, white);
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+  .compose-history :global(p) {
+    margin: 0 0 5px;
+  }
+  .compose-live {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .assistant-compose[data-portable] {
+    position: relative;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto;
+    transform: none !important;
+    flex: none;
+    padding: 4px 5px;
+    border-top: 1px solid var(--hi, white);
+    gap: 4px;
+    grid-template-rows: auto auto;
+    font-size: 13px;
+    --assistant-panel-height: min(45dvh, 230px) !important;
+  }
+  .assistant-compose[data-portable] :is(button, input, select),
+  .assistant-compose[data-portable] [data-prompts] :global(button) {
+    min-height: 32px;
+  }
+  .assistant-compose[data-portable] input {
+    font-size: 16px;
+  }
+  @media (forced-colors: active) {
+    .compose-route input:checked + span {
+      border: 2px solid Highlight;
+    }
+    .assistant-compose :focus-visible {
+      outline: 2px solid Highlight;
+    }
+  }
+</style>

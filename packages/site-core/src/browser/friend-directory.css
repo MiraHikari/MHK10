@@ -1,0 +1,125 @@
+.friend-directory {
+  --directory-stock: var(--paper, #f3efe4);
+  --directory-ink: var(--ink, #241c1a);
+  --directory-rule: var(--line, #7a655a);
+  --directory-register: var(--accent, #792737);
+  color: var(--directory-ink);
+  background: var(--directory-stock);
+  border: 1px solid var(--directory-rule);
+  border-inline-start: 4px solid var(--directory-register);
+  padding: clamp(0.75rem, 2vw, 1.3rem);
+  box-shadow: 3px 3px var(--directory-rule);
+}
+
+.friend-directory__header {
+  margin-block-end: 0.75rem;
+}
+
+.friend-directory__header > * {
+  margin: 0;
+}
+
+.friend-directory__header h2,
+.friend-directory__header h1 {
+  margin-block: 0.18rem 0.35rem;
+  font-size: 1.4em;
+  line-height: 1.3;
+}
+
+.friend-directory__imprint,
+.friend-directory__number {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82em;
+  letter-spacing: 0.1em;
+}
+
+.friend-directory__record {
+  border: 1px solid var(--directory-rule);
+  margin-block-start: 0.27rem;
+  min-inline-size: 0;
+}
+
+.friend-directory__record > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-block-size: 44px;
+  padding: 0.4rem 0.65rem;
+  color: var(--directory-ink);
+  background: var(--face, #e6dccf);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.friend-directory__record > summary::-webkit-details-marker {
+  display: none;
+}
+
+.friend-directory__record > summary::after {
+  content: '+';
+  margin-inline-start: auto;
+  font-family: monospace;
+}
+
+.friend-directory__record[open] > summary {
+  border-block-end: 1px solid var(--directory-rule);
+}
+
+.friend-directory__record[open] > summary::after {
+  content: '−';
+}
+
+.friend-directory__number {
+  border-inline-end: 1px solid var(--directory-rule);
+  padding-inline-end: 0.6rem;
+}
+
+.friend-directory__body {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  padding: 0.65rem;
+}
+
+.friend-directory__body p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.friend-directory__host {
+  margin-block-start: 0.35rem !important;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9em;
+}
+
+.friend-directory__visit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  min-inline-size: 4rem;
+  flex: none;
+  padding-inline: 0.7rem;
+  border: 1px solid var(--directory-rule);
+  box-shadow: 1px 1px var(--directory-rule);
+  color: var(--directory-ink);
+  background: var(--face, #e6dccf);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.friend-directory__visit:active {
+  box-shadow: inset 1px 1px var(--directory-rule);
+}
+
+.friend-directory :is(summary, a):focus-visible {
+  outline: 2px solid var(--directory-ink);
+  outline-offset: -3px;
+}
+
+@media (max-width: 360px) {
+  .friend-directory__body {
+    flex-wrap: wrap;
+  }
+}

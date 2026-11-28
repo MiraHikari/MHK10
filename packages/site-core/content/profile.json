@@ -1,0 +1,1381 @@
+{
+  "birthday": "2005-01-01",
+  "profile": {
+    "name": "MiraHikari",
+    "label": "Full Stack Developer",
+    "heroLine": "Full Stack Developer · Open Source Builder · Hardware Tinkerer",
+    "location": "示例市",
+    "email": "mirahikari@example.com",
+    "website": "https://example.com",
+    "github": "https://github.com/MiraHikari",
+    "bilibili": "https://space.bilibili.com/0",
+    "avatar": "/images/profile/avatar.webp",
+    "avatarAlt": "MiraHikari 头像",
+    "summary": "我是 MiraHikari，一名在示例市读书的开发者。写 Web 产品与开源工具，也做桌面应用、智能硬件和 Web3 的实验。",
+    "introduction": "自 2021 年起学习 Web 开发，后来也接触全栈项目、桌面工具和硬件原型。目前就读于示例市第一中学，是学校人工智能社团成员。日常使用 TypeScript，桌面方面使用 Rust 和 Tauri。",
+    "detail": "2026 年，重心放在学业上，同时继续探索新的方向。",
+    "specialties": ["全栈开发", "开源工具", "Web 技术", "智能硬件", "Web3 探索"]
+  },
+  "aboutCurrently": [
+    {
+      "label": "LEARNING",
+      "value": "全栈工程化 / 硬件嵌入式"
+    },
+    {
+      "label": "STUDY",
+      "value": "示例市第一中学示例班级"
+    },
+    {
+      "label": "BUILDING",
+      "value": "xEngine · 差分机与硬件原型"
+    }
+  ],
+  "aboutJourney": [
+    {
+      "year": "2021",
+      "title": "入门 Web 开发",
+      "description": "从写些没什么用的小东西起步，谈不上工程化。"
+    },
+    {
+      "year": "2022",
+      "title": "转向全栈方向",
+      "description": "尝试 Node.js，涉足全流程"
+    },
+    {
+      "year": "2023",
+      "title": "浅尝桌面应用",
+      "description": "探索 Tauri 与 Rust"
+    },
+    {
+      "year": "2024",
+      "title": "成果转化",
+      "description": "以示例工具箱为转折点，厚积而薄发"
+    },
+    {
+      "year": "2025",
+      "title": "升学",
+      "description": "升入高中，跟从学校指导。"
+    },
+    {
+      "year": "2026",
+      "title": "AI 时代下的思考",
+      "description": "顺应潮流，迎接所谓的未来"
+    }
+  ],
+  "aboutPrinciples": [
+    {
+      "title": "Apeiron",
+      "greek": "ἄπειρον",
+      "zh": "无定",
+      "description": "没有边界、没有规定性的无限。技术探索不设疆界，跨领域融合，保持开放与好奇。"
+    },
+    {
+      "title": "Kairos",
+      "greek": "καιρός",
+      "zh": "契机",
+      "description": "在对的时机做对的事，把握创造与学习的契机。"
+    },
+    {
+      "title": "Ecstasis",
+      "greek": "ἔκστασις",
+      "zh": "出神",
+      "description": "在创造与心流中超越自我，进入忘我的专注。"
+    }
+  ],
+  "education": [
+    {
+      "institution": "示例市第一中学",
+      "area": "示例班级 · 普通学生",
+      "startDate": "2025-09",
+      "endDate": null,
+      "current": true
+    },
+    {
+      "institution": "示例市第二中学",
+      "area": "普通学生",
+      "startDate": "2021-09",
+      "endDate": "2025-06"
+    }
+  ],
+  "experiences": [
+    {
+      "name": "示例中学人工智能社团",
+      "position": "学生成员",
+      "location": "示例市",
+      "url": "https://github.com/example-org/school-ai-club",
+      "startDate": "2025-09",
+      "endDate": null,
+      "current": true,
+      "summary": "作为示例中学人工智能社团成员，参与硬件原型开发与赛事备战，代表学校参加市级与省级 STEM 创客及机器人竞赛。",
+      "highlights": [
+        "参与开发示例博物馆智能打卡工具，基于行空板 K10 实现展项打卡与中文 AI 导览",
+        "参与开发示例生涯探索工作站，基于行空板 M10 与 RIASEC 兴趣卡片生成成长报告",
+        "代表学校参加 2026 年省级及市级青少年学生 STEM 教育创客和机器人大赛，获创意智造高中组一等奖"
+      ],
+      "stack": ["C++", "Python", "PlatformIO", "UNIHIKER K10", "UNIHIKER M10", "HuskyLens", "AI"]
+    },
+    {
+      "name": "星桥开发团队",
+      "position": "全栈开发工程师 / 核心设计",
+      "location": "远程 · CN",
+      "url": "https://github.com/example-org/dev-team",
+      "startDate": "2022-06",
+      "endDate": null,
+      "current": true,
+      "summary": "参与高可用全栈项目的开发与设计，负责系统架构设计与技术选型，作为示例工具箱核心开发者之一获得开发者社区年度贡献奖。",
+      "highlights": [
+        "示例工具箱获开发者社区年度盛典卓越社区价值贡献奖",
+        "通过自动化工具与流程优化提升团队内部工作流效率",
+        "主导多个关键项目的技术架构设计"
+      ],
+      "stack": ["Rust", "Tauri", "Node.js", "Golang", "PHP", "Next.js", "Vue", "SQL"]
+    },
+    {
+      "name": "谜题小镇团队",
+      "position": "全栈开发工程师",
+      "location": "远程 · CN",
+      "url": "https://rth2.example.com",
+      "startDate": "2023-01",
+      "endDate": "2024-02",
+      "summary": "负责页面设计与账户系统开发，主导前端架构与用户体验优化，参与产品需求分析与技术方案制定。",
+      "highlights": [
+        "独立完成约 95% 的项目开发工作，覆盖前端页面、后端接口与数据库设计",
+        "建立完整的用户管理与游戏系统，吸引超过 1000 名用户参与",
+        "实现类 Windows 风格用户界面，提升操作体验"
+      ],
+      "stack": ["Astro", "TypeScript", "React", "Node.js", "WordPress", "Tailwind", "Docker"]
+    }
+  ],
+  "certificates": [
+    {
+      "name": "ECCP - 高级云架构工程师",
+      "issuer": "Example Cloud",
+      "date": "2023-05"
+    }
+  ],
+  "languages": [
+    {
+      "language": "中文",
+      "fluency": "母语"
+    },
+    {
+      "language": "英语",
+      "fluency": "中级"
+    }
+  ],
+  "beian": {
+    "icp": "X ICP备00000000号-1",
+    "police": "X公网安备 00000000000000号"
+  },
+  "skillCategories": [
+    {
+      "id": "CORE",
+      "label": "CORE LANGUAGES",
+      "description": "日常主力语言，类型安全与运行时表现兼顾。"
+    },
+    {
+      "id": "FRONTEND",
+      "label": "FRONTEND & STYLING",
+      "description": "界面框架、样式体系与 Web 基础。"
+    },
+    {
+      "id": "BACKEND",
+      "label": "BACKEND & API",
+      "description": "服务端运行时、API 设计与实时通信。"
+    },
+    {
+      "id": "DATA & AI",
+      "label": "DATA & AI",
+      "description": "数据存储、缓存队列与 AI 服务编排。"
+    },
+    {
+      "id": "DESKTOP & SYSTEM",
+      "label": "DESKTOP & SYSTEM",
+      "description": "跨平台桌面应用与系统级编程探索。"
+    },
+    {
+      "id": "HARDWARE & EMBEDDED",
+      "label": "HARDWARE & EMBEDDED",
+      "description": "硬件原型与嵌入式开发，结合社团赛事实践。"
+    },
+    {
+      "id": "WEB3",
+      "label": "WEB3 & ONCHAIN",
+      "description": "智能合约与去中心化应用探索。"
+    },
+    {
+      "id": "TOOLS & PLATFORM",
+      "label": "TOOLS & PLATFORM",
+      "description": "部署、协作与平台工程化能力。"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TypeScript",
+      "level": 95,
+      "category": "CORE",
+      "years": 4,
+      "note": "主力语言",
+      "icon": "simple-icons:typescript",
+      "keywords": ["ts", "类型脚本", "强类型"]
+    },
+    {
+      "name": "JavaScript",
+      "level": 95,
+      "category": "CORE",
+      "years": 5,
+      "note": "全栈运行时",
+      "icon": "simple-icons:javascript",
+      "keywords": ["js", "es6", "脚本"]
+    },
+    {
+      "name": "PHP",
+      "level": 80,
+      "category": "CORE",
+      "years": 3,
+      "note": "传统全栈",
+      "icon": "simple-icons:php",
+      "keywords": ["php", "后端", "服务端"]
+    },
+    {
+      "name": "Golang",
+      "level": 72,
+      "category": "CORE",
+      "years": 1,
+      "note": "云服务",
+      "icon": "simple-icons:go",
+      "keywords": ["go", "golang", "云原生"]
+    },
+    {
+      "name": "Shell",
+      "level": 68,
+      "category": "CORE",
+      "years": 3,
+      "note": "脚本自动化",
+      "icon": "simple-icons:gnubash",
+      "keywords": ["bash", "zsh", "终端"]
+    },
+    {
+      "name": "React",
+      "level": 92,
+      "category": "FRONTEND",
+      "years": 4,
+      "note": "组件与状态",
+      "icon": "simple-icons:react",
+      "keywords": ["reactjs", "hooks", "组件"]
+    },
+    {
+      "name": "Astro",
+      "level": 90,
+      "category": "FRONTEND",
+      "years": 2,
+      "note": "内容站点",
+      "icon": "simple-icons:astro",
+      "keywords": ["astrojs", "islands", "内容站"]
+    },
+    {
+      "name": "Next.js",
+      "level": 86,
+      "category": "FRONTEND",
+      "years": 3,
+      "note": "全栈渲染",
+      "icon": "simple-icons:nextdotjs",
+      "keywords": ["nextjs", "ssr", "全栈"]
+    },
+    {
+      "name": "Vue",
+      "level": 82,
+      "category": "FRONTEND",
+      "years": 2,
+      "note": "渐进式框架",
+      "icon": "simple-icons:vuedotjs",
+      "keywords": ["vuejs", "渐进式", "组合式"]
+    },
+    {
+      "name": "SolidJS",
+      "level": 62,
+      "category": "FRONTEND",
+      "years": 1,
+      "note": "细粒度响应式",
+      "icon": "simple-icons:solid",
+      "keywords": ["solidjs", "signals", "响应式"]
+    },
+    {
+      "name": "Svelte",
+      "level": 58,
+      "category": "FRONTEND",
+      "years": 1,
+      "note": "编译式组件",
+      "icon": "simple-icons:svelte",
+      "keywords": ["sveltejs", "sveltekit", "编译式"]
+    },
+    {
+      "name": "Vite",
+      "level": 82,
+      "category": "FRONTEND",
+      "years": 3,
+      "note": "构建工具",
+      "icon": "simple-icons:vite",
+      "keywords": ["vitejs", "构建", "开发服务器"]
+    },
+    {
+      "name": "TanStack Query",
+      "level": 58,
+      "category": "FRONTEND",
+      "years": 0,
+      "note": "通用异步状态与缓存",
+      "icon": "simple-icons:tanstack",
+      "keywords": ["react query", "tanstack", "缓存"]
+    },
+    {
+      "name": "TailwindCSS",
+      "level": 88,
+      "category": "FRONTEND",
+      "years": 3,
+      "note": "原子化样式",
+      "icon": "simple-icons:tailwindcss",
+      "keywords": ["tailwind", "原子化", "css"]
+    },
+    {
+      "name": "HTML",
+      "level": 90,
+      "category": "FRONTEND",
+      "years": 5,
+      "note": "结构语义",
+      "icon": "simple-icons:html5",
+      "keywords": ["html5", "语义化", "标记"]
+    },
+    {
+      "name": "CSS",
+      "level": 85,
+      "category": "FRONTEND",
+      "years": 5,
+      "note": "响应式布局",
+      "icon": "simple-icons:css",
+      "keywords": ["css3", "样式", "响应式"]
+    },
+    {
+      "name": "Node.js",
+      "level": 84,
+      "category": "BACKEND",
+      "years": 4,
+      "note": "服务端运行时",
+      "icon": "simple-icons:nodedotjs",
+      "keywords": ["node", "运行时", "后端"]
+    },
+    {
+      "name": "NestJS",
+      "level": 72,
+      "category": "BACKEND",
+      "years": 1,
+      "note": "IOC 框架",
+      "icon": "simple-icons:nestjs",
+      "keywords": ["nest", "ioc", "框架"]
+    },
+    {
+      "name": "SQL",
+      "level": 75,
+      "category": "DATA & AI",
+      "years": 3,
+      "note": "关系型数据库",
+      "icon": "lucide:database",
+      "keywords": ["mysql", "postgresql", "数据库"]
+    },
+    {
+      "name": "MongoDB",
+      "level": 70,
+      "category": "DATA & AI",
+      "years": 2,
+      "note": "文档型数据库",
+      "icon": "simple-icons:mongodb",
+      "keywords": ["mongo", "nosql", "文档库"]
+    },
+    {
+      "name": "Nginx",
+      "level": 70,
+      "category": "BACKEND",
+      "years": 2,
+      "note": "Web 服务器",
+      "icon": "simple-icons:nginx",
+      "keywords": ["nginx", "反向代理", "网关"]
+    },
+    {
+      "name": "Socket.IO",
+      "level": 55,
+      "category": "BACKEND",
+      "years": 1,
+      "note": "实时通信",
+      "icon": "simple-icons:socketdotio",
+      "keywords": ["socketio", "websocket", "实时"]
+    },
+    {
+      "name": "WordPress",
+      "level": 75,
+      "category": "BACKEND",
+      "years": 2,
+      "note": "无头 CMS",
+      "icon": "simple-icons:wordpress",
+      "keywords": ["wp", "cms", "无头"]
+    },
+    {
+      "name": "FastAPI",
+      "level": 68,
+      "category": "BACKEND",
+      "years": 1,
+      "note": "AI 服务与接口编排",
+      "icon": "simple-icons:fastapi",
+      "keywords": ["fastapi", "python", "api"]
+    },
+    {
+      "name": "SQLAlchemy",
+      "level": 58,
+      "category": "DATA & AI",
+      "years": 0,
+      "note": "异步 ORM 与数据层",
+      "icon": "simple-icons:sqlalchemy",
+      "keywords": ["orm", "async", "数据库"]
+    },
+    {
+      "name": "Redis",
+      "level": 56,
+      "category": "DATA & AI",
+      "years": 1,
+      "note": "任务队列与缓存",
+      "icon": "simple-icons:redis",
+      "keywords": ["redis", "cache", "消息队列"]
+    },
+    {
+      "name": "Supabase",
+      "level": 62,
+      "category": "DATA & AI",
+      "years": 1,
+      "note": "Postgres 与 Auth 一体化",
+      "icon": "simple-icons:supabase",
+      "keywords": ["supabase", "baas", "postgres"]
+    },
+    {
+      "name": "Celery",
+      "level": 52,
+      "category": "DATA & AI",
+      "years": 0,
+      "note": "异步任务与定时调度",
+      "icon": "lucide:timer",
+      "keywords": ["celery", "worker", "任务队列"]
+    },
+    {
+      "name": "PydanticAI",
+      "level": 52,
+      "category": "DATA & AI",
+      "years": 0,
+      "note": "类型化 Agent 编排",
+      "icon": "simple-icons:pydantic",
+      "keywords": ["pydantic ai", "agent", "结构化输出"]
+    },
+    {
+      "name": "Google A2A",
+      "level": 60,
+      "category": "DATA & AI",
+      "years": 1,
+      "note": "Agent Card 与技能调度",
+      "icon": "lucide:bot",
+      "keywords": ["agent", "a2a", "json-rpc", "智能体"]
+    },
+    {
+      "name": "Rust",
+      "level": 78,
+      "category": "DESKTOP & SYSTEM",
+      "years": 2,
+      "note": "系统级编程",
+      "icon": "simple-icons:rust",
+      "keywords": ["rs", "系统编程", "cargo"]
+    },
+    {
+      "name": "Tauri",
+      "level": 80,
+      "category": "DESKTOP & SYSTEM",
+      "years": 2,
+      "note": "跨平台桌面",
+      "icon": "simple-icons:tauri",
+      "keywords": ["tauri", "桌面", "webview"]
+    },
+    {
+      "name": "Electron",
+      "level": 55,
+      "category": "DESKTOP & SYSTEM",
+      "years": 1,
+      "note": "Web 视图桌面",
+      "icon": "simple-icons:electron",
+      "keywords": ["electron", "桌面", "chromium"]
+    },
+    {
+      "name": "C++",
+      "level": 60,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "固件开发",
+      "icon": "simple-icons:cplusplus",
+      "keywords": ["cpp", "固件", "嵌入式"]
+    },
+    {
+      "name": "Python",
+      "level": 72,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 2,
+      "note": "原型编排",
+      "icon": "simple-icons:python",
+      "keywords": ["py", "脚本", "ai"]
+    },
+    {
+      "name": "PlatformIO",
+      "level": 65,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "嵌入式工具链",
+      "icon": "simple-icons:platformio",
+      "keywords": ["pio", "嵌入式", "工具链"]
+    },
+    {
+      "name": "UNIHIKER",
+      "level": 70,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "K10/M10 行空板",
+      "icon": "lucide:cpu",
+      "keywords": ["行空板", "k10", "m10"]
+    },
+    {
+      "name": "HuskyLens",
+      "level": 65,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "AI 视觉识别",
+      "icon": "lucide:scan-eye",
+      "keywords": ["huskylens", "视觉", "ai"]
+    },
+    {
+      "name": "Cloudflare",
+      "level": 90,
+      "category": "TOOLS & PLATFORM",
+      "years": 3,
+      "note": "边缘部署",
+      "icon": "simple-icons:cloudflare",
+      "keywords": ["cf", "边缘", "cdn"]
+    },
+    {
+      "name": "GitHub",
+      "level": 92,
+      "category": "TOOLS & PLATFORM",
+      "years": 5,
+      "note": "协作与 CI",
+      "icon": "simple-icons:github",
+      "keywords": ["gh", "协作", "ci"]
+    },
+    {
+      "name": "Git",
+      "level": 88,
+      "category": "TOOLS & PLATFORM",
+      "years": 5,
+      "note": "版本控制",
+      "icon": "simple-icons:git",
+      "keywords": ["git", "版本控制", "vcs"]
+    },
+    {
+      "name": "Docker",
+      "level": 68,
+      "category": "TOOLS & PLATFORM",
+      "years": 2,
+      "note": "容器化",
+      "icon": "simple-icons:docker",
+      "keywords": ["docker", "容器", "镜像"]
+    },
+    {
+      "name": "Linux",
+      "level": 72,
+      "category": "TOOLS & PLATFORM",
+      "years": 3,
+      "note": "服务器运维",
+      "icon": "simple-icons:linux",
+      "keywords": ["linux", "服务器", "运维"]
+    },
+    {
+      "name": "Vercel",
+      "level": 78,
+      "category": "TOOLS & PLATFORM",
+      "years": 2,
+      "note": "无服务器托管",
+      "icon": "simple-icons:vercel",
+      "keywords": ["vercel", "serverless", "部署"]
+    },
+    {
+      "name": "Netlify",
+      "level": 70,
+      "category": "TOOLS & PLATFORM",
+      "years": 2,
+      "note": "静态站点托管",
+      "icon": "simple-icons:netlify",
+      "keywords": ["netlify", "静态托管", "部署"]
+    },
+    {
+      "name": "Tencent Cloud",
+      "level": 72,
+      "category": "TOOLS & PLATFORM",
+      "years": 2,
+      "note": "云服务",
+      "icon": "lucide:cloud",
+      "keywords": ["腾讯云", "tccp", "云服务"]
+    },
+    {
+      "name": "Solidity",
+      "level": 48,
+      "category": "WEB3",
+      "years": 0,
+      "note": "PolicyVault 合约实战",
+      "icon": "simple-icons:solidity",
+      "keywords": ["合约", "smart contract"]
+    },
+    {
+      "name": "Injective EVM",
+      "level": 48,
+      "category": "WEB3",
+      "years": 0,
+      "note": "测试网合约部署与结算",
+      "icon": "lucide:orbit",
+      "keywords": ["injective", "inEVM", "测试网"]
+    },
+    {
+      "name": "Ethereum",
+      "level": 44,
+      "category": "WEB3",
+      "years": 0,
+      "note": "EVM 生态与钱包交互",
+      "icon": "simple-icons:ethereum",
+      "keywords": ["以太坊", "evm", "web3"]
+    },
+    {
+      "name": "Viem / Wagmi",
+      "level": 45,
+      "category": "WEB3",
+      "years": 0,
+      "note": "钱包交互与 USDC 保费支付",
+      "icon": "lucide:link",
+      "keywords": ["viem", "wagmi", "dapp"]
+    },
+    {
+      "name": "Polymarket Gamma API",
+      "level": 46,
+      "category": "WEB3",
+      "years": 0,
+      "note": "预测市场检索与事件映射",
+      "icon": "lucide:chart-candlestick",
+      "keywords": ["polymarket", "gamma api", "预测市场"]
+    },
+    {
+      "name": "IPFS",
+      "level": 30,
+      "category": "WEB3",
+      "years": 0,
+      "note": "去中心化存储",
+      "icon": "simple-icons:ipfs",
+      "keywords": ["存储", "cid"]
+    },
+    {
+      "name": "Foundry",
+      "level": 45,
+      "category": "WEB3",
+      "years": 0,
+      "note": "合约开发测试工具链",
+      "icon": "lucide:anvil",
+      "keywords": ["foundry", "forge", "合约测试"]
+    },
+    {
+      "name": "MQTT",
+      "level": 50,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "设备遥测与展项通信",
+      "icon": "lucide:radio",
+      "keywords": ["mqtt", "遥测", "消息"]
+    },
+    {
+      "name": "ESP32-S3",
+      "level": 50,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "行空板 K10 硬件交互",
+      "icon": "lucide:cpu",
+      "keywords": ["esp32", "esp32-s3", "固件"]
+    },
+    {
+      "name": "NearLink",
+      "level": 50,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "星闪桌面工具",
+      "icon": "lucide:radio",
+      "keywords": ["星闪", "nearlink", "桌面"]
+    }
+  ],
+  "skillsCurrentlyLearning": [
+    {
+      "name": "AI Harness Engineering",
+      "level": 40,
+      "category": "CORE",
+      "years": 1,
+      "note": "AI 能力工程化封装与调度",
+      "icon": "lucide:bot"
+    },
+    {
+      "name": "嵌入式 / ESP32-S3",
+      "level": 50,
+      "category": "HARDWARE & EMBEDDED",
+      "years": 1,
+      "note": "固件实战",
+      "icon": "lucide:cpu"
+    },
+    {
+      "name": "Rust",
+      "level": 45,
+      "category": "DESKTOP & SYSTEM",
+      "years": 1,
+      "note": "现代化系统语言",
+      "icon": "simple-icons:rust"
+    },
+    {
+      "name": "WebGPU",
+      "level": 30,
+      "category": "FRONTEND",
+      "years": 0,
+      "note": "着色器与图形管线",
+      "icon": "lucide:gpu"
+    },
+    {
+      "name": "Web3 / 智能合约",
+      "level": 35,
+      "category": "WEB3",
+      "years": 0,
+      "note": "从 EVM 基础到 DApp 全链路",
+      "icon": "simple-icons:ethereum",
+      "keywords": ["web3", "solidity"]
+    }
+  ],
+  "skillsQuote": "前 AI 时代至今，一路积累下来的技术与能力。",
+  "honors": [
+    {
+      "title": "全国青少年科技创新示范赛",
+      "issuer": "示例机构",
+      "issuerShort": "示例机构",
+      "date": "2026",
+      "level": "国家二等奖",
+      "tier": "national",
+      "kind": "competition",
+      "highlight": true,
+      "description": "围绕科技创新与青少年创新实践展开的国家级赛事荣誉，项目进入全国选拔并获国家二等奖。",
+      "imageSrc": "/images/honors/water-tech-boat-display.webp",
+      "downloadSrc": "/images/honors/water-tech-boat.webp",
+      "imageAlt": "科技创新项目相关装置图片"
+    },
+    {
+      "title": "开发者社区年度盛典 · 卓越社区价值贡献奖",
+      "issuer": "示例开发者社区",
+      "issuerShort": "示例开发者社区",
+      "date": "2024",
+      "level": "卓越社区价值贡献奖",
+      "tier": "national",
+      "kind": "industry",
+      "highlight": true,
+      "description": "作为示例工具箱核心开发者之一，项目获开发者社区年度盛典卓越社区价值贡献奖，认可其在开发者社区的实用价值与生态贡献。"
+    },
+    {
+      "title": "创客聚会 2026 青年黑客松",
+      "issuer": "创客聚会组委会",
+      "issuerShort": "创客聚会组委会",
+      "date": "2026-07-26",
+      "level": "示例 Partner 赛道 二等奖",
+      "tier": "national",
+      "kind": "competition",
+      "highlight": true,
+      "description": "在创客聚会 2026 五天极限开发中完成 Injective EVM 自然语言投保 dApp「xEngine · 差分机」，于展位参展，并获示例「AI native 理财产品」Partner 赛道二等奖。",
+      "imageSrc": "/images/honors/du-xiaoman-adventurex-display.webp",
+      "downloadSrc": "/images/honors/du-xiaoman-adventurex.jpg",
+      "imageAlt": "xEngine 差分机团队获得示例 Partner 赛道二等奖的现场照片",
+      "sourceUrl": "https://example.com/gallery/projects/xengine",
+      "sourceLabel": "查看创客聚会项目页"
+    },
+    {
+      "title": "省级青少年科技创新赛",
+      "issuer": "示例省教育厅",
+      "issuerShort": "示例省教育厅",
+      "date": "2026",
+      "level": "一等奖（排名第一）",
+      "tier": "provincial",
+      "kind": "competition",
+      "highlight": true,
+      "description": "省级青少年科技创新赛一等奖，项目以排名第一成绩获奖，直接晋级全国选拔。",
+      "imageSrc": "/images/honors/jiangxi-water-tech-cert-display.webp",
+      "downloadSrc": "/images/honors/jiangxi-water-tech-cert.webp",
+      "imageAlt": "省级青少年科技创新赛一等奖证书"
+    },
+    {
+      "title": "市级青少年科技创新赛",
+      "issuer": "示例市教育部门",
+      "issuerShort": "示例市教育部门",
+      "date": "2026",
+      "level": "一等奖",
+      "tier": "city",
+      "kind": "competition",
+      "description": "市级青少年科技创新赛一等奖，聚焦创新方案与实践落地，为省级参赛奠定基础。",
+      "imageSrc": "/images/honors/nanchang-water-tech-cert-display.webp",
+      "downloadSrc": "/images/honors/nanchang-water-tech-cert.webp",
+      "imageAlt": "市级青少年科技创新赛一等奖证书"
+    },
+    {
+      "title": "省级青少年创客与机器人大赛",
+      "issuer": "示例省教育厅",
+      "issuerShort": "示例省教育厅",
+      "date": "2026",
+      "level": "创意智造高中组 一等奖",
+      "tier": "provincial",
+      "kind": "competition",
+      "description": "省级创客与机器人大赛创意智造方向一等奖，考察软硬件协同与现场搭建。"
+    },
+    {
+      "title": "市级青少年创客与机器人大赛",
+      "issuer": "示例市教育局",
+      "issuerShort": "示例市教育局",
+      "date": "2026",
+      "level": "创意智造高中组 一等奖",
+      "tier": "city",
+      "kind": "competition",
+      "description": "市级创客与机器人大赛创意智造方向一等奖，验证工程实践与方案表达。"
+    }
+  ],
+  "honorTierMeta": {
+    "national": {
+      "label": "NATIONAL",
+      "zh": "国家级",
+      "accent": "cyan",
+      "rank": 3
+    },
+    "provincial": {
+      "label": "PROVINCIAL",
+      "zh": "省级",
+      "accent": "white",
+      "rank": 2
+    },
+    "city": {
+      "label": "CITY",
+      "zh": "市级",
+      "accent": "muted",
+      "rank": 1
+    }
+  },
+  "galleryItems": [
+    {
+      "title": "路途 · 窗外的工业",
+      "location": "高铁沿途",
+      "year": "2026",
+      "date": "2026-07-20T09:15:00+08:00",
+      "dateLabel": "2026.07.20 · 09:15",
+      "datePrecision": "datetime",
+      "order": 1,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/journey-industry-display.webp",
+      "downloadSrc": "/images/gallery/journey-industry.jpg",
+      "imageAlt": "高铁窗外掠过的工业园区与远山",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "示例湖 · 盛夏",
+      "location": "示例市 · 示例湖",
+      "year": "2026",
+      "date": "2026-07-20T14:46:00+08:00",
+      "dateLabel": "2026.07.20 · 14:46",
+      "datePrecision": "datetime",
+      "order": 2,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/west-lake-vista-display.webp",
+      "downloadSrc": "/images/gallery/west-lake-vista.jpg",
+      "imageAlt": "盛夏的示例湖：湖面、远山与岸边的树",
+      "width": 8160,
+      "height": 6144
+    },
+    {
+      "title": "示例塔远景",
+      "location": "示例市 · 示例湖",
+      "year": "2026",
+      "date": "2026-07-20T14:56:00+08:00",
+      "dateLabel": "2026.07.20 · 14:56",
+      "datePrecision": "datetime",
+      "order": 3,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/leifeng-pagoda-200mp-display.webp",
+      "downloadSrc": "/images/gallery/leifeng-pagoda-200mp.jpg",
+      "imageAlt": "200MP 高像素示例塔远景",
+      "width": 12288,
+      "height": 16320
+    },
+    {
+      "title": "示例湖",
+      "location": "示例市 · 示例湖",
+      "year": "2026",
+      "date": "2026-07-20T15:08:00+08:00",
+      "dateLabel": "2026.07.20 · 15:08",
+      "datePrecision": "datetime",
+      "order": 4,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/west-lake-flower-display.webp",
+      "downloadSrc": "/images/gallery/west-lake-flower.jpg",
+      "imageAlt": "示例湖边的一朵花",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "示例湖的水",
+      "location": "示例市 · 示例湖",
+      "year": "2026",
+      "date": "2026-07-20",
+      "dateLabel": "2026.07.20",
+      "datePrecision": "date",
+      "order": 5,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/west-lake-water-display.webp",
+      "downloadSrc": "/images/gallery/west-lake-water.jpg",
+      "imageAlt": "示例湖游船尾流翻涌的碧绿湖水",
+      "width": 3840,
+      "height": 2160
+    },
+    {
+      "title": "神秘雷霆门店",
+      "location": "示例市",
+      "year": "2026",
+      "date": "2026-07-20T18:29:00+08:00",
+      "dateLabel": "2026.07.20 · 18:29",
+      "datePrecision": "datetime",
+      "order": 6,
+      "category": "CITY",
+      "imageSrc": "/images/gallery/hangzhou-running-store-display.webp",
+      "downloadSrc": "/images/gallery/hangzhou-running-store.jpg",
+      "imageAlt": "示例市线下门店",
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "title": "Hello, 示例市",
+      "location": "示例市",
+      "year": "2026",
+      "date": "2026-07-20T19:49:00+08:00",
+      "dateLabel": "2026.07.20 · 19:49",
+      "datePrecision": "datetime",
+      "order": 7,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/hello-hangzhou-display.webp",
+      "downloadSrc": "/images/gallery/hello-hangzhou.jpg",
+      "imageAlt": "平板手写的创客聚会 2026 与 Hello 示例市 字样",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "示例大学",
+      "location": "示例市 · 示例大学",
+      "year": "2026",
+      "date": "2026-07-21T09:45:00+08:00",
+      "dateLabel": "2026.07.21 · 09:45",
+      "datePrecision": "datetime",
+      "order": 8,
+      "category": "CAMPUS",
+      "imageSrc": "/images/gallery/zhejiang-university-display.webp",
+      "downloadSrc": "/images/gallery/zhejiang-university.jpg",
+      "imageAlt": "示例大学红砖拱门校门",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "湿地博物馆 · 尼古喵喵酱",
+      "location": "示例市 · 湿地博物馆",
+      "year": "2026",
+      "date": "2026-07-21T10:54:00+08:00",
+      "dateLabel": "2026.07.21 · 10:54",
+      "datePrecision": "datetime",
+      "order": 9,
+      "category": "CULTURE",
+      "imageSrc": "/images/gallery/wetland-museum-poster-display.webp",
+      "downloadSrc": "/images/gallery/wetland-museum-poster.jpg",
+      "imageAlt": "湿地博物馆尼古喵喵海报",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "湿地博物馆 · 这甚至是活的",
+      "location": "示例市 · 湿地博物馆",
+      "year": "2026",
+      "date": "2026-07-21T10:59:00+08:00",
+      "dateLabel": "2026.07.21 · 10:59",
+      "datePrecision": "datetime",
+      "order": 10,
+      "category": "CULTURE",
+      "imageSrc": "/images/gallery/wetland-museum-alive-display.webp",
+      "downloadSrc": "/images/gallery/wetland-museum-alive.jpg",
+      "imageAlt": "湿地博物馆玻璃箱中的绿色蜥蜴",
+      "width": 3072,
+      "height": 4080
+    },
+    {
+      "title": "祈福",
+      "location": "示例市 · 示例古寺",
+      "year": "2026",
+      "date": "2026-07-21T16:34:00+08:00",
+      "dateLabel": "2026.07.21 · 16:34",
+      "datePrecision": "datetime",
+      "order": 11,
+      "category": "CULTURE",
+      "imageSrc": "/images/gallery/blessing-display.webp",
+      "downloadSrc": "/images/gallery/blessing.jpg",
+      "imageAlt": "示例古寺香炉中燃烧的线香火焰",
+      "width": 3072,
+      "height": 4080
+    },
+    {
+      "title": "示例古寺",
+      "location": "示例市 · 示例古寺",
+      "year": "2026",
+      "date": "2026-07-21T16:37:00+08:00",
+      "dateLabel": "2026.07.21 · 16:37",
+      "datePrecision": "datetime",
+      "order": 12,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/lingyin-temple-50mp-display.webp",
+      "downloadSrc": "/images/gallery/lingyin-temple-50mp.jpg",
+      "imageAlt": "50MP 示例古寺风景",
+      "width": 6144,
+      "height": 8160
+    },
+    {
+      "title": "示例古寺 · 庭院",
+      "location": "示例市 · 示例古寺",
+      "year": "2026",
+      "date": "2026-07-21T16:44:00+08:00",
+      "dateLabel": "2026.07.21 · 16:44",
+      "datePrecision": "datetime",
+      "order": 13,
+      "category": "CULTURE",
+      "imageSrc": "/images/gallery/lingyin-courtyard-display.webp",
+      "downloadSrc": "/images/gallery/lingyin-courtyard.jpg",
+      "imageAlt": "示例古寺庭院里的香炉与古树",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "古寺外远山",
+      "location": "示例市 · 示例古寺",
+      "year": "2026",
+      "date": "2026-07-21T16:53:00+08:00",
+      "dateLabel": "2026.07.21 · 16:53",
+      "datePrecision": "datetime",
+      "order": 14,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/lingyin-mountains-display.webp",
+      "downloadSrc": "/images/gallery/lingyin-mountains.jpg",
+      "imageAlt": "示例古寺屋檐与远处的山林",
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "title": "创客聚会 · Logo 墙",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-22T09:09:00+08:00",
+      "dateLabel": "2026.07.22 · 09:09",
+      "datePrecision": "datetime",
+      "order": 15,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/adventurex-logo-wall-display.webp",
+      "downloadSrc": "/images/gallery/adventurex-logo-wall.jpg",
+      "imageAlt": "立体 Logo 墙与背后的骏马壁画",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "创客聚会 小火",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-22T09:11:00+08:00",
+      "dateLabel": "2026.07.22 · 09:11",
+      "datePrecision": "datetime",
+      "order": 16,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/adventurex-xiaohuo-display.webp",
+      "downloadSrc": "/images/gallery/adventurex-xiaohuo.jpg",
+      "imageAlt": "创客聚会 2026 吉祥物充气模型",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "创客聚会 开幕",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-22T10:12:00+08:00",
+      "dateLabel": "2026.07.22 · 10:12",
+      "datePrecision": "datetime",
+      "order": 17,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/adventurex-opening-display.webp",
+      "downloadSrc": "/images/gallery/adventurex-opening.jpg",
+      "imageAlt": "创客聚会 2026 开幕日路边悬挂的道旗",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "我已升空",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-22T11:03:00+08:00",
+      "dateLabel": "2026.07.22 · 11:03",
+      "datePrecision": "datetime",
+      "order": 18,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/airborne-display.webp",
+      "downloadSrc": "/images/gallery/airborne.jpg",
+      "imageAlt": "创客聚会 2026 电子墨水参赛徽章",
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "title": "组委会的一封信",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-22T12:58:00+08:00",
+      "dateLabel": "2026.07.22 · 12:58",
+      "datePrecision": "datetime",
+      "order": 19,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/adventurex-letter-display.webp",
+      "downloadSrc": "/images/gallery/adventurex-letter.jpg",
+      "imageAlt": "组委会的一封信，黑底白字，落着团队的签名",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "湖畔创研中心",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-22T14:07:00+08:00",
+      "dateLabel": "2026.07.22 · 14:07",
+      "datePrecision": "datetime",
+      "order": 20,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/lakefront-display.webp",
+      "downloadSrc": "/images/gallery/lakefront.jpg",
+      "imageAlt": "示例市湖畔风景",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "创客聚会 参赛服",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-23T06:03:00+08:00",
+      "dateLabel": "2026.07.23 · 06:03",
+      "datePrecision": "datetime",
+      "order": 21,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/adventurex-jersey-display.webp",
+      "downloadSrc": "/images/gallery/adventurex-jersey.jpg",
+      "imageAlt": "创客聚会 2026 参赛服上的涂鸦图案",
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "title": "再一次信仰之跃",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-24T04:32:00+08:00",
+      "dateLabel": "2026.07.24 · 04:32",
+      "datePrecision": "datetime",
+      "order": 22,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/faith-leap-display.webp",
+      "downloadSrc": "/images/gallery/faith-leap.jpg",
+      "imageAlt": "示例市夜间拍摄的信仰之跃",
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "title": "凌晨三点的湖畔",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-25T03:20:00+08:00",
+      "dateLabel": "2026.07.25 · 03:20",
+      "datePrecision": "datetime",
+      "order": 23,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/hupan-3am-display.webp",
+      "downloadSrc": "/images/gallery/hupan-3am.jpg",
+      "imageAlt": "凌晨三点的湖畔创研中心，玻璃墙上是手绘地图，屋里还亮着灯",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "湖畔创研中心 · 夜",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-26T20:38:00+08:00",
+      "dateLabel": "2026.07.26 · 20:38",
+      "datePrecision": "datetime",
+      "order": 24,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/hupan-night-halo-display.webp",
+      "downloadSrc": "/images/gallery/hupan-night-halo.jpg",
+      "imageAlt": "夜里的湖畔创研中心，环形屋顶亮着一圈光",
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "title": "创客聚会 谢幕 · 嬉皮士",
+      "location": "示例市 · 创客聚会 2026",
+      "year": "2026",
+      "date": "2026-07-26T20:44:00+08:00",
+      "dateLabel": "2026.07.26 · 20:44",
+      "datePrecision": "datetime",
+      "order": 25,
+      "category": "ADVENTUREX",
+      "imageSrc": "/images/gallery/adventurex-closing-display.webp",
+      "downloadSrc": "/images/gallery/adventurex-closing.jpg",
+      "imageAlt": "创客聚会 2026 谢幕现场照片",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "示例教育园外",
+      "location": "示例市 · 示例教育园",
+      "year": "2026",
+      "date": "2026-07-29T17:27:00+08:00",
+      "dateLabel": "2026.07.29 · 17:27",
+      "datePrecision": "datetime",
+      "order": 26,
+      "category": "LIFE",
+      "imageSrc": "/images/gallery/hailiang-education-2026-07-29-display.webp",
+      "downloadSrc": "/images/gallery/hailiang-education-2026-07-29.jpg",
+      "imageAlt": "全国数字素养提升活动示例教育园外景",
+      "width": 3072,
+      "height": 4096
+    },
+    {
+      "title": "回到示例市",
+      "location": "示例市",
+      "year": "2026",
+      "date": "2026-07-29T18:51:00+08:00",
+      "dateLabel": "2026.07.29 · 18:51",
+      "datePrecision": "datetime",
+      "order": 27,
+      "category": "LIFE",
+      "imageSrc": "/images/gallery/back-in-nanchang-display.webp",
+      "downloadSrc": "/images/gallery/back-in-nanchang.jpg",
+      "imageAlt": "傍晚示例市火车站的雨棚与晚霞",
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "title": "十字路口的夕阳",
+      "location": "示例市",
+      "year": "2026",
+      "date": "2026",
+      "dateLabel": "2026",
+      "datePrecision": "year",
+      "order": 28,
+      "category": "CAMPUS",
+      "imageSrc": "/images/gallery/nanchang-campus-display.webp",
+      "downloadSrc": "/images/gallery/nanchang-campus.webp",
+      "imageAlt": "示例中学校园外景照片",
+      "width": 1051,
+      "height": 1400
+    },
+    {
+      "title": "琉璃",
+      "location": "影集素材",
+      "year": "2026",
+      "date": "2026",
+      "dateLabel": "2026",
+      "datePrecision": "year",
+      "order": 29,
+      "category": "LIFE",
+      "imageSrc": "/images/gallery/liuli-display.webp",
+      "downloadSrc": "/images/gallery/liuli.webp",
+      "imageAlt": "影集照片",
+      "width": 1400,
+      "height": 1050
+    },
+    {
+      "title": "风雨校园",
+      "location": "影集素材",
+      "year": "2026",
+      "date": "2026",
+      "dateLabel": "2026",
+      "datePrecision": "year",
+      "order": 30,
+      "category": "LIFE",
+      "imageSrc": "/images/gallery/nchs-rains-display.webp",
+      "downloadSrc": "/images/gallery/nchs-rains.webp",
+      "imageAlt": "风雨校园",
+      "width": 1054,
+      "height": 1400
+    },
+    {
+      "title": "夕阳",
+      "location": "示例市",
+      "year": "2024",
+      "date": "2024",
+      "dateLabel": "2024",
+      "datePrecision": "year",
+      "order": 31,
+      "category": "SCENERY",
+      "imageSrc": "/images/gallery/nanchang-sunset-display.webp",
+      "downloadSrc": "/images/gallery/nanchang-sunset.webp",
+      "imageAlt": "示例市晴天拍摄的夕阳照片",
+      "width": 1050,
+      "height": 1400
+    }
+  ],
+  "friendLinks": [
+    {
+      "name": "示例友链一",
+      "url": "https://example-friend1.example.com/",
+      "description": "专注后端开发与开源工具的程序员",
+      "group": "close",
+      "favicon": "/images/friends/hny0305lin.webp",
+      "addedAt": "2026-08-05"
+    },
+    {
+      "name": "示例友链二",
+      "url": "https://example-friend2.example.com/",
+      "description": "专注于现代技术与动效设计的全栈开发工程师",
+      "group": "close",
+      "favicon": "/images/friends/baesory.webp",
+      "addedAt": "2026-08-05"
+    },
+    {
+      "name": "示例友链三",
+      "url": "https://example-friend3.example.com/",
+      "description": "提供各种实用电脑工具和小程序的个人站点",
+      "group": "close",
+      "favicon": "/images/friends/sgguo.webp",
+      "addedAt": "2026-08-05"
+    },
+    {
+      "name": "示例友链四",
+      "url": "https://example-friend4.example.com/",
+      "description": "在线评测与算法学习社区",
+      "group": "close",
+      "favicon": "/images/friends/ytuoj.webp",
+      "addedAt": "2026-08-05"
+    },
+    {
+      "name": "示例友链五",
+      "url": "https://example-friend5.example.com/",
+      "description": "愿此行，终抵群星。",
+      "group": "close",
+      "favicon": "/images/friends/pandadatech.webp",
+      "addedAt": "2026-08-05"
+    }
+  ]
+}

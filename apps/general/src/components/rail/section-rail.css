@@ -1,0 +1,43 @@
+/* ============================================================================
+   section-rail.css — 左侧章节色带（SectionRail）专属样式。
+   由 SectionRail.tsx 导入，与组件共置；`--rail-base` 宽度同时被 SectionCanvas
+   内容区 padding 消费（CSS-only 对齐）。
+   ========================================================================== */
+
+/* Rail width is CSS-only; content area padding in SectionCanvas matches it. */
+.section-rail {
+  --rail-base: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .section-rail {
+    --rail-base: 6rem;
+  }
+}
+
+.rail-vertical-title {
+  font-family:
+    var(--font-dancing-script), ui-serif, Georgia, Cambria, 'Times New Roman', serif,
+    var(--font-cjk-fallback);
+  font-size: 4.9rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .rail-vertical-title {
+    font-size: 5.9rem;
+    letter-spacing: 0.19em;
+  }
+}
+
+/* Reuses the site's film-grain texture to break up the flat colour column. */
+.rail-grain {
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}

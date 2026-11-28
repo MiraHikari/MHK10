@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import App from '@/components/App';
+import { getArticleList } from '@/lib/blog';
+import { getActiveProjects } from '@/lib/projects';
+import { blogIndexHead } from '@/lib/blog/head-model';
+import '@/styles/global.css';
+import '@/styles/features/blog/index.css';
+
+const projectData = await getActiveProjects();
+const articles = await getArticleList();
+
+const head = blogIndexHead(articles);
+---
+
+<Layout {...head}>
+  <App client:load projects={projectData} initialSection="blog" articles={articles} />
+</Layout>

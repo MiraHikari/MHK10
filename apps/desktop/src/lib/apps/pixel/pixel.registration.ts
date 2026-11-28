@@ -1,0 +1,16 @@
+export const registration = {
+  id: 'pixel',
+  name: 'PIXEL.EXE',
+  icon: 'palette',
+  kind: 'canvas',
+  route: '/apps/pixel/',
+  title: 'PIXEL.EXE',
+  w: 470,
+  h: 304,
+  menu: 'Programs',
+  register: 'L2',
+  files: [{ extensions: ['.pixel'], description: 'Pixel drawing', category: 'drawing' }],
+  handlerLabel: 'Paint',
+  startMenuFolder: 'accessories',
+  runAliases: ['mspaint'],
+} as const;

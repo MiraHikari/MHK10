@@ -1,0 +1,94 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import { portfolio } from '../../../data/profile';
+import { directoryContacts } from '@mhk/site-core/content-model/friend-directory';
+import '@mhk/site-core/browser/friend-directory.css';
+
+const contacts = directoryContacts(portfolio.friendLinks);
+---
+
+<SiteLayout
+  title="Long-Distance Directory"
+  description="MiraHikari 的公开友链选录。"
+  active="network"
+>
+  <main class="network-directory" lang="zh-CN" data-cjk>
+    <section id="directory" class="friend-directory" aria-labelledby="directory-title">
+      <header class="friend-directory__header">
+        <p class="friend-directory__imprint" lang="en">
+          DIAL-UP / ADDRESS BOOK
+        </p>
+        <h1 id="directory-title">
+          <PixelIcon name="dialup" size={24} /> 长途电话簿
+        </h1>
+        <p>先翻看公开站点介绍，点 Visit 才访问。</p>
+      </header>
+      {contacts.length ? (
+        contacts.map((contact, index) => (
+          <details class="friend-directory__record" name="friends-directory" open={index === 0}>
+            <summary>
+              <span class="friend-directory__number" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              {contact.name}
+            </summary>
+            <div class="friend-directory__body">
+              <div>
+                <p>{contact.description}</p>
+                <p class="friend-directory__host">{contact.host}</p>
+              </div>
+              <a
+                class="friend-directory__visit"
+                href={contact.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${contact.name}`}
+                lang="en"
+              >
+                Visit
+              </a>
+            </div>
+          </details>
+        ))
+      ) : (
+        <p>暂无愿意公开的联系人卡。</p>
+      )}
+    </section>
+    <nav class="network-directory__actions" aria-label="目录导航" lang="en">
+      <a class="hybrid-button" href="/about/#friends" data-app-link="profile">
+        All links
+      </a>
+      <a class="hybrid-button" href="/apps/dialup/" data-app-link="dialup">
+        Dial-Up Networking
+      </a>
+    </nav>
+  </main>
+</SiteLayout>
+
+<style>
+  .network-directory {
+    max-width: 39rem;
+    margin: 0 auto;
+    padding: 0.75rem;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .network-directory h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .network-directory__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block-start: 0.8rem;
+  }
+
+  .network-directory__actions a {
+    min-height: 38px;
+  }
+</style>

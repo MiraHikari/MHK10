@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { label, class: className = '', ...attributes } = Astro.props;
+---
+
+<div
+  role="tablist"
+  data-hybrid-tabs
+  aria-label={label}
+  class:list={['hybrid-tabs', className]}
+  {...attributes}
+>
+  <slot />
+</div>

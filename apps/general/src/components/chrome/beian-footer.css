@@ -1,0 +1,18 @@
+/* ============================================================================
+   beian-footer.css — fixed registration footer with a paper/night scrim.
+   The footer is chrome, not section content: a short gradient keeps links
+   readable while the section scrolls beneath it.
+   ========================================================================== */
+
+.beian-footer {
+  padding: 0.9rem 1.1rem 0.4rem;
+  background: linear-gradient(to top, var(--beian-footer-scrim) 0 58%, transparent 100%);
+}
+
+.beian-footer[data-tone='dark'] {
+  --beian-footer-scrim: var(--neutral-950);
+}
+
+.beian-footer[data-tone='light'] {
+  --beian-footer-scrim: var(--neutral-50);
+}

@@ -1,0 +1,38 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import App from '@/components/App';
+import { getListedPosts, getArticleList } from '@/lib/blog';
+import { getActiveProjects } from '@/lib/projects';
+import { blogTagHead } from '@/lib/blog/head-model';
+import '@/styles/global.css';
+import '@/styles/features/blog/index.css';
+
+export async function getStaticPaths() {
+  const posts = await getListedPosts();
+  const tags = new Set<string>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      tags.add(tag);
+    }
+  }
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const projectData = await getActiveProjects();
+const articles = await getArticleList();
+const head = blogTagHead(tag, articles);
+---
+
+<Layout {...head}>
+  <App
+    client:load
+    projects={projectData}
+    initialSection="blog"
+    initialBlogTag={tag}
+    articles={articles}
+  />
+</Layout>

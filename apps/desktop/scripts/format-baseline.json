@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "commit": "5b36b24ba6c6fb4a5ccd13e18a1f966e56237beb",
+  "files": {
+    "docs/fonts/ATTRIBUTION.md": "a13d391af3b0788b82c1b1c3d557afa781c1824e81cacca3efde8fe153758a89",
+    "public/licenses/pixel-fonts.md": "a13d391af3b0788b82c1b1c3d557afa781c1824e81cacca3efde8fe153758a89",
+    "src/lib/gfx/bitmap-font.ts": "4feafbce5a9a1bef30b1090ac94e1647dec215903bd4949f933f5058075442da"
+  }
+}

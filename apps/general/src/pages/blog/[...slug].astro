@@ -1,0 +1,37 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import App from '@/components/App';
+import { render } from 'astro:content';
+import { getAllPosts, getArticleList, toPost } from '@/lib/blog';
+import { getActiveProjects } from '@/lib/projects';
+import { articleHead } from '@/lib/blog/head-model';
+import '@/styles/global.css';
+import '@/styles/features/blog/index.css';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const projectData = await getActiveProjects();
+const [articles, { Content: ActiveContent }] = await Promise.all([getArticleList(), render(post)]);
+const p = toPost(post);
+
+const head = articleHead(p);
+---
+
+<Layout {...head}>
+  <App
+    client:load
+    projects={projectData}
+    initialSection="blog"
+    initialArticle={p.id}
+    articles={articles}
+  >
+    <ActiveContent />
+  </App>
+</Layout>

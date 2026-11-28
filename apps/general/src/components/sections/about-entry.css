@@ -1,0 +1,980 @@
+/* ============================================================================
+   about-entry.css — 作者首屏（Hero）。
+   纸面上先出现一枚极大的签名，再由一束光把同一段名字照成 16 色像素：
+   上部是元信息细轨，中部是名字与自述，下部是一条精选作品 / 数字 / 桌面
+   推荐的编辑式细轨。所有入场都走「聚焦」，没有第二套运动隐喻。
+   ========================================================================== */
+
+.about-entry {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1rem, 2.2vh, 1.75rem);
+  min-height: 100dvh;
+  padding: 6.5rem clamp(1.5rem, 6vw, 7rem) 5.5rem clamp(1.5rem, 7vw, 9rem);
+  color: var(--neutral-950);
+}
+
+/* ---- 顶部元信息细轨 ------------------------------------------------------ */
+
+.about-entry__toprail {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--neutral-300);
+}
+
+.about-entry__toprail::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: var(--section-accent);
+  opacity: 0.72;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.about-entry[data-ready='true'][data-hero-motion='animated'] .about-entry__toprail::after {
+  animation: about-hero-rule var(--scene-hero-rail-duration) var(--ease-brand)
+    var(--scene-hero-rail-delay) both;
+}
+
+.about-entry__kicker,
+.about-entry__signal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--neutral-500);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.about-entry__signal {
+  justify-content: flex-end;
+  color: var(--section-accent-ink);
+}
+
+.about-entry__mark {
+  width: 0.8rem;
+  height: 0.5rem;
+  background: var(--section-accent);
+  transform: skewX(-12deg);
+}
+
+.about-entry__eyebrow-sep {
+  color: var(--neutral-300);
+}
+
+/* ---- 名字 stage ---------------------------------------------------------- */
+
+.about-entry__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.about-entry__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(5rem, 20vw, 24rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.82;
+}
+
+.about-entry__name-line {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.about-entry__glyph {
+  display: inline-block;
+}
+
+/* 光斑：外层按指针移动，内层画布反向移动，画面只发生合成层位移。 */
+.about-entry__scope {
+  --scope-size: clamp(10.5rem, 17vw, 16rem);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: var(--scope-size);
+  height: var(--scope-size);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(calc(var(--spot-x, 0px) - 50%), calc(var(--spot-y, 0px) - 50%), 0);
+  transition: opacity var(--scene-hero-rail-duration) var(--ease-brand)
+    var(--scene-hero-bottom-delay);
+}
+
+.about-entry[data-ready='true'] .about-entry__scope[data-spot='ready'] {
+  opacity: 1;
+}
+
+.about-entry[data-pixel='off'] .about-entry__scope {
+  display: none;
+}
+
+.about-entry__scope-lens {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 46%,
+    var(--neutral-50) 0 56%,
+    color-mix(in srgb, var(--neutral-50) 78%, transparent) 74%,
+    transparent 92%
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--section-accent) 38%, transparent),
+    0 1.5rem 4rem color-mix(in srgb, var(--neutral-950) 14%, transparent);
+}
+
+.about-entry__scope-lens::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 36% 30%,
+    color-mix(in srgb, var(--section-accent) 13%, transparent),
+    transparent 58%
+  );
+  pointer-events: none;
+}
+
+.about-entry__scope-lens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--neutral-50) 72%, transparent);
+  pointer-events: none;
+}
+
+.about-entry__pixel-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  -webkit-mask-image: radial-gradient(circle at 50% 48%, black 0 58%, transparent 90%);
+  mask-image: radial-gradient(circle at 50% 48%, black 0 58%, transparent 90%);
+  transform: translate3d(
+    calc(var(--scope-size) / 2 - var(--spot-x, 0px)),
+    calc(var(--scope-size) / 2 - var(--spot-y, 0px)),
+    0
+  );
+}
+
+.about-entry__scope-caption {
+  position: absolute;
+  bottom: -1.15rem;
+  left: 50%;
+  display: inline-flex;
+  gap: 0.5rem;
+  color: var(--section-accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.about-entry__scope-caption span + span {
+  color: var(--neutral-400);
+}
+
+/* ---- 中部自述 ------------------------------------------------------------ */
+
+.about-entry__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(14rem, 0.82fr);
+  align-items: end;
+  gap: 1.25rem 2rem;
+  min-width: 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--neutral-300);
+}
+
+.about-entry__intro-copy {
+  min-width: 0;
+}
+
+.about-entry__tagline {
+  max-width: 43rem;
+  margin: 0 0 0.65rem;
+  color: var(--section-accent-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.about-entry__summary {
+  max-width: 41rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.15vw, 1.25rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.about-entry__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-self: end;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 16rem;
+}
+
+.about-entry__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 3rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--neutral-300);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+  transition:
+    color var(--scene-control-duration) var(--ease-brand),
+    background-color var(--scene-control-duration) var(--ease-brand),
+    border-color var(--scene-control-duration) var(--ease-brand);
+}
+
+.about-entry__action--primary {
+  border-color: var(--section-accent);
+  background: var(--section-accent);
+  color: var(--section-accent-on);
+}
+
+.about-entry__action:hover,
+.about-entry__action:focus-visible {
+  border-color: var(--neutral-950);
+  background: var(--neutral-950);
+  color: var(--neutral-50);
+}
+
+.about-entry__action:focus-visible {
+  outline: 2px solid var(--section-accent-ink);
+  outline-offset: 3px;
+}
+
+/* ---- 底部细轨 ------------------------------------------------------------ */
+
+.about-entry__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.75fr);
+  align-items: end;
+  gap: clamp(1rem, 2vw, 2.25rem);
+  min-width: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--neutral-300);
+}
+
+.about-entry__bottom:has(.about-entry__offer) {
+  grid-template-columns:
+    minmax(0, 1.05fr) minmax(10.5rem, 0.65fr)
+    minmax(17rem, 0.9fr);
+}
+
+.about-entry__work {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 0.82fr) minmax(0, 1.18fr);
+  align-items: stretch;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.about-entry__work-visual {
+  position: relative;
+  align-self: end;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--neutral-100);
+}
+
+.about-entry__work-visual img {
+  transition: transform var(--scene-entry-duration) var(--ease-brand);
+}
+
+.about-entry__work:hover img,
+.about-entry__work:focus-visible img {
+  transform: scale(1.04);
+}
+
+.about-entry__work-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--section-accent) 18%, transparent),
+      transparent 58%
+    ),
+    var(--neutral-100);
+}
+
+.about-entry__work-index {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.15rem 0.35rem;
+  background: var(--neutral-50);
+  color: var(--section-accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.4;
+}
+
+.about-entry__work-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.about-entry__work-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--section-accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.5;
+}
+
+.about-entry__work-label svg {
+  flex: none;
+}
+
+.about-entry__work-copy h2 {
+  margin: 0.4rem 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.about-entry__work-copy p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--neutral-500);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.about-entry__work-tags {
+  overflow: hidden;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  color: var(--section-accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.about-entry__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.about-entry__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid var(--neutral-300);
+  list-style: none;
+}
+
+.about-entry__fact {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.about-entry__fact dt {
+  flex: 0 0 auto;
+  min-width: 4.6rem;
+  color: var(--neutral-500);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.about-entry__fact dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--neutral-950);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.about-entry__fact dd span {
+  margin-left: 0.15rem;
+  color: var(--section-accent-ink);
+  font-size: 0.75rem;
+}
+.about-entry__specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.75rem;
+  color: var(--neutral-500);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
+/* ---- 桌面推荐 / 切换提示 ------------------------------------------------- */
+
+.about-entry__offer-dock {
+  justify-self: end;
+  width: 100%;
+  max-width: 24rem;
+  min-width: 0;
+}
+
+.about-entry__offer {
+  --offer-surface: var(--neutral-50);
+  --offer-foreground: var(--neutral-950);
+  --offer-muted: var(--neutral-500);
+  --offer-line: var(--section-accent);
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  max-width: none;
+  margin: 0;
+  padding: 0.7rem 0.85rem 0.8rem;
+  overflow: hidden;
+  border: 1px solid var(--offer-line);
+  border-top: 3px solid var(--section-accent);
+  background: var(--offer-surface);
+  color: var(--offer-foreground);
+  box-shadow: var(--shadow-pop);
+}
+
+.about-entry__offer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--section-accent) 7%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 1.5rem 100%;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.about-entry__offer > * {
+  position: relative;
+  z-index: 1;
+}
+
+.about-entry__offer-label {
+  min-width: 0;
+}
+
+.about-entry__offer-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--offer-foreground);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.about-entry__offer-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.about-entry__offer-label svg {
+  flex: none;
+  color: var(--section-accent-ink);
+}
+
+.about-entry__offer-note {
+  flex-shrink: 0;
+  padding: 0.15rem 0.4rem;
+  background: color-mix(in srgb, var(--section-accent) 13%, var(--offer-surface));
+  color: var(--section-accent-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  letter-spacing: 0;
+}
+
+.about-entry__offer-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+}
+
+.about-entry__offer-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--offer-foreground) 18%, var(--offer-surface));
+  background: transparent;
+  color: var(--offer-foreground);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition:
+    background-color var(--scene-control-duration) var(--ease-brand),
+    border-color var(--scene-control-duration) var(--ease-brand),
+    color var(--scene-control-duration) var(--ease-brand);
+}
+
+.about-entry__offer-cta--primary {
+  border-color: var(--section-accent);
+  background: var(--section-accent);
+  color: var(--section-accent-on);
+  font-weight: 600;
+}
+
+.about-entry__offer-cta--secondary {
+  justify-content: center;
+}
+
+.about-entry__offer-cta:focus-visible {
+  outline: 2px solid var(--section-accent-ink);
+  outline-offset: 3px;
+}
+
+.about-entry__hint {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: none;
+  margin: 0;
+  padding: 0.45rem 0.5rem 0.45rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--section-accent) 32%, var(--neutral-300));
+  border-left: 3px solid var(--section-accent);
+  background: color-mix(in srgb, var(--section-accent) 6%, var(--neutral-50));
+  color: var(--neutral-950);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.about-entry__hint-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.about-entry__hint-icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: var(--section-accent-ink);
+}
+
+.about-entry__hint button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--section-accent) 30%, var(--neutral-300));
+  background: transparent;
+  color: var(--section-accent-ink);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  transition:
+    background-color var(--scene-control-duration) var(--ease-brand),
+    color var(--scene-control-duration) var(--ease-brand);
+}
+
+.about-entry__hint button:focus-visible {
+  outline: 2px solid var(--section-accent-ink);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-entry__offer-cta:hover {
+    border-color: var(--section-accent);
+    background: var(--section-accent);
+    color: var(--section-accent-on);
+  }
+
+  .about-entry__hint button:hover {
+    background: var(--section-accent);
+    color: var(--section-accent-on);
+  }
+}
+
+/* ---- 入场：同一束光先照见名字，再照见身体与细轨 ------------------------- */
+
+@keyframes about-hero-rule {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 0.72;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes about-hero-glyph {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(0.08em);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes about-hero-rise {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.about-entry[data-ready='true'][data-hero-motion='animated'] .about-entry__toprail {
+  animation: about-hero-rise var(--scene-hero-rail-duration) var(--ease-brand) both;
+}
+
+.about-entry[data-ready='true'][data-hero-motion='animated'] .about-entry__glyph {
+  animation: about-hero-glyph var(--scene-hero-glyph-duration) var(--ease-brand) both;
+  animation-delay: calc(
+    var(--scene-hero-rail-delay) + var(--glyph-index, 0) * var(--scene-hero-glyph-stagger)
+  );
+}
+
+.about-entry[data-ready='true'][data-hero-motion='animated'] .about-entry__intro {
+  animation: about-hero-rise var(--scene-hero-rail-duration) var(--ease-brand)
+    var(--scene-hero-intro-delay) both;
+}
+
+.about-entry[data-ready='true'][data-hero-motion='animated'] .about-entry__bottom {
+  animation: about-hero-rise var(--scene-hero-rail-duration) var(--ease-brand)
+    var(--scene-hero-bottom-delay) both;
+}
+
+.about-entry[data-hero-motion='static'] .about-entry__scope {
+  transition: none;
+}
+
+.about-entry[data-hero-motion='static'] .about-entry__toprail,
+.about-entry[data-hero-motion='static'] .about-entry__glyph,
+.about-entry[data-hero-motion='static'] .about-entry__intro,
+.about-entry[data-hero-motion='static'] .about-entry__bottom {
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.about-entry[data-hero-motion='static'] .about-entry__toprail::after {
+  opacity: 0.72;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-forced) .about-entry .about-entry__scope {
+    transition: none;
+  }
+
+  html:not(.motion-forced) .about-entry[data-ready='true'] .about-entry__toprail,
+  html:not(.motion-forced) .about-entry[data-ready='true'] .about-entry__glyph,
+  html:not(.motion-forced) .about-entry[data-ready='true'] .about-entry__intro,
+  html:not(.motion-forced) .about-entry[data-ready='true'] .about-entry__bottom {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+html.motion-suppressed .about-entry .about-entry__scope {
+  transition: none;
+}
+
+html.motion-suppressed .about-entry[data-ready='true'] .about-entry__toprail,
+html.motion-suppressed .about-entry[data-ready='true'] .about-entry__glyph,
+html.motion-suppressed .about-entry[data-ready='true'] .about-entry__intro,
+html.motion-suppressed .about-entry[data-ready='true'] .about-entry__bottom {
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+/* ---- 响应式 -------------------------------------------------------------- */
+
+@media (max-width: 1279px) {
+  .about-entry {
+    padding-inline: clamp(1.75rem, 5vw, 4.5rem) clamp(1.5rem, 4.5vw, 4rem);
+  }
+
+  .about-entry__intro {
+    grid-template-columns: minmax(0, 1.1fr) minmax(12rem, 0.9fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  .about-entry {
+    padding: 6.5rem clamp(1.5rem, 5vw, 3.5rem) 5rem;
+  }
+
+  .about-entry__name {
+    font-size: clamp(5rem, 20vw, 14rem);
+  }
+
+  .about-entry__intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .about-entry__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-self: stretch;
+    max-width: none;
+  }
+
+  .about-entry__action {
+    flex: 1 1 12rem;
+  }
+
+  .about-entry__bottom,
+  .about-entry__bottom:has(.about-entry__offer) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+
+  .about-entry__offer-dock {
+    grid-column: 1 / -1;
+    justify-self: start;
+    max-width: 24rem;
+  }
+
+  .about-entry__scope {
+    --scope-size: clamp(9.5rem, 20vw, 12rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-entry {
+    gap: 1.5rem;
+    min-height: 100svh;
+    padding: 6.5rem 1.25rem 4rem;
+  }
+
+  .about-entry__toprail {
+    align-items: flex-start;
+  }
+
+  .about-entry__signal {
+    justify-content: flex-start;
+  }
+
+  .about-entry__name {
+    flex-direction: column;
+    font-size: clamp(5.5rem, 28vw, 8.5rem);
+    line-height: 0.8;
+  }
+
+  .about-entry__name-line {
+    display: block;
+  }
+
+  /* The lens follows a mouse; on a touch hero it only covers the name, so the
+     pixel canvas keeps its place behind nothing — drop the whole scope. */
+  .about-entry__scope {
+    display: none;
+  }
+
+  .about-entry__intro {
+    padding-top: 0.9rem;
+  }
+
+  .about-entry__tagline {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .about-entry__summary {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .about-entry__actions {
+    gap: 0.5rem;
+  }
+
+  .about-entry__action {
+    flex: 1 1 9rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.7rem;
+    font-size: 0.75rem;
+  }
+
+  .about-entry__bottom,
+  .about-entry__bottom:has(.about-entry__offer) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* The recommendation leads the bottom rail on a phone: the work card and
+     facts stay below it. The miniature keeps its 640×360 shape but reads as a
+     short strip, and the actions stay thumb-reachable. */
+  .about-entry__offer-dock {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: none;
+  }
+
+  .about-entry__offer {
+    gap: 0.6rem;
+    padding: 0.75rem 0.8rem 0.85rem;
+  }
+
+  .about-entry__offer .desktop-preview {
+    max-height: 9.5rem;
+    width: auto;
+    margin-inline: auto;
+    aspect-ratio: 640 / 360;
+  }
+
+  .about-entry__offer-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-entry__offer-cta {
+    min-height: 2.75rem;
+  }
+
+  .about-entry__work {
+    grid-template-columns: minmax(6rem, 0.8fr) minmax(0, 1.2fr);
+    gap: 0.75rem;
+  }
+
+  .about-entry__facts {
+    gap: 0.3rem;
+  }
+
+  .about-entry__hint {
+    padding-left: 0.5rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .about-entry__name {
+    font-size: 5rem;
+  }
+
+  .about-entry__work {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 960px) {
+  .about-entry {
+    gap: 0.5rem;
+    padding-top: 4.75rem;
+    padding-bottom: 3rem;
+  }
+
+  .about-entry__name {
+    font-size: clamp(4.25rem, 14vw, 13rem);
+  }
+
+  .about-entry__tagline {
+    margin-bottom: 0.4rem;
+    font-size: 1.05rem;
+  }
+
+  .about-entry__summary {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .about-entry__intro {
+    padding-top: 0.9rem;
+  }
+
+  .about-entry__bottom {
+    padding-top: 0.75rem;
+  }
+
+  .about-entry__offer {
+    gap: 0.4rem;
+    padding: 0.55rem 0.7rem 0.65rem;
+  }
+
+  .about-entry__offer-cta {
+    padding: 0.5rem 0.65rem;
+  }
+}

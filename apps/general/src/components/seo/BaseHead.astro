@@ -1,0 +1,106 @@
+---
+import { profile } from '@/data/profile';
+import { faviconHref } from '@/data/favicon';
+import { pageTitle } from '@/lib/page-title';
+import { IMAGE_BASE_URL, resolveImageSrc } from '@/lib/images/url';
+import { SITE_ORIGIN } from '@/lib/blog/legal';
+import SiteFonts from '@/components/seo/SiteFonts.astro';
+import { canonicalUrl } from '@/lib/canonical-url';
+import { parseDesktopDeployment } from '@/hooks/desktop-deployment-model';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Social image. Absolute URL recommended (defaults to the site OG image). */
+  image?: string;
+  /** "website" (default) or "article". Drives OG type + article meta. */
+  type?: 'website' | 'article';
+  /** Canonical URL override; defaults to current URL. */
+  canonical?: string;
+  /** Keep lightweight or error pages out of search indexes. */
+  noindex?: boolean;
+  /** ISO strings — only used when type === "article". */
+  publishedTime?: string;
+  modifiedTime?: string;
+  authors?: string[];
+  tags?: string[];
+  keywords?: string[];
+  /** One JSON-LD object or an array of them; rendered verbatim. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = profile.summary,
+  image = '/images/og/default.webp',
+  type = 'website',
+  canonical,
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  authors = [profile.name],
+  tags = [],
+  keywords,
+  jsonLd,
+} = Astro.props;
+
+const resolvedTitle = title ?? pageTitle([]);
+const canonicalURL = canonicalUrl(canonical ?? Astro.url.pathname, Astro.site ?? SITE_ORIGIN);
+const ogImageURL = new URL(resolveImageSrc(image), SITE_ORIGIN).href;
+const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const keywordsString = keywords?.join(', ');
+const imageOrigin = IMAGE_BASE_URL ? new URL(IMAGE_BASE_URL).origin : '';
+// Win95 桌面（B 站子域）连通预热：进入融合模式时 iframe 首包更快。
+const desktopDeployment = parseDesktopDeployment(import.meta.env.PUBLIC_DESK_URL);
+const deskOrigin = desktopDeployment ? new URL(desktopDeployment).origin : '';
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content={description} />
+{keywordsString && <meta name="keywords" content={keywordsString} />}
+<meta name="author" content={authors.join(', ')} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={resolvedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:site_name" content="MiraHikari Studio" />
+{type === 'article' && publishedTime && (
+  <meta property="article:published_time" content={publishedTime} />
+)}
+{type === 'article' && modifiedTime && (
+  <meta property="article:modified_time" content={modifiedTime} />
+)}
+{type === 'article' && authors.map((a) => <meta property="article:author" content={a} />)}
+{type === 'article' && tags.map((t) => <meta property="article:tag" content={t} />)}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={resolvedTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />
+
+<meta name="theme-color" content="#0A0A0A" />
+<link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+{imageOrigin && <link rel="preconnect" href={imageOrigin} />}
+{imageOrigin && <link rel="dns-prefetch" href={imageOrigin} />}
+{deskOrigin && <link rel="preconnect" href={deskOrigin} />}
+{deskOrigin && <link rel="dns-prefetch" href={deskOrigin} />}
+<SiteFonts />
+{/* SSR 出口恒为 classic 变体（桌面目标由 Layout 的预水合脚本接管），且与
+    `@/data/favicon` 同源，`syncFavicon('classic')` 因此是真正的无操作。 */}
+<link rel="icon" type="image/webp" href={faviconHref('classic')} data-site-favicon="icon" />
+<link rel="apple-touch-icon" href={faviconHref('classic', 'apple')} data-site-favicon="apple" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" title="MiraHikari · Blog RSS" href="/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="MiraHikari · Blog Atom" href="/atom.xml" />
+<title>{resolvedTitle}</title>
+
+{jsonLdArray.map((obj) => (
+  <script type="application/ld+json" data-site-json-ld is:inline set:html={JSON.stringify(obj)} />
+))}

@@ -1,0 +1,509 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import MenuBar from '../../../components/hybrid/MenuBar.astro';
+import Toolbar from '../../../components/hybrid/Toolbar.astro';
+import Button from '../../../components/hybrid/Button.astro';
+import Tree from '../../../components/hybrid/Tree.astro';
+import Panel from '../../../components/hybrid/Panel.astro';
+import Dialog from '../../../components/hybrid/Dialog.astro';
+import StatusBar from '../../../components/hybrid/StatusBar.astro';
+import { skillGroups, portfolio } from '../../../data/profile';
+---
+
+<SiteLayout title="Device Manager" description="MiraHikari 的技术经验与学习方向。" active="skills">
+  <main id="skill-manager" class="skill-manager" lang="en">
+    <MenuBar label="Device Manager menus" class="skill-interactive">
+      <details>
+        <summary>File</summary>
+        <div>
+          <Button data-skill-command="properties">Properties</Button>
+          <a href="/about/#projects" data-app-link="profile">
+            Projects
+          </a>
+          <a href="/" data-app-link="home">
+            Home
+          </a>
+        </div>
+      </details>
+      <details>
+        <summary>View</summary>
+        <div>
+          <Button data-skill-command="expand">Expand all</Button>
+          <Button data-skill-command="collapse">Collapse all</Button>
+          <Button data-skill-command="learning">Currently learning</Button>
+        </div>
+      </details>
+      <details>
+        <summary>Help</summary>
+        <div>
+          <Button data-skill-command="help">Device Manager Help</Button>
+        </div>
+      </details>
+    </MenuBar>
+    <Toolbar label="Technology tools" class="skill-interactive skill-toolbar" data-hybrid-toolbar>
+      <Button data-skill-command="properties">
+        <PixelIcon name="doc" size={16} />
+        Properties
+      </Button>
+      <Button data-skill-command="expand" aria-label="Expand all" title="Expand all">
+        <span aria-hidden="true">+</span>
+      </Button>
+      <Button data-skill-command="collapse" aria-label="Collapse all" title="Collapse all">
+        <span aria-hidden="true">−</span>
+      </Button>
+      <Button data-skill-command="learning">Learning</Button>
+      <Button
+        class="skill-details-toggle"
+        data-skill-command="details"
+        aria-controls="skill-preview"
+        aria-expanded="false"
+        title="Show selection details"
+      >
+        Details
+      </Button>
+    </Toolbar>
+    <div class="skill-search skill-interactive">
+      <label for="skill-search">Find</label>
+      <input
+        id="skill-search"
+        type="search"
+        placeholder="Technology, note or keyword"
+        autocomplete="off"
+        aria-controls="skill-results"
+        aria-describedby="skill-count"
+        aria-keyshortcuts="Control+f Meta+f"
+      />
+      <Button data-skill-command="clear">Clear</Button>
+    </div>
+    <div class="skill-workspace skill-interactive">
+      <div id="skill-results" class="skill-results">
+        <Tree class="device-tree" label="Technologies" data-tree-controller="skill-browser">
+          <div class="tree-root">
+            <PixelIcon name="computer" size={16} />
+            <span id="skill-tree-title">MiraHikari</span>
+          </div>
+          {skillGroups.map((group, index) => (
+            <div data-skill-group={group.id}>
+              <Button
+                class="skill-category"
+                role="treeitem"
+                data-skill-node={`group:${group.id}`}
+                aria-expanded={index === 0}
+                aria-controls={`skill-children-${index}`}
+                aria-level="1"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <span class="branch-mark" data-expand-mark aria-hidden="true">
+                  {index === 0 ? '−' : '+'}
+                </span>
+                <PixelIcon name={group.icon} size={16} />
+                <span class="node-label">{group.title}</span>
+              </Button>
+              <div
+                role="group"
+                id={`skill-children-${index}`}
+                data-skill-children
+                hidden={index !== 0}
+              >
+                {group.skills.map((skill, skillIndex) => (
+                  <Button
+                    class="skill-row"
+                    role="treeitem"
+                    data-skill-node={`skill:${skill.name}`}
+                    data-skill-name={skill.name}
+                    aria-level="2"
+                    aria-selected={index === 0 && skillIndex === 0}
+                    tabindex={index === 0 && skillIndex === 0 ? 0 : -1}
+                  >
+                    <PixelIcon name={group.icon} size={16} />
+                    <span class="node-label">{skill.name}</span>
+                  </Button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </Tree>
+        <div id="skill-empty" class="skill-empty" hidden>
+          <strong>No technologies found</strong>
+          <p>Try another keyword or clear Find to restore the tree.</p>
+          <Button data-skill-command="clear">Clear search</Button>
+        </div>
+      </div>
+      <Panel id="skill-preview" class="skill-preview" label="Technology summary">
+        <h1 id="skill-title">Device Manager</h1>
+        <div id="skill-meter" class="skill-meter" hidden aria-hidden="true">
+          <div class="skill-meter-head">
+            <span id="skill-meter-label">Self-assessment</span>
+            <span id="skill-meter-value"></span>
+          </div>
+          <div id="skill-meter-bar" class="skill-meter-bar"></div>
+        </div>
+        <p id="skill-note" data-cjk lang="zh-CN"></p>
+        <dl id="skill-summary"></dl>
+      </Panel>
+    </div>
+    <StatusBar class="skill-interactive">
+      <span id="skill-count" role="status">
+        {portfolio.skills.length} technologies · {skillGroups.length} categories
+      </span>
+    </StatusBar>
+    <section class="skill-reference" aria-label="Technology catalog">
+      <h1>Device Manager</h1>
+      <p data-cjk lang="zh-CN">
+        MiraHikari 的技术经验与学习方向。
+      </p>
+      {skillGroups.map((group, index) => (
+        <section aria-labelledby={`skill-reference-${index}`}>
+          <h2 id={`skill-reference-${index}`}>
+            <PixelIcon name={group.icon} size={16} /> {group.title}
+          </h2>
+          <p data-cjk lang="zh-CN">
+            {group.description}
+          </p>
+          {group.skills.map((skill) => (
+            <details class="skill-reference-record">
+              <summary>{skill.name}</summary>
+              <p data-cjk lang="zh-CN">
+                {skill.note}
+              </p>
+              <dl>
+                <dt>Experience</dt>
+                <dd>{skill.years > 0 ? `${skill.years} years` : 'Exploring'}</dd>
+                <dt>Self-assessment</dt>
+                <dd>{skill.level} / 100</dd>
+                <dt>Keywords</dt>
+                <dd>{skill.keywords.join(', ')}</dd>
+              </dl>
+            </details>
+          ))}
+        </section>
+      ))}
+      <section aria-labelledby="skill-reference-learning">
+        <h2 id="skill-reference-learning">Currently Learning</h2>
+        <ul class="skill-reference-learning">
+          {portfolio.skillsCurrentlyLearning.map((skill) => (
+            <li>
+              <strong>{skill.name}</strong>
+              <p data-cjk lang="zh-CN">
+                {skill.note}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </section>
+    <Dialog id="skill-properties" title="Technology Properties">
+      <h2 id="skill-property-title"></h2>
+      <dl id="skill-property-values"></dl>
+      <Button
+        slot="actions"
+        data-skill-command="close-properties"
+        aria-label="Close technology properties"
+      >
+        OK
+      </Button>
+    </Dialog>
+    <Dialog id="skill-learning" title="Currently Learning">
+      <ul class="learning">
+        {portfolio.skillsCurrentlyLearning.map((skill) => (
+          <li>
+            <strong>{skill.name}</strong>
+            <p data-cjk>{skill.note}</p>
+          </li>
+        ))}
+      </ul>
+      <Button slot="actions" data-skill-command="close-learning">
+        OK
+      </Button>
+    </Dialog>
+    <Dialog id="skill-help" title="Device Manager Help">
+      <p>
+        This tree lists technologies from MiraHikari's portfolio. Select a technology to inspect its
+        recorded experience, notes and self-assessment.
+      </p>
+      <p>
+        Up / Down move through the tree. Left / Right collapse or expand a category. Home / End
+        select the first or last visible item. Enter toggles a category or opens technology
+        Properties. Ctrl+F selects Find; Enter or Down returns to the results.
+      </p>
+      <p>Escape in Find clears the search and restores the previous selection and categories.</p>
+      <p>In a compact window, Details and Tree switch between the selection summary and tree.</p>
+      <Button slot="actions" data-skill-command="close-help">
+        OK
+      </Button>
+    </Dialog>
+  </main>
+</SiteLayout>
+<script>
+  import { skillGroups } from '../../../data/profile';
+  import { mountSkillBrowser } from './skill-browser';
+  const root = document.querySelector<HTMLElement>('#skill-manager');
+  if (root && (window.self !== window.top || new URL(location.href).searchParams.has('item')))
+    mountSkillBrowser(
+      root,
+      skillGroups,
+      new URL(location.href).searchParams.get('item') ?? undefined,
+    );
+</script>
+<style>
+  .skill-manager {
+    background: var(--face);
+    color: var(--ink);
+    font:
+      11px/14px MSS,
+      'MHK CJK UI',
+      sans-serif;
+  }
+  .skill-manager.skill-ready {
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 20px 29px 31px minmax(0, 1fr) 19px;
+  }
+  .skill-manager:not(.skill-ready) > :global(.skill-interactive),
+  .skill-ready .skill-reference {
+    display: none;
+  }
+  .skill-toolbar :global(.skill-details-toggle) {
+    display: none;
+  }
+  .skill-toolbar {
+    flex-wrap: nowrap;
+  }
+  .skill-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 5px;
+  }
+  .skill-search input {
+    min-width: 0;
+    flex: 1;
+  }
+  .skill-workspace {
+    display: grid;
+    grid-template-columns: minmax(160px, 1.1fr) minmax(140px, 1fr);
+    gap: 4px;
+    padding: 0 4px 4px;
+    min-height: 0;
+  }
+  .device-tree {
+    overflow: auto;
+    min-width: 0;
+    min-height: 0;
+  }
+  .skill-results {
+    display: grid;
+    min-width: 0;
+    min-height: 0;
+  }
+  .skill-empty {
+    padding: 12px;
+    overflow: auto;
+    background: var(--paper);
+    border: 1px solid;
+    border-color: var(--line) var(--hi) var(--hi) var(--line);
+    line-height: 16px;
+  }
+  .skill-empty p {
+    margin: 6px 0 12px;
+  }
+  .tree-root {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 3px 2px 6px;
+    font-weight: bold;
+  }
+  #skill-tree-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  .device-tree :global([role='treeitem']) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+  .device-tree .node-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  .branch-mark {
+    display: grid;
+    place-items: center;
+    width: 10px;
+    height: 10px;
+    flex: 0 0 10px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    font: 9px/9px monospace;
+  }
+  .device-tree :global(.skill-row) {
+    padding-left: 20px;
+  }
+  .skill-preview {
+    overflow: auto;
+    min-width: 0;
+    min-height: 0;
+  }
+  .skill-preview h1 {
+    font-size: 12px;
+    margin: 3px 0 10px;
+    line-height: 16px;
+    overflow-wrap: anywhere;
+  }
+  #skill-note {
+    margin: 0 0 10px;
+  }
+  .skill-meter {
+    margin: 0 0 9px;
+    padding: 5px 6px;
+    background: var(--face);
+    border: 1px solid;
+    border-color: var(--line) var(--hi) var(--hi) var(--line);
+  }
+  .skill-meter-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 10px;
+    color: var(--ink);
+  }
+  .skill-meter-bar {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 2px;
+    padding: 2px;
+    background: var(--paper);
+    border: 1px solid;
+    border-color: var(--line) var(--hi) var(--hi) var(--line);
+  }
+  .skill-meter-bar :global(.skill-meter-cell) {
+    height: 8px;
+    background: var(--face);
+  }
+  .skill-meter-bar :global(.skill-meter-cell[data-active='true']) {
+    background: var(--title);
+  }
+  dl {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 7px 8px;
+    line-height: 16px;
+    margin: 8px 0;
+  }
+  .skill-manager :global(dt) {
+    color: var(--muted);
+  }
+  .skill-manager :global(dd) {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  :global(#skill-properties),
+  :global(#skill-learning),
+  :global(#skill-help) {
+    width: 360px;
+  }
+  #skill-property-title {
+    font-size: 12px;
+    margin: 0 0 10px;
+  }
+  .learning,
+  .skill-reference-learning {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .learning li,
+  .skill-reference-learning li {
+    margin: 0 0 12px;
+  }
+  .learning p,
+  .skill-reference-learning p {
+    margin: 4px 0;
+  }
+  .skill-reference {
+    padding: 12px;
+  }
+  .skill-reference h1 {
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0 0 8px;
+  }
+  .skill-reference h2 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    margin: 20px 0 6px;
+  }
+  .skill-reference-record {
+    padding: 6px 8px;
+    margin: 4px 0;
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .skill-reference-record summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .skill-reference dl {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+  [hidden] {
+    display: none !important;
+  }
+  @media (max-width: 330px) {
+    .skill-toolbar {
+      gap: 2px;
+      padding-inline: 4px;
+    }
+    .skill-toolbar :global(.hybrid-button) {
+      padding-inline: 5px;
+    }
+    .skill-toolbar :global(.skill-details-toggle) {
+      display: inline-flex;
+      margin-left: auto;
+    }
+    .skill-workspace {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .skill-preview {
+      display: none;
+    }
+    .skill-show-details .skill-results {
+      display: none;
+    }
+    .skill-show-details .skill-preview {
+      display: block;
+    }
+    .skill-preview dl {
+      grid-template-columns: 88px minmax(0, 1fr);
+    }
+  }
+  @media (max-height: 210px) {
+    .skill-ready .tree-root {
+      display: none;
+    }
+    .skill-empty {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
+      gap: 4px 8px;
+      padding: 6px;
+    }
+    .skill-empty p {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,51 @@
+{
+  "name": "@mhk/desktop",
+  "version": "1.0.0",
+  "description": "MHK10 — MiraHikari’s interactive pixel desktop and personal site",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "build": "astro build",
+    "preview": "astro preview --port 4322",
+    "check": "astro check && tsc --noEmit --project tsconfig.json && tsc --noEmit --project tsconfig.e2e.json",
+    "test": "vp test",
+    "lint": "vp lint",
+    "format": "node scripts/format.mjs",
+    "generate:app-catalog": "node scripts/generate-app-catalog.mjs",
+    "favicons:generate": "node scripts/generate-avatar-favicon.mjs",
+    "verify:site": "node scripts/verify-site.mjs",
+    "format:check": "node scripts/format.mjs --check",
+    "format:baseline": "node scripts/format.mjs --prune-baseline",
+    "verify:architecture": "node --test scripts/architecture/check.test.mjs && node scripts/verify-architecture.mjs",
+    "test:e2e": "playwright test",
+    "verify": "node ../../scripts/verify.mjs"
+  },
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "3.0.63",
+    "@fontsource/press-start-2p": "^5.3.0",
+    "@mhk/site-core": "*",
+    "98.css": "^0.1.21",
+    "ai": "7.0.128",
+    "astro": "^7.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/compiler-rs": "0.5.1",
+    "@playwright/test": "1.63.0",
+    "@types/node": "^26.6.4",
+    "dependency-cruiser": "18.5.0",
+    "pngjs": "7.0.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "sharp": "0.35.5",
+    "typescript": "^6.0.3",
+    "vite-plus": "1.0.0",
+    "yaml": "2.9.1"
+  },
+  "engines": {
+    "node": "24.x",
+    "npm": "11.x"
+  },
+  "packageManager": "npm@11.9.0"
+}

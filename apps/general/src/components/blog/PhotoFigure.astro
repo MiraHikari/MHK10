@@ -1,0 +1,42 @@
+---
+/**
+ * PhotoFigure — 博客正文照片（photo journal 基础单元）。
+ * 构建期经 resolveImageSrc 解析 display 图与原图地址，与全站图片管线一致；
+ * 客户端由 enhanceArticleImages 读取 data-full / data-date / figcaption
+ * 提升为灯箱条目（FULL RES 下载、拍摄时间、标题）。
+ */
+import { resolveImageSrc } from '@/lib/images/url';
+
+interface Props {
+  /** display 展示图站内路径（/images/.../xxx-display.webp） */
+  src: string;
+  /** 相机原图站内路径，灯箱 FULL RES 下载用 */
+  full?: string;
+  alt: string;
+  /** 图注；缺省复用 alt */
+  caption?: string;
+  /** display 图固有尺寸，预留纵横比防 CLS */
+  width: number;
+  height: number;
+  /** 拍摄时间标签（如 "2026.07.22 · 09:09"），展示在灯箱底栏 */
+  date?: string;
+  /** 首屏图设为 eager 提前加载 */
+  eager?: boolean;
+}
+
+const { src, full, alt, caption, width, height, date, eager = false } = Astro.props;
+---
+
+<figure class="photo-figure">
+  <img
+    src={resolveImageSrc(src)}
+    data-full={full ? resolveImageSrc(full) : undefined}
+    data-date={date}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+  />
+  <figcaption>{caption ?? alt}</figcaption>
+</figure>

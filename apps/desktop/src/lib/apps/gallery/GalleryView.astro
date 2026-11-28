@@ -1,0 +1,211 @@
+---
+import Button from '../../../components/hybrid/Button.astro';
+import Select from '../../../components/hybrid/Select.astro';
+import Toolbar from '../../../components/hybrid/Toolbar.astro';
+import PortfolioImage from '../../../components/PortfolioImage.astro';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import { gallery } from '../../../data/gallery';
+import { mediaHref } from '../../../data/media';
+const categories = ['All', ...new Set(gallery.map((item) => item.category))];
+---
+
+<SiteLayout title="Pictures" description="旅行、校园与日常照片，以及像素作品。" active="gallery">
+  <main class="page-shell gallery-page" lang="zh-CN">
+    <header>
+      <h1>Pictures</h1>
+      <p>旅行、校园与日常记录。</p>
+    </header>
+    <Toolbar class="gallery-toolbar" hidden label="Gallery controls">
+      <label for="gallery-filter">Collection</label>
+      <Select id="gallery-filter" aria-label="Filter by collection">
+        {categories.map((category) => (
+          <option value={category}>{category === 'All' ? 'All' : category}</option>
+        ))}
+      </Select>
+      <div role="group" aria-label="Gallery view">
+        <Button type="button" data-gallery-view="tiles" aria-pressed="true">
+          Thumbnails
+        </Button>
+        <Button type="button" data-gallery-view="details" aria-pressed="false">
+          List
+        </Button>
+      </div>
+      <span id="gallery-count" aria-live="polite">
+        {gallery.length} images
+      </span>
+    </Toolbar>
+    <div class="gallery-grid" data-view="tiles">
+      {gallery.map((item) => (
+        <article class="gallery-card" data-kind={item.category}>
+          <a
+            class="gallery-image"
+            href={mediaHref(item.src)}
+            data-app-link="acdsee"
+            aria-label={`View: ${item.title}`}
+          >
+            <PortfolioImage
+              src={item.src}
+              width={item.width}
+              height={item.height}
+              alt={item.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <div class="gallery-caption" data-cjk>
+            <h2>
+              <a href={mediaHref(item.src)} data-app-link="acdsee">
+                {item.title}
+              </a>
+            </h2>
+            <p>{item.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+</SiteLayout>
+<script>
+  const controller = new AbortController();
+  const grid = document.querySelector<HTMLElement>('.gallery-grid')!;
+  const cards = [...document.querySelectorAll<HTMLElement>('.gallery-card')];
+  const filter = document.querySelector<HTMLSelectElement>('#gallery-filter')!;
+  document.querySelector<HTMLElement>('.gallery-toolbar')!.hidden = false;
+  filter.addEventListener(
+    'change',
+    () => {
+      let count = 0;
+      for (const card of cards) {
+        card.hidden = filter.value !== 'All' && card.dataset.kind !== filter.value;
+        if (!card.hidden) count++;
+      }
+      document.querySelector('#gallery-count')!.textContent = `${count} images`;
+    },
+    { signal: controller.signal },
+  );
+  document.querySelectorAll<HTMLButtonElement>('[data-gallery-view]').forEach((button) =>
+    button.addEventListener(
+      'click',
+      () => {
+        grid.dataset.view = button.dataset.galleryView;
+        document
+          .querySelectorAll('[data-gallery-view]')
+          .forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      },
+      { signal: controller.signal },
+    ),
+  );
+  window.addEventListener(
+    'pagehide',
+    (event) => {
+      if (!event.persisted) controller.abort();
+    },
+    { signal: controller.signal },
+  );
+</script>
+<style>
+  .gallery-page {
+    padding: 12px;
+    background: #fff;
+    color: #000;
+    font-size: 11px;
+  }
+  h1 {
+    font-size: 18px;
+    margin: 0 0 8px;
+  }
+  header p {
+    margin: 0 0 12px;
+  }
+  a {
+    color: #0000ff;
+  }
+  a:visited {
+    color: #800080;
+  }
+  .gallery-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 0;
+    margin-bottom: 10px;
+    border-block: 1px solid #808080;
+  }
+  select,
+  button {
+    font: inherit;
+    background: #fff;
+    color: #000;
+    border: 1px solid #808080;
+    padding: 3px 5px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button[aria-pressed='true'] {
+    color: #fff;
+    background: #000080;
+  }
+  #gallery-count {
+    margin-left: auto;
+    color: #808080;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .gallery-card {
+    border: 1px solid #808080;
+    min-width: 0;
+  }
+  .gallery-image {
+    display: block;
+    background: var(--face);
+  }
+  .gallery-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    display: block;
+    image-rendering: pixelated;
+  }
+  .gallery-caption {
+    padding: 6px;
+  }
+  h2 {
+    font-size: 11px;
+    line-height: 1.6;
+    margin: 0 0 4px;
+  }
+  .gallery-caption p {
+    font-size: 10px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .gallery-grid[data-view='details'] {
+    display: block;
+  }
+  .gallery-grid[data-view='details'] .gallery-card {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .gallery-toolbar[hidden],
+  .gallery-card[hidden] {
+    display: none;
+  }
+  @media (max-width: 500px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 300px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

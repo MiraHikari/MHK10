@@ -1,0 +1,18 @@
+export const registration = {
+  id: 'task-manager',
+  name: 'Task Manager',
+  icon: 'taskmanager',
+  kind: 'canvas',
+  route: '/apps/task-manager/',
+  title: 'Task Manager',
+  w: 320,
+  h: 260,
+  x: 70,
+  y: 20,
+  ctl: 'mx',
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  shortcut: true,
+  runAliases: ['taskmgr'],
+  startMenuFolder: 'system-tools',
+} as const;

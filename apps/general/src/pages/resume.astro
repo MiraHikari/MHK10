@@ -1,0 +1,200 @@
+---
+import {
+  profile,
+  skills,
+  skillCategories,
+  experiences,
+  education,
+  honors,
+  honorTierMeta,
+  certificates,
+  languages,
+} from '@/data/profile';
+import { getActiveProjects } from '@/lib/projects';
+import { faviconHref } from '@/data/favicon';
+import SiteFonts from '@/components/seo/SiteFonts.astro';
+import '@/styles/pages/resume.css';
+import { SITE_ORIGIN } from '@/lib/blog/legal';
+import { canonicalUrl } from '@/lib/canonical-url';
+
+const projects = await getActiveProjects();
+const resumeURL = canonicalUrl('/resume/', Astro.site ?? SITE_ORIGIN);
+const sortedHonors = honors.toSorted(
+  (a, b) => honorTierMeta[b.tier].rank - honorTierMeta[a.tier].rank,
+);
+const contactBits = [profile.email, profile.github, profile.website, profile.location].filter(
+  Boolean,
+);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MiraHikari — Resume</title>
+    <link rel="icon" type="image/webp" href={faviconHref('classic')} />
+    <link rel="apple-touch-icon" href={faviconHref('classic', 'apple')} />
+    <SiteFonts mode="resume" />
+    <link rel="canonical" href={resumeURL} />
+    <meta property="og:title" content="MiraHikari — Resume" />
+    <meta property="og:description" content={profile.summary} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={resumeURL} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="MiraHikari — Resume" />
+    <meta name="twitter:description" content={profile.summary} />
+  </head>
+  <body>
+    {/* Screen-only toolbar */}
+    <div class="toolbar no-print">
+      <a href="/">← 返回站点 / Back</a>
+      <span class="hint">在打印对话框中选择「另存为 PDF」即可导出</span>
+      <button type="button" onclick="window.print()">
+        打印 / Save as PDF
+      </button>
+    </div>
+
+    {/* ===== Page 1 ===== */}
+    <main class="resume-paper" aria-label="简历第一页">
+      <header class="r-header">
+        <h1>{profile.name}</h1>
+        <p class="label">{profile.label}</p>
+        <p class="contact">
+          {contactBits.map((bit) => (
+            <span>{bit}</span>
+          ))}
+        </p>
+        <div class="rule"></div>
+      </header>
+
+      <section class="r-section r-summary">
+        <h2>SUMMARY / 简介</h2>
+        <p>{profile.summary}</p>
+        <p>{profile.detail}</p>
+      </section>
+
+      <section class="r-section">
+        <h2>SKILLS / 技能</h2>
+        <div class="skills-grid">
+          {skillCategories.map((cat) => {
+            const items = skills.filter((s) => s.category === cat.id);
+            if (items.length === 0) return null;
+            return (
+              <div class="skill-row">
+                <strong>{cat.label}</strong>
+                <span>
+                  {items.map((s, i) => (
+                    <span class="skill-entry">
+                      {i > 0 ? ' · ' : ''}
+                      {s.name} <em class="skill-level">{s.level}</em>
+                    </span>
+                  ))}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section class="r-section">
+        <h2>EXPERIENCE / 经历</h2>
+        {experiences.map((exp) => (
+          <article class="exp-item avoid-break">
+            <div class="exp-head">
+              <strong>{exp.name}</strong>
+              <span class="period">
+                {exp.startDate} — {exp.endDate ?? '至今'}
+              </span>
+            </div>
+            <p class="exp-role">{exp.position}</p>
+            <p class="exp-summary">{exp.summary}</p>
+            <ul class="exp-highlights">
+              {exp.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+            <p class="exp-stack">{exp.stack.join(' · ')}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+
+    {/* ===== Page 2 ===== */}
+    <main class="resume-paper page-break-before" aria-label="简历第二页">
+      <section class="r-section">
+        <h2>PROJECTS / 项目</h2>
+        {projects.map((p) => (
+          <article class="proj-item avoid-break">
+            <div class="proj-head">
+              <strong>{p.title}</strong>
+              {p.link && <a href={p.link}>{p.link}</a>}
+            </div>
+            <p class="proj-desc">{p.description}</p>
+            <p class="proj-tags">{p.tags.join(' · ')}</p>
+          </article>
+        ))}
+      </section>
+
+      <section class="r-section">
+        <h2>EDUCATION / 教育</h2>
+        {education.map((ed) => (
+          <div class="edu-item avoid-break">
+            <div class="edu-head">
+              <strong>{ed.institution}</strong>
+              <span class="period">
+                {ed.startDate} — {ed.endDate ?? '至今'}
+              </span>
+            </div>
+            <p class="edu-area">{ed.area}</p>
+          </div>
+        ))}
+      </section>
+
+      <section class="r-section">
+        <h2>HONORS / 荣誉</h2>
+        {sortedHonors.map((h) => (
+          <div class="honor-row avoid-break">
+            <span class="honor-level">{h.level}</span>
+            <div>
+              <div class="honor-title">{h.title}</div>
+              <div class="honor-meta">
+                {h.issuerShort ?? h.issuer} · {h.date}
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <div class="two-col">
+        <section class="r-section">
+          <h2>CERTIFICATES / 证书</h2>
+          {certificates.map((c) => (
+            <p class="cert-item">
+              <strong>{c.name}</strong>
+              <span class="meta">
+                {c.issuer} · {c.date}
+              </span>
+            </p>
+          ))}
+        </section>
+        <section class="r-section">
+          <h2>LANGUAGES / 语言</h2>
+          {languages.map((l) => (
+            <p class="lang-item">
+              {l.language}
+              <span class="meta">{l.fluency}</span>
+            </p>
+          ))}
+        </section>
+      </div>
+    </main>
+
+    <script is:inline>
+      if (new URLSearchParams(location.search).get('print') === '1') {
+        window.addEventListener('DOMContentLoaded', () => setTimeout(() => window.print(), 300));
+      }
+    </script>
+  </body>
+</html>

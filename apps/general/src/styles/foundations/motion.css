@@ -1,0 +1,82 @@
+/* ============================================================================
+   motion.css — 共享动画 keyframes 与全局动效降级。
+   动效数值 / 缓动的语义来源在 src/lib/motion.ts 与 docs/motion-language.md；
+   本文件只承载 CSS 层必须的 keyframes 与 reduced-motion / 手动静态档抑制。
+   ========================================================================== */
+
+/* Typewriter cursor blink — shared animation utility */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.8s infinite;
+}
+
+/* SiteImage shimmer placeholder ------------------------------------------------ */
+/* The sweep lives on a pseudo-element transform: animating
+   `background-position` repaints every loading placeholder, and the gallery
+   mounts twenty of them at once. */
+.site-image-shimmer {
+  background: var(--neutral-950);
+  overflow: hidden;
+}
+.site-image-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, var(--neutral-900) 50%, transparent 70%);
+  animation: site-image-shimmer 1.5s linear infinite;
+}
+
+@keyframes site-image-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Global reduced-motion degradation: disable decorative motion, keep content
+   readable. `.motion-forced` opts out — a visitor who picked a richer motion
+   tier in the command palette asked for it explicitly. */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-forced) *,
+  html:not(.motion-forced) *::before,
+  html:not(.motion-forced) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html:not(.motion-forced) .animate-blink {
+    animation: none !important;
+  }
+  html:not(.motion-forced) .site-image-shimmer::after {
+    animation: none !important;
+  }
+}
+
+/* The manual「静态」tier applies the same suppression on any OS preference. */
+html.motion-suppressed *,
+html.motion-suppressed *::before,
+html.motion-suppressed *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+html.motion-suppressed .animate-blink {
+  animation: none !important;
+}
+html.motion-suppressed .site-image-shimmer::after {
+  animation: none !important;
+}

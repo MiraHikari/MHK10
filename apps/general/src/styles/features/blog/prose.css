@@ -1,0 +1,287 @@
+/* ============================================================================
+   prose.css — 正文排版（.prose-mh）：标题、段落、链接、列表、引用、表格、
+   行内代码、标题锚点与脚注。
+   ========================================================================== */
+
+/* Article prose explicitly stays selectable. */
+.prose-mh,
+.prose-mh * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* ---- Prose (.prose-mh) ----------------------------------------------- */
+.prose-mh {
+  width: 100%;
+  min-width: 0;
+  color: var(--neutral-300);
+  font-size: 1rem;
+  line-height: 1.85;
+  max-width: var(--article-reading-width, 70ch);
+  overflow-wrap: anywhere;
+}
+.prose-mh > * {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.prose-mh h2,
+.prose-mh h3,
+.prose-mh h4 {
+  color: var(--ink-on-dark-strong);
+  font-weight: 700;
+  letter-spacing: 0;
+  scroll-margin-top: 80px;
+  /* 中文标题常在最后一行只落一两个字；balance 让行宽均匀（unsupported 时无副作用）。 */
+  text-wrap: balance;
+}
+.prose-mh h2 {
+  /* 流式字号：在窄视口与桌面之间连续缩放，消除断点跳变 */
+  font-size: clamp(1.3rem, 1.17rem + 0.54vw, 1.6rem);
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 3px solid var(--section-accent);
+}
+.prose-mh h3 {
+  font-size: clamp(1.1rem, 1.03rem + 0.27vw, 1.25rem);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-mh h4 {
+  font-size: clamp(0.95rem, 0.9rem + 0.18vw, 1.05rem);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---- Heading anchors (copyable deep links) --------------------------- */
+/* Appended by enhanceHeadings.ts to each h2/h3/h4 with an id. Inline after
+   the heading text so it never disturbs the heading layout or the h2 border /
+   scroll-margin-top. Faint by default, revealed on heading hover (fine
+   pointers) and kept subtly visible on touch. */
+.heading-anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  margin-inline-start: 0.35em;
+  vertical-align: middle;
+  color: var(--section-accent-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    color 0.18s ease;
+}
+.prose-mh h2:hover .heading-anchor,
+.prose-mh h3:hover .heading-anchor,
+.prose-mh h4:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+.heading-anchor:hover {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+.heading-anchor[data-copied='true'] {
+  color: var(--section-accent);
+  opacity: 1;
+}
+@media (pointer: fine) {
+  .heading-anchor {
+    cursor: none;
+  }
+}
+@media (pointer: coarse) {
+  .heading-anchor {
+    opacity: 0.4;
+  }
+}
+.prose-mh p {
+  margin: 1rem 0;
+  /* 段末孤行控制（CJK 段落尤其受益）。 */
+  text-wrap: pretty;
+}
+.prose-mh a {
+  color: var(--section-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--section-accent-soft) 40%, transparent);
+  transition:
+    color 0.2s,
+    text-decoration-color 0.2s;
+}
+.prose-mh a:hover {
+  color: var(--accent-blue);
+  text-decoration-color: var(--accent-blue);
+}
+.prose-mh strong {
+  color: var(--ink-on-dark-strong);
+  font-weight: 700;
+}
+.prose-mh em {
+  font-style: italic;
+}
+.prose-mh ul,
+.prose-mh ol {
+  margin: 1.25rem 0;
+  padding-inline-start: 1.5rem;
+}
+.prose-mh li {
+  margin: 0.4rem 0;
+}
+.prose-mh ul > li::marker {
+  color: var(--section-accent);
+}
+.prose-mh ol > li::marker {
+  color: var(--section-accent);
+  font-family: var(--font-mono);
+}
+.prose-mh blockquote {
+  margin: 1.75rem 0;
+  padding: 0.75rem 1.5rem;
+  border-inline-start: 2px solid var(--section-accent);
+  background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  border-radius: 0 4px 4px 0;
+}
+.prose-mh blockquote p {
+  margin: 0.5rem 0;
+}
+.prose-mh img {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  margin: 1.75rem 0;
+}
+.prose-mh hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--section-accent) 60%, transparent),
+    transparent
+  );
+  margin: 2.5rem 0;
+}
+.prose-mh table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.9rem;
+}
+.prose-mh th,
+.prose-mh td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose-mh th {
+  background: var(--neutral-900);
+  color: var(--ink-on-dark-strong);
+  font-weight: 600;
+}
+.prose-mh :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+  background: var(--neutral-900);
+  color: #9db8e8;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+}
+
+/* ---- 脚注：文末 .footnotes + 点击内联展开（enhanceFootnotes）------------ */
+.prose-mh .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.85rem;
+}
+.prose-mh .footnotes ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: footnote;
+}
+.prose-mh .footnotes li {
+  position: relative;
+  counter-increment: footnote;
+  margin: 0;
+  padding: 0.35rem 0;
+  padding-inline-start: 2.2rem;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.7;
+}
+.prose-mh .footnotes li::before {
+  content: counter(footnote);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.4rem;
+  width: 1.6rem;
+  text-align: end;
+  color: var(--section-accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+}
+.prose-mh .footnotes p {
+  margin: 0.4rem 0;
+}
+a[data-footnote-open] {
+  background: color-mix(in srgb, var(--section-accent) 28%, transparent);
+  border-radius: 3px;
+}
+.footnote-inline {
+  margin: 1rem 0 1.25rem;
+  padding: 0.6rem 0.9rem 0.7rem;
+  border-inline-start: 2px solid var(--section-accent);
+  border-radius: 0 4px 4px 0;
+  background: color-mix(in srgb, var(--section-accent) 10%, transparent);
+  font-size: 0.85rem;
+}
+.footnote-inline__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+.footnote-inline__label {
+  color: var(--section-accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
+}
+.footnote-inline__close {
+  border: 0;
+  background: transparent;
+  padding: 0.1rem 0.35rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.16s;
+}
+.footnote-inline__close:hover {
+  color: var(--ink-on-dark-strong);
+}
+.footnote-inline__body > :first-child {
+  margin-top: 0;
+}
+.footnote-inline__body > :last-child {
+  margin-bottom: 0;
+}
+.footnote-inline__body p {
+  margin: 0.4rem 0;
+}
+.footnote-inline__body a {
+  color: var(--section-accent-soft);
+}

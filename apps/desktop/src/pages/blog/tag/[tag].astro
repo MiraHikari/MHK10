@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ReaderShell from '../../../lib/apps/reader/ReaderShell.astro';
+import ReaderLibrary from '../../../lib/apps/reader/ReaderLibrary.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft && data.listed);
+  const tags = new Set(posts.flatMap((post) => post.data.tags));
+  return [...tags].sort().map((tag) => ({ params: { tag }, props: { tag } }));
+}
+const { tag } = Astro.props;
+---
+
+<SiteLayout
+  title={`MHK10 Reader — ${tag}`}
+  description={`MiraHikari 的文章，标签：${tag}。`}
+  active="blog"
+  showNavigation={false}
+>
+  <ReaderShell>
+    <div slot="library">
+      <ReaderLibrary tag={tag} />
+    </div>
+  </ReaderShell>
+</SiteLayout>

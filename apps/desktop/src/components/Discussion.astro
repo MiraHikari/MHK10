@@ -1,0 +1,112 @@
+---
+import Button from './hybrid/Button.astro';
+import Dialog from './hybrid/Dialog.astro';
+import PixelIcon from './PixelIcon.astro';
+import StatusBar from './hybrid/StatusBar.astro';
+import Toolbar from './hybrid/Toolbar.astro';
+import { GISCUS_CONFIG } from '@mhk/site-core/config/giscus';
+import '../lib/apps/reader/comments.css';
+interface Props {
+  id: string;
+  term: string;
+  title?: string;
+}
+const { id, term, title = 'Discussion' } = Astro.props;
+const repositoryDiscussionsUrl = `https://github.com/${GISCUS_CONFIG.repo}/discussions`;
+---
+
+<div
+  id={id}
+  class="comments-host"
+  data-comments-host
+  data-comments-term={term}
+  data-phase="closed"
+  lang="en"
+>
+  <Dialog id={`${id}-dialog`} title={title} class="comments-dialog">
+    <Toolbar label="Discussion actions" class="comments-toolbar" data-hybrid-toolbar>
+      <a
+        class="hybrid-button"
+        data-comments-github
+        href={repositoryDiscussionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open discussions on GitHub (new tab)"
+      >
+        <PixelIcon name="github" size={16} />
+        GitHub
+      </a>
+      <Button data-comments-reload aria-controls={`${id}-reload-prompt`} aria-expanded="false">
+        <PixelIcon name="rotate-right" size={16} />
+        Reload
+      </Button>
+      <Button class="comments-close" data-comments-close autofocus>
+        Close
+      </Button>
+    </Toolbar>
+    <div
+      id={`${id}-reload-prompt`}
+      class="comments-reload-prompt"
+      data-comments-reload-prompt
+      hidden
+    >
+      <p>Reload and discard unsent text?</p>
+      <div class="comments-reload-actions">
+        <Button data-comments-cancel-reload>Keep writing</Button>
+        <Button data-comments-confirm-reload>Reload</Button>
+      </div>
+    </div>
+    <div
+      class="comments-surface"
+      data-comments-surface
+      aria-busy="false"
+      aria-label="Discussion content"
+    >
+      <div
+        class="comments-state"
+        data-comments-state
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <PixelIcon name="mail" size={32} />
+        <h3 data-comments-state-title>Join the discussion</h3>
+        <p class="comments-state-text" data-comments-state-text>
+          Comments load from GitHub Discussions after this window opens.
+        </p>
+        <div class="comments-progress" aria-hidden="true">
+          <span></span>
+        </div>
+        <Button data-comments-retry hidden>
+          Try again
+        </Button>
+      </div>
+      <div class="comments-frame-container" data-comments-frame></div>
+    </div>
+    <p class="comments-caution" lang="en">
+      Public comments · Sign in with GitHub to join.
+      <a
+        href="/blog/privacy/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Privacy (new tab)"
+      >
+        Privacy
+      </a>
+    </p>
+    <StatusBar class="comments-statusbar" aria-live="polite">
+      <span data-comments-status>Not opened</span>
+      <span
+        class="comments-statusbar-draft"
+        title="Closing this discussion keeps unsent text until you reload or leave this page."
+      >
+        Draft stays on this page
+      </span>
+    </StatusBar>
+  </Dialog>
+</div>
+<script>
+  import { mountComments } from '../lib/apps/reader/comments';
+  for (const host of document.querySelectorAll<HTMLElement>('[data-comments-host]'))
+    mountComments(host);
+</script>

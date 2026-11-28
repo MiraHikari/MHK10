@@ -1,0 +1,654 @@
+---
+import Button from '../../../components/hybrid/Button.astro';
+import Tabs from '../../../components/hybrid/Tabs.astro';
+import StatusBar from '../../../components/hybrid/StatusBar.astro';
+import PortfolioImage from '../../../components/PortfolioImage.astro';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {
+  profile,
+  portfolio,
+  portfolioPreview,
+  portfolioPhotos,
+  profileGuides,
+  projects,
+} from '../../../data/profile';
+import PortfolioProjects from './PortfolioProjects.astro';
+import { mediaHref } from '../../../data/media';
+import { DESKTOP_SITE_URL, displayAddress } from '../../../data/site-addresses';
+import { PROJECT_REPOSITORY_LABEL, PROJECT_REPOSITORY_URL } from '@mhk/site-core/config/repository';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import Discussion from '../../../components/Discussion.astro';
+import { FRIENDS_DISCUSSION_TERM } from '../reader/comments-model';
+const tabs = [
+  { id: 'general', label: 'General' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'journey', label: 'Journey' },
+  { id: 'honors', label: 'Honors' },
+  { id: 'photos', label: 'Photos' },
+  { id: 'contact', label: 'Contact' },
+];
+const currentLabels: Record<string, string> = {
+  学习方向: 'Focus',
+  在读: 'Education',
+  项目: 'Current project',
+};
+const tierLabels: Record<string, string> = {
+  national: 'National',
+  provincial: 'Provincial',
+  city: 'Municipal',
+};
+const nationalCount = portfolio.honors.filter((item) => item.tier === 'national').length;
+const provincialCount = portfolio.honors.filter((item) => item.tier === 'provincial').length;
+const cityCount = portfolio.honors.filter((item) => item.tier === 'city').length;
+const websiteLabel = profile.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const githubLabel = new URL(profile.github).pathname.replace(/^\//, '') || profile.github;
+const contactChannels: {
+  id: string;
+  label: string;
+  icon: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+}[] = [
+  {
+    id: 'email',
+    label: 'Email',
+    icon: 'mail',
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+  },
+  {
+    id: 'website',
+    label: 'Website',
+    icon: 'web',
+    value: websiteLabel,
+    href: profile.website,
+    external: true,
+  },
+  {
+    id: 'desktop',
+    label: 'Desktop',
+    icon: 'computer',
+    value: displayAddress(DESKTOP_SITE_URL),
+    href: DESKTOP_SITE_URL,
+    external: true,
+  },
+  {
+    id: 'source',
+    label: 'Source',
+    icon: 'network',
+    value: PROJECT_REPOSITORY_LABEL,
+    href: PROJECT_REPOSITORY_URL,
+    external: true,
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    icon: 'github',
+    value: githubLabel,
+    href: profile.github,
+    external: true,
+  },
+  {
+    id: 'bilibili',
+    label: 'Bilibili',
+    icon: 'bilibili',
+    value: 'Video channel',
+    href: profile.bilibili,
+    external: true,
+  },
+  {
+    id: 'location',
+    label: 'Location',
+    icon: 'pin',
+    value: profile.location,
+  },
+];
+---
+
+<SiteLayout title="MiraHikari — Properties" description={profile.summary} active="about">
+  <main class="page-shell personal-properties" data-personal-properties>
+    <Tabs label="About MiraHikari" class="properties-tabs" lang="en">
+      {tabs.map((tab, index) => (
+        <Button
+          id={`${tab.id}-tab`}
+          role="tab"
+          aria-selected={index === 0}
+          aria-controls={`${tab.id}-panel`}
+          tabindex={index === 0 ? 0 : -1}
+        >
+          {tab.label}
+        </Button>
+      ))}
+    </Tabs>
+    <div class="properties-body">
+      <section
+        id="general-panel"
+        role="tabpanel"
+        aria-labelledby="general-tab"
+        tabindex="0"
+        class="property-panel"
+      >
+        <header class="property-identity" id="general">
+          <a
+            class="identity-avatar-well"
+            href={mediaHref(profile.avatar)}
+            data-app-link="acdsee"
+            aria-label="View MiraHikari avatar"
+          >
+            <PortfolioImage src={profile.avatar} alt={profile.avatarAlt} width="64" height="64" />
+          </a>
+          <div class="identity-details">
+            <div class="identity-title-row">
+              <h1>{profile.name}</h1>
+              <span class="pixel-badge badge-accent" lang="en">
+                MHK10 System
+              </span>
+            </div>
+            <p class="identity-role" lang="en">
+              {profile.role}
+            </p>
+            <p class="identity-location" data-cjk lang="zh-CN">
+              {profile.location}
+            </p>
+            <ul class="specialty-list" aria-label="Specialties">
+              {profile.specialties.map((specialty) => (
+                <li class="pixel-chip" data-cjk lang="zh-CN">
+                  {specialty}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </header>
+        <div class="property-stats" aria-label="Portfolio overview" lang="en">
+          <a class="stat-cell" href="#projects" data-tab-jump="projects">
+            <strong>{projects.length}</strong>
+            <span>Projects</span>
+          </a>
+          <a class="stat-cell" href="/skills/" data-app-link="skills">
+            <strong>{portfolio.skills.length}</strong>
+            <span>Technologies</span>
+          </a>
+          <a class="stat-cell" href="#honors" data-tab-jump="honors">
+            <strong>{portfolio.honors.length}</strong>
+            <span>Honors</span>
+          </a>
+          <a class="stat-cell" href="#photos" data-tab-jump="photos">
+            <strong>{portfolio.gallery.length}</strong>
+            <span>Pictures</span>
+          </a>
+        </div>
+        <fieldset>
+          <legend>Profile</legend>
+          <p data-cjk lang="zh-CN">
+            {profile.introduction}
+          </p>
+          <p class="profile-detail-note" data-cjk lang="zh-CN">
+            {profile.detail}
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend>Currently</legend>
+          <dl class="property-values">
+            {portfolio.aboutCurrently.map((item) => (
+              <>
+                <dt>{currentLabels[item.label] ?? item.label}</dt>
+                <dd data-cjk lang="zh-CN">
+                  {item.value}
+                </dd>
+              </>
+            ))}
+          </dl>
+        </fieldset>
+        <fieldset class="profile-guide">
+          <legend>Ways into my work</legend>
+          {profileGuides.map((guide) => (
+            <article class="profile-guide-entry" data-profile-guide={guide.id}>
+              <header>
+                <PixelIcon name={guide.icon} size={16} />
+                <span lang="en">{guide.label}</span>
+              </header>
+              <h2 data-cjk lang="zh-CN">
+                {guide.title}
+              </h2>
+              <p data-cjk lang="zh-CN">
+                {guide.description}
+              </p>
+              <ul class="profile-guide-links">
+                {guide.projects.map((project) => (
+                  <li>
+                    <a
+                      href={`#project-${project.id}`}
+                      data-project-jump={project.id}
+                      data-cjk
+                      lang="zh-CN"
+                    >
+                      {project.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              {guide.id === 'experiments' && (
+                <a class="hybrid-button" href="/blog/advx-2026-hangzhou/" data-app-link="blog">
+                  Read the field notes
+                </a>
+              )}
+            </article>
+          ))}
+        </fieldset>
+        <fieldset class="principles-group">
+          <legend>Principles</legend>
+          {portfolio.aboutPrinciples.map((principle) => (
+            <details class="property-record principle-record" open>
+              <summary>
+                <span class="principle-title">
+                  <PixelIcon name={principle.icon} size={16} />
+                  <span data-cjk lang="zh-CN">
+                    {principle.title} · {principle.zh}
+                  </span>
+                </span>
+                <span class="pixel-badge" lang="el">
+                  {principle.greek}
+                </span>
+              </summary>
+              <p class="principle-greek" lang="el">
+                {principle.greek}
+              </p>
+              <p data-cjk lang="zh-CN">
+                {principle.meaning}
+              </p>
+              <p data-cjk lang="zh-CN">
+                {principle.description}
+              </p>
+            </details>
+          ))}
+        </fieldset>
+        <p class="record-actions">
+          <a class="hybrid-button" href="/skills/" data-app-link="skills">
+            <PixelIcon name="chip" size={16} /> Device Manager
+          </a>
+          <a class="hybrid-button" href="/gallery/" data-app-link="gallery">
+            <PixelIcon name="gallery" size={16} /> Pictures
+          </a>
+          <a class="hybrid-button" href="/blog/" data-app-link="blog">
+            <PixelIcon name="doc" size={16} /> Reader
+          </a>
+        </p>
+      </section>
+      <section
+        id="projects-panel"
+        role="tabpanel"
+        aria-labelledby="projects-tab"
+        tabindex="0"
+        class="property-panel projects-panel"
+      >
+        <h2 id="projects" class="properties-fallback-title">
+          Projects
+        </h2>
+        <PortfolioProjects />
+      </section>
+      <section
+        id="journey-panel"
+        role="tabpanel"
+        aria-labelledby="journey-tab"
+        tabindex="0"
+        class="property-panel"
+      >
+        <h2 id="journey" class="properties-fallback-title">
+          Journey
+        </h2>
+        <fieldset class="timeline">
+          <legend>Experience</legend>
+          {portfolio.experiences.map((experience, index) => (
+            <details class="property-record timeline-item" open={index === 0}>
+              <summary>
+                <time>
+                  {experience.startDate} — {experience.endDate ?? 'Present'}
+                </time>
+                <strong data-cjk lang="zh-CN">
+                  {experience.name}
+                </strong>
+                {experience.current && (
+                  <span class="pixel-badge badge-accent status-badge" lang="en">
+                    Active
+                  </span>
+                )}
+              </summary>
+              <article>
+                <p class="experience-role" data-cjk lang="zh-CN">
+                  {experience.position} · {experience.location}
+                </p>
+                <p data-cjk lang="zh-CN">
+                  {experience.summary}
+                </p>
+                <ul data-cjk lang="zh-CN">
+                  {experience.highlights.map((highlight) => (
+                    <li>{highlight}</li>
+                  ))}
+                </ul>
+                <p class="stack-chips">
+                  {experience.stack.map((tech) => (
+                    <span class="pixel-chip">{tech}</span>
+                  ))}
+                </p>
+                <a href={experience.url} target="_blank" rel="noopener noreferrer">
+                  Organization
+                </a>
+              </article>
+            </details>
+          ))}
+        </fieldset>
+        <fieldset class="education">
+          <legend>Education</legend>
+          {portfolio.education.map((item) => (
+            <article class="property-record education-record">
+              <div class="education-head">
+                <strong data-cjk lang="zh-CN">
+                  {item.institution}
+                </strong>
+                <time class="pixel-badge">
+                  {item.startDate} — {item.endDate ?? 'Present'}
+                </time>
+              </div>
+              <p data-cjk lang="zh-CN">
+                {item.area}
+              </p>
+            </article>
+          ))}
+        </fieldset>
+        <fieldset class="milestones-group">
+          <legend>Milestones (2021 — 2026)</legend>
+          <ol class="journey">
+            {portfolio.aboutJourney.map((item) => (
+              <li>
+                <details class="property-record milestone-record" open>
+                  <summary>
+                    <time class="pixel-badge">{item.year}</time>
+                    <strong data-cjk lang="zh-CN">
+                      {item.title}
+                    </strong>
+                  </summary>
+                  <p data-cjk lang="zh-CN">
+                    {item.description}
+                  </p>
+                </details>
+              </li>
+            ))}
+          </ol>
+        </fieldset>
+      </section>
+      <section
+        id="honors-panel"
+        role="tabpanel"
+        aria-labelledby="honors-tab"
+        tabindex="0"
+        class="property-panel"
+      >
+        <h2 id="honors" class="properties-fallback-title">
+          Honors
+        </h2>
+        <div class="honors-summary" aria-label="Honors breakdown" lang="en">
+          <span class="pixel-chip">
+            <strong>{portfolio.honors.length}</strong> Total
+          </span>
+          <span class="pixel-chip">
+            <strong>{nationalCount}</strong> National
+          </span>
+          <span class="pixel-chip">
+            <strong>{provincialCount}</strong> Provincial
+          </span>
+          <span class="pixel-chip">
+            <strong>{cityCount}</strong> Municipal
+          </span>
+        </div>
+        <div class="honors">
+          {portfolio.honors.map((honor, index) => (
+            <details class="property-record honor-record" open={index === 0}>
+              <summary>
+                <PixelIcon name="star" size={16} />
+                <time>{honor.date}</time>
+                <strong data-cjk lang="zh-CN">
+                  {honor.title}
+                </strong>
+                <span
+                  class:list={[
+                    'pixel-badge',
+                    'status-badge',
+                    honor.tier === 'national' && 'badge-accent',
+                  ]}
+                  lang="en"
+                >
+                  {tierLabels[honor.tier] ?? honor.tier}
+                </span>
+              </summary>
+              <article>
+                <dl class="property-values">
+                  <dt>Level</dt>
+                  <dd data-cjk lang="zh-CN">
+                    {honor.level}
+                  </dd>
+                  <dt>Issuer</dt>
+                  <dd data-cjk lang="zh-CN">
+                    {honor.issuer}
+                  </dd>
+                </dl>
+                <p data-cjk lang="zh-CN">
+                  {honor.description}
+                </p>
+                {honor.imageSrc && (
+                  <a
+                    class="honor-art"
+                    href={mediaHref(portfolioPreview(honor.imageSrc))}
+                    data-app-link="acdsee"
+                  >
+                    <PortfolioImage
+                      src={portfolioPreview(honor.imageSrc)}
+                      alt={honor.imageAlt}
+                      width="720"
+                      height="480"
+                      loading="lazy"
+                    />
+                  </a>
+                )}
+                {honor.sourceUrl && (
+                  <a href={honor.sourceUrl} target="_blank" rel="noopener noreferrer">
+                    View source
+                  </a>
+                )}
+              </article>
+            </details>
+          ))}
+        </div>
+        <fieldset class="profile-certificates">
+          <legend>Certificates</legend>
+          {portfolio.certificates.map((certificate) => (
+            <article class="property-record certificate-record">
+              <div class="certificate-head">
+                <strong data-cjk lang="zh-CN">
+                  {certificate.name}
+                </strong>
+                <span class="pixel-badge badge-accent status-badge" lang="en">
+                  Verified
+                </span>
+              </div>
+              <p>
+                {certificate.issuer} · <time>{certificate.date}</time>
+              </p>
+            </article>
+          ))}
+        </fieldset>
+      </section>
+      <section
+        id="photos-panel"
+        role="tabpanel"
+        aria-labelledby="photos-tab"
+        tabindex="0"
+        class="property-panel"
+      >
+        <h2 id="photos" class="properties-fallback-title">
+          Photos
+        </h2>
+        <div class="record-actions photos-header-bar">
+          <a class="hybrid-button" href="/gallery/" data-app-link="gallery">
+            <PixelIcon name="gallery" size={16} /> Open Pictures
+          </a>
+          <span class="pixel-chip" lang="en">
+            {portfolioPhotos.length} featured · {portfolio.gallery.length} images
+          </span>
+        </div>
+        <div class="property-photos">
+          {portfolioPhotos.map((photo, index) => (
+            <figure class="photo-sheet-card">
+              <a class="photo-sheet-thumb" href={mediaHref(photo.preview)} data-app-link="acdsee">
+                <PortfolioImage
+                  src={photo.preview}
+                  alt={photo.imageAlt}
+                  width={photo.width}
+                  height={photo.height}
+                  loading="lazy"
+                />
+                <span class="photo-sheet-index" lang="en">
+                  #{String(index + 1).padStart(2, '0')}
+                </span>
+              </a>
+              <figcaption data-cjk lang="zh-CN">
+                <div class="photo-sheet-head">
+                  <strong>{photo.title}</strong>
+                  <small class="pixel-badge" lang="en">
+                    {photo.category}
+                  </small>
+                </div>
+                <span>
+                  {photo.location} · {photo.dateLabel}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+      <section
+        id="contact-panel"
+        role="tabpanel"
+        aria-labelledby="contact-tab"
+        tabindex="0"
+        class="property-panel"
+      >
+        <h2 id="contact" class="properties-fallback-title">
+          Contact
+        </h2>
+        <fieldset>
+          <legend>Contact information</legend>
+          <ul class="contact-channels">
+            {contactChannels.map((channel) => (
+              <li class="contact-channel">
+                <PixelIcon name={channel.icon} size={16} />
+                <span class="contact-label">{channel.label}</span>
+                {channel.href ? (
+                  <a
+                    href={channel.href}
+                    target={channel.external ? '_blank' : undefined}
+                    rel={channel.external ? 'noopener noreferrer' : undefined}
+                    lang={channel.id === 'location' ? 'zh-CN' : 'en'}
+                    data-cjk={channel.id === 'location' ? '' : undefined}
+                  >
+                    {channel.value}
+                  </a>
+                ) : (
+                  <span class="contact-value" data-cjk lang="zh-CN">
+                    {channel.value}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div class="record-actions contact-actions" lang="en">
+            <Button data-contact-copy={profile.email} data-contact-tool hidden>
+              Copy email
+            </Button>
+            <a class="hybrid-button" href="/mirahikari.vcf" download="MiraHikari.vcf">
+              Save contact card
+            </a>
+            <a class="hybrid-button" href="/blog/privacy/" data-app-link="blog">
+              Privacy
+            </a>
+          </div>
+          <input
+            id="contact-email-copy"
+            data-contact-value
+            type="text"
+            readonly
+            value={profile.email}
+            aria-label="Email address to copy"
+            hidden
+          />
+          <p class="contact-feedback" data-contact-feedback role="status" lang="en"></p>
+        </fieldset>
+        <fieldset>
+          <legend>Languages</legend>
+          <div class="language-list">
+            {portfolio.languages.map((language) => {
+              const filled = language.fluency === '母语' ? 5 : 3;
+              return (
+                <div class="language-row">
+                  <p data-cjk lang="zh-CN">
+                    {language.language} · {language.fluency}
+                  </p>
+                  <div class="language-meter" aria-hidden="true">
+                    {Array.from({ length: 5 }, (_, cell) => (
+                      <span
+                        class:list={[
+                          'language-meter-cell',
+                          cell < filled && 'language-meter-active',
+                        ]}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Friends and links</legend>
+          <p class="record-actions">
+            <a class="hybrid-button" href="/network/" data-app-link="network">
+              Long-Distance Directory
+            </a>
+          </p>
+          {portfolio.friendLinks.map((friend) => (
+            <details class="property-record friend-record" open>
+              <summary>
+                <span data-cjk lang="zh-CN">
+                  {friend.name}
+                </span>
+                <span class="pixel-badge" lang="en">
+                  {new URL(friend.url).hostname.replace(/^www\./, '')}
+                </span>
+              </summary>
+              <p data-cjk lang="zh-CN">
+                {friend.description}
+              </p>
+              <a href={friend.url} target="_blank" rel="noopener noreferrer">
+                Open website
+              </a>
+            </details>
+          ))}
+        </fieldset>
+        <p class="record-actions">
+          <Button data-comments-open="friend-comments">Link discussion</Button>
+        </p>
+        <Discussion id="friend-comments" term={FRIENDS_DISCUSSION_TERM} title="Link discussion" />
+      </section>
+    </div>
+    <StatusBar class="properties-footer" lang="en">
+      <span data-properties-status>General</span>
+      <span data-kounter-status></span>
+      <a href="/" data-app-link="home" class="hybrid-button">
+        Home
+      </a>
+      <Button data-properties-close hidden>
+        Close
+      </Button>
+    </StatusBar>
+  </main>
+</SiteLayout>

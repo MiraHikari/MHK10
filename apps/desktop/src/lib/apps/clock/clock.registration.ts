@@ -1,0 +1,16 @@
+export const registration = {
+  id: 'clock',
+  name: 'Clock',
+  icon: 'clockface',
+  kind: 'canvas',
+  route: '/apps/clock/',
+  title: 'Clock',
+  w: 240,
+  h: 240,
+  x: 100,
+  y: 24,
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  shortcut: true,
+  startMenuFolder: 'accessories',
+} as const;

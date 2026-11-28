@@ -1,0 +1,25 @@
+[data-save-picker] form {
+  display: grid;
+  gap: 8px;
+}
+[data-save-picker] label {
+  display: grid;
+  gap: 4px;
+}
+[data-save-picker] input,
+[data-save-picker] select {
+  width: 100%;
+  min-height: 23px;
+  font: inherit;
+}
+[data-save-picker] [role='status'] {
+  margin: 0;
+  min-height: 3em;
+}
+[data-save-picker] button {
+  min-height: 23px;
+}
+[data-app-status] + a {
+  display: inline-block;
+  padding: 12px;
+}

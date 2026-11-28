@@ -1,0 +1,16 @@
+---
+interface Props {
+  label: string;
+  multiline?: boolean;
+  value?: string;
+  type?: 'text' | 'search' | 'email' | 'url' | 'password' | 'number' | 'tel';
+  [key: string]: unknown;
+}
+const { label, multiline = false, value = '', type = 'text', ...attributes } = Astro.props;
+---
+
+{multiline ? (
+  <textarea class="hybrid-textfield" aria-label={label} {...attributes}>{value}</textarea>
+) : (
+  <input class="hybrid-textfield" aria-label={label} type={type} value={value} {...attributes} />
+)}

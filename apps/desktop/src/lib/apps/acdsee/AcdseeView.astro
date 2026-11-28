@@ -1,0 +1,698 @@
+---
+import Dialog from '../../../components/hybrid/Dialog.astro';
+import Tree from '../../../components/hybrid/Tree.astro';
+import Button from '../../../components/hybrid/Button.astro';
+import MenuBar from '../../../components/hybrid/MenuBar.astro';
+import Select from '../../../components/hybrid/Select.astro';
+import StatusBar from '../../../components/hybrid/StatusBar.astro';
+import Toolbar from '../../../components/hybrid/Toolbar.astro';
+import Range from '../../../components/hybrid/Range.astro';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import { mediaCatalog } from '../../../data/media';
+const groups = [...new Set(mediaCatalog.flatMap((item) => item.folders))];
+const menus = [
+  {
+    label: 'File',
+    items: [
+      ['open', 'Open files…'],
+      ['export-copy', 'Export PNG copy…'],
+      ['cancel-export', 'Cancel export'],
+      ['print', 'Print…'],
+      ['properties', 'Properties'],
+    ],
+  },
+  {
+    label: 'View',
+    items: [
+      ['browse', 'Browse / View'],
+      ['fit', 'Fit to window'],
+      ['actual', 'Actual size'],
+      ['pixel', 'Pixel preview'],
+      ['slideshow', 'Slideshow'],
+      ['properties', 'Properties'],
+    ],
+  },
+  {
+    label: 'Image',
+    items: [
+      ['adjustments', 'Adjust colours…'],
+      ['compare', 'Compare original colours'],
+      ['rotate-left', 'Rotate left'],
+      ['rotate-right', 'Rotate right'],
+      ['flip-x', 'Flip horizontal'],
+      ['flip-y', 'Flip vertical'],
+      ['reset', 'Reset view'],
+    ],
+  },
+  { label: 'Help', items: [['help', 'Keyboard and controls']] },
+];
+const toolbarGroups = [
+  {
+    label: 'Browse and zoom',
+    tools: [
+      { command: 'open', label: 'Open files', icon: 'folder' },
+      { command: 'browse', label: 'Browse / View', icon: 'tiles' },
+      { command: 'previous', label: 'Previous', icon: 'previous' },
+      { command: 'next', label: 'Next', icon: 'next' },
+      { command: 'zoom-out', label: 'Zoom out', icon: 'zoom-out' },
+      { command: 'zoom-in', label: 'Zoom in', icon: 'zoom-in' },
+      { command: 'fit', label: 'Fit to window', icon: 'display' },
+      { command: 'actual', label: 'Actual size', icon: 'gallery' },
+    ],
+  },
+  {
+    label: 'Image actions',
+    saveOriginal: true,
+    tools: [
+      { command: 'rotate-right', label: 'Rotate right', icon: 'rotate-right' },
+      { command: 'adjustments', label: 'Adjust colours', icon: 'controls' },
+      { command: 'slideshow', label: 'Slideshow', icon: 'film' },
+      { command: 'properties', label: 'Properties', icon: 'doc' },
+    ],
+  },
+];
+---
+
+<SiteLayout
+  title="ACDSee"
+  description="Browse pictures and image properties."
+  active="acdsee"
+  showNavigation={false}
+>
+  <main class="acdsee" id="image-browser" lang="en">
+    <MenuBar class="image-menubar" label="Image browser menus">
+      {menus.map((menu) => (
+        <details>
+          <summary>{menu.label}</summary>
+          <div>
+            {menu.items.map(([id, label]) => (
+              <Button type="button" data-command={id}>
+                {label}
+              </Button>
+            ))}
+          </div>
+        </details>
+      ))}
+    </MenuBar>
+    <Toolbar class="image-toolbar" label="Image tools" data-hybrid-toolbar>
+      {toolbarGroups.map((group) => (
+        <div class="image-tool-group" role="group" aria-label={group.label}>
+          {group.tools.map((tool) => (
+            <Button
+              type="button"
+              data-command={tool.command}
+              aria-label={tool.label}
+              title={tool.label}
+            >
+              <PixelIcon name={tool.icon} size={16} />
+            </Button>
+          ))}
+          {group.saveOriginal && (
+            <a id="image-original" download target="_blank" rel="noopener noreferrer">
+              Save original…
+            </a>
+          )}
+        </div>
+      ))}
+    </Toolbar>
+    <div class="image-address">
+      <span>Location</span>
+      <input id="image-path" readonly value="All images" aria-label="Current image folder" />
+      <label for="image-sort">Sort</label>
+      <Select id="image-sort">
+        <option value="name">Name</option>
+        <option value="date">Date</option>
+        <option value="size">File size</option>
+      </Select>
+      <Button
+        type="button"
+        data-command="reverse"
+        aria-label="Reverse sort order"
+        title="Reverse sort order"
+      >
+        ↑
+      </Button>
+      <Select id="image-layout" aria-label="File view">
+        <option value="thumbnails">Thumbnails</option>
+        <option value="details">Details</option>
+        <option value="list">List</option>
+      </Select>
+    </div>
+    <div class="image-body" data-mode="browse">
+      <Tree class="folder-tree" label="Image folders">
+        <Button type="button" data-folder="" role="treeitem" aria-selected="true">
+          <PixelIcon name="folder" size={16} />
+          All images
+        </Button>
+        {groups.map((group) => (
+          <Button type="button" data-folder={group} role="treeitem" aria-selected="false">
+            <PixelIcon name="folder" size={16} />
+            {group.replace('/', ' / ')}
+          </Button>
+        ))}
+        <Button type="button" data-folder="Local files" role="treeitem" aria-selected="false">
+          <PixelIcon name="computer" size={16} />
+          Local files
+        </Button>
+      </Tree>
+      <section class="file-pane" aria-label="Image files">
+        <label class="file-search" for="image-search">
+          Find
+          <input id="image-search" type="search" autocomplete="off" />
+        </label>
+        <div
+          class="file-list"
+          id="image-list"
+          role="listbox"
+          aria-label="Images"
+          data-view="thumbnails"
+        >
+          {mediaCatalog.map((item, index) => (
+            <Button
+              type="button"
+              role="option"
+              aria-selected={index === 0}
+              data-media-id={item.id}
+              tabindex={index === 0 ? 0 : -1}
+            >
+              <img
+                src={item.display}
+                data-original-src={item.display}
+                data-pixel-src={item.preview}
+                alt=""
+                loading="lazy"
+                width="64"
+                height="48"
+              />
+              <span data-cjk>{item.title}</span>
+            </Button>
+          ))}
+        </div>
+        <div id="image-list-empty" class="image-list-empty" hidden>
+          <p>No images found.</p>
+          <Button type="button" data-command="clear-search" hidden>
+            Clear search
+          </Button>
+        </div>
+      </section>
+      <section class="preview-pane" aria-label="Image preview">
+        <div class="preview-title" id="image-title">
+          Image
+        </div>
+        <div
+          class="image-stage"
+          id="image-stage"
+          tabindex="0"
+          aria-label="Image preview; arrow keys change images"
+        >
+          <div id="image-surface">
+            <img id="image-view" alt="Selected image" />
+          </div>
+          <p id="image-empty" hidden>
+            No images match this folder.
+          </p>
+        </div>
+      </section>
+    </div>
+    <StatusBar class="image-status" aria-live="polite">
+      <span id="image-position"></span>
+      <span id="image-dimensions"></span>
+      <span id="image-zoom"></span>
+      <span id="image-feedback"></span>
+    </StatusBar>
+    <input type="file" id="image-open" accept="image/*" multiple hidden />
+    <Dialog id="image-adjustments" title="Adjust Colours">
+      <p class="image-tool-note">
+        Original files stay unchanged. Export a PNG copy to keep your edits.
+      </p>
+      <div class="image-adjustment-grid">
+        <label for="image-brightness">Brightness</label>
+        <Range id="image-brightness" label="Brightness" min={-100} max={100} value={0} />
+        <output id="image-brightness-value" for="image-brightness">
+          0%
+        </output>
+        <label for="image-contrast">Contrast</label>
+        <Range id="image-contrast" label="Contrast" min={0} max={200} value={100} />
+        <output id="image-contrast-value" for="image-contrast">
+          100%
+        </output>
+        <label for="image-saturation">Saturation</label>
+        <Range id="image-saturation" label="Saturation" min={0} max={200} value={100} />
+        <output id="image-saturation-value" for="image-saturation">
+          100%
+        </output>
+      </div>
+      <div class="image-preset-tools">
+        <Button data-command="preset-vivid">Vivid</Button>
+        <Button data-command="preset-grayscale">Grayscale</Button>
+        <Button data-command="reset-adjustments">Reset colours</Button>
+        <Button data-command="compare" aria-pressed="false">
+          Compare original
+        </Button>
+      </div>
+      <p id="image-adjustment-status" class="image-tool-note"></p>
+      <p class="image-tool-note">PNG: transparency, up to 4096 px / 8 MP.</p>
+      <p id="image-copy-status" class="image-tool-note" role="status"></p>
+      <Button slot="actions" data-command="export-copy">
+        Export PNG copy…
+      </Button>
+      <Button slot="actions" data-command="cancel-export" disabled>
+        Cancel export
+      </Button>
+      <Button slot="actions" data-command="close-adjustments">
+        Done
+      </Button>
+    </Dialog>
+    <Dialog id="image-properties" title="Properties">
+      <dl id="image-property-values"></dl>
+      <Button
+        slot="actions"
+        type="button"
+        data-command="close-properties"
+        aria-label="Close image properties"
+      >
+        OK
+      </Button>
+    </Dialog>
+    <Dialog id="image-help" title="ACDSee Help">
+      <p>
+        Arrow keys change images. Home / End select the first or last image. Enter switches Browse /
+        View; + / − zoom, 0 fits to the window and 1 shows actual size.
+      </p>
+      <p>
+        Drag an enlarged image to pan. Escape stops the slideshow and returns to Browse. Rotation
+        and flipping change the current view; the original file is unchanged.
+      </p>
+      <p>
+        Adjust Colours changes brightness, contrast and saturation. Compare original keeps your
+        edits while showing unadjusted colours. Export PNG copy applies rotation, flips and colour
+        adjustments to a new file. Pixel preview and zoom only affect viewing.
+      </p>
+      <p>Local files stay in this window and are released when it closes.</p>
+      <Button slot="actions" type="button" data-command="close-help" aria-label="Close image help">
+        OK
+      </Button>
+    </Dialog>
+    <noscript>
+      <p>Image files</p>
+      <ul>
+        {mediaCatalog.map((item) => (
+          <li>
+            {/* The bundled display keeps the no-script index offline; originals live on R2. */}
+            <a href={item.display}>{item.title}</a>
+          </li>
+        ))}
+      </ul>
+    </noscript>
+  </main>
+</SiteLayout>
+<script>
+  import { mediaCatalog } from '../../../data/media';
+  import { mountImageBrowser } from './image-browser';
+  import { mountHtmlApp } from '../../os/host/html-app-services';
+  const root = document.querySelector<HTMLElement>('#image-browser');
+  if (root && window.self !== window.top) {
+    mountHtmlApp((nativeFiles) => mountImageBrowser(root, mediaCatalog, nativeFiles));
+  }
+</script>
+<style>
+  .acdsee {
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 20px max-content 29px minmax(0, 1fr) 19px;
+    color: #000;
+    background: #c0c0c0;
+    font:
+      11px/14px MSS,
+      sans-serif;
+    overflow: hidden;
+  }
+  .image-toolbar {
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    padding: 2px 4px;
+  }
+  .image-tool-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 2px;
+    flex: 0 0 auto;
+  }
+  .image-toolbar button {
+    flex: 0 0 23px;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
+    padding: 2px;
+  }
+  .image-toolbar a {
+    margin-left: 4px;
+    padding: 3px 4px;
+    white-space: nowrap;
+    color: #0000ff;
+  }
+  .image-toolbar a[aria-disabled='true'] {
+    pointer-events: none;
+    color: #808080;
+  }
+  .image-address {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 4px;
+  }
+  .image-address input {
+    min-width: 25px;
+    flex: 1;
+  }
+  .image-address :global(.hybrid-combobox) {
+    min-width: 80px;
+    flex: 0 0 80px;
+  }
+  .image-address :global(.hybrid-combobox[aria-label='File view']) {
+    min-width: 100px;
+    flex-basis: 100px;
+  }
+  .image-body {
+    display: grid;
+    grid-template-columns: 110px minmax(115px, 1fr) minmax(120px, 1.15fr);
+    min-height: 0;
+    border-top: 1px solid #808080;
+  }
+  .folder-tree {
+    overflow: auto;
+    background: #fff;
+    padding: 4px 2px;
+    border-right: 2px solid #808080;
+  }
+  .folder-tree :global(img) {
+    flex: 0 0 auto;
+  }
+  .file-pane {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-right: 2px solid #808080;
+  }
+  .file-search {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 3px;
+    border-bottom: 1px solid #808080;
+  }
+  .file-search input {
+    width: 100%;
+    min-width: 0;
+  }
+  .file-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(80px, 100%), 1fr));
+    grid-auto-rows: max-content;
+    min-height: 0;
+    align-content: start;
+    gap: 3px;
+    overflow: auto;
+    padding: 3px;
+  }
+  .file-list:empty {
+    display: none;
+  }
+  .image-list-empty {
+    padding: 6px;
+    overflow: auto;
+  }
+  .image-list-empty p {
+    margin: 0 0 6px;
+  }
+  .file-list :global(button) {
+    min-width: 0;
+    padding: 3px;
+    border: 1px solid #c0c0c0;
+    background: #fff;
+    color: #000;
+    font:
+      11px/14px MSS,
+      sans-serif;
+  }
+  .file-list :global(button[aria-selected='true']) {
+    background: #000080;
+    color: #fff;
+  }
+  .file-list[data-view='thumbnails'] :global(button) {
+    display: flex;
+    flex-direction: column;
+    height: 96px;
+    min-height: 96px;
+    overflow: hidden;
+  }
+  .file-list :global(img) {
+    display: block;
+    width: 64px;
+    max-width: 100%;
+    height: 48px;
+    flex: 0 0 48px;
+    object-fit: contain;
+    margin: auto;
+    image-rendering: pixelated;
+  }
+  .file-list :global(span) {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    margin-top: 3px;
+  }
+  .file-list[data-view='thumbnails'] :global(span) {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-height: 36px;
+    line-height: 18px;
+  }
+  .file-list :global(small) {
+    display: none;
+  }
+  .file-list[data-view='details'],
+  .file-list[data-view='list'] {
+    display: block;
+  }
+  .file-list[data-view='details'] :global(button),
+  .file-list[data-view='list'] :global(button) {
+    display: block;
+    width: 100%;
+    margin-bottom: 2px;
+    text-align: left;
+    padding: 4px;
+  }
+  .file-list[data-view='details'] :global(img),
+  .file-list[data-view='list'] :global(img) {
+    display: none;
+  }
+  .file-list[data-view='details'] :global(button) {
+    height: 46px;
+    min-height: 46px;
+    overflow: hidden;
+  }
+  .file-list[data-view='list'] :global(button) {
+    height: 30px;
+    min-height: 30px;
+    overflow: hidden;
+  }
+  .file-list[data-view='details'] :global(small) {
+    display: block;
+    font-size: 10px;
+    margin-top: 3px;
+  }
+  .preview-pane {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+  .preview-title {
+    height: 19px;
+    padding: 2px 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .image-stage {
+    position: relative;
+    overflow: auto;
+    background: #808080;
+    min-height: 0;
+    flex: 1;
+    display: flex;
+  }
+  #image-surface {
+    display: block;
+    flex: 0 0 auto;
+    margin: auto;
+    position: relative;
+  }
+  #image-view {
+    position: absolute;
+    display: block;
+    max-width: none;
+    transform-origin: center;
+  }
+  .acdsee :global(#image-adjusted) {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    max-width: none;
+  }
+  .acdsee :global(#image-adjusted[hidden]) {
+    display: none !important;
+  }
+  .image-stage[data-pan='true'] {
+    cursor: move;
+  }
+  #image-empty {
+    margin: auto;
+    padding: 10px;
+    color: #fff;
+    font: inherit;
+  }
+  .image-body[data-mode='view'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .image-body[data-mode='view'] .folder-tree,
+  .image-body[data-mode='view'] .file-pane {
+    display: none;
+  }
+  .image-body[data-mode='view'] .preview-title {
+    display: none;
+  }
+  .image-status {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    border-top: 1px solid #fff;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .image-status span {
+    padding: 1px 4px;
+    border-right: 1px solid #808080;
+    min-width: 0;
+  }
+  #image-feedback {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :global(.hybrid-dialog) {
+    width: 350px;
+  }
+  .image-tool-note {
+    margin: 6px 0;
+    line-height: 1.4;
+  }
+  .image-adjustment-grid {
+    display: grid;
+    grid-template-columns: 66px minmax(70px, 1fr) 36px;
+    align-items: center;
+    gap: 8px;
+    margin-block: 12px;
+  }
+  .image-adjustment-grid :global(input) {
+    min-width: 0;
+    width: 100%;
+  }
+  .image-adjustment-grid output {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .image-preset-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .acdsee :global(#image-adjustments .hybrid-dialog-actions) {
+    flex-wrap: wrap;
+  }
+  #image-copy-status:empty {
+    display: none;
+  }
+  dl {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr);
+    gap: 5px 8px;
+    padding: 5px;
+  }
+  .acdsee :global(dt) {
+    color: #808080;
+  }
+  .acdsee :global(dd) {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  [hidden],
+  .file-list :global([hidden]) {
+    display: none !important;
+  }
+  @media (max-width: 400px) {
+    .image-body {
+      grid-template-columns: 86px minmax(100px, 1fr);
+    }
+    .image-body:not([data-mode='view']) .preview-pane {
+      display: none;
+    }
+    .image-address > span,
+    .image-address label {
+      display: none;
+    }
+  }
+  @media (max-height: 220px) {
+    .image-toolbar {
+      max-height: 29px;
+      overflow: auto;
+      align-content: flex-start;
+      overscroll-behavior: contain;
+    }
+  }
+  @media print {
+    .acdsee {
+      display: block;
+      height: auto;
+      overflow: visible;
+    }
+    .image-menubar,
+    .image-toolbar,
+    .image-address,
+    .folder-tree,
+    .file-pane,
+    .preview-title,
+    .image-status {
+      display: none !important;
+    }
+    .image-body,
+    .preview-pane,
+    .image-stage {
+      display: block !important;
+      height: auto;
+      overflow: visible;
+      border: 0;
+      background: #fff;
+    }
+    #image-surface {
+      position: static;
+      max-width: 100%;
+      height: auto;
+      transform: none;
+    }
+  }
+</style>

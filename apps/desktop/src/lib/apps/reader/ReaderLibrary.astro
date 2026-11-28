@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import Select from '../../../components/hybrid/Select.astro';
+import PortfolioImage from '../../../components/PortfolioImage.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+
+interface Props {
+  /** Exact authored tag; the page route guarantees one decoded value. */
+  tag?: string;
+}
+const { tag: rawTag = '' } = Astro.props;
+const tag = rawTag.trim();
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf() || a.id.localeCompare(b.id),
+);
+const listed = allPosts.filter((post) => post.data.listed);
+const posts = tag ? listed.filter((post) => post.data.tags.includes(tag)) : listed;
+const isAnnouncement = (category: string | undefined) => {
+  const value = category?.trim().toLocaleLowerCase() ?? '';
+  return value === '公告' || value === 'announcements';
+};
+const announcements = posts.filter((post) => isAnnouncement(post.data.category));
+const articles = posts.filter((post) => !isAnnouncement(post.data.category));
+const documents = allPosts.filter((post) => !post.data.listed);
+---
+
+<div>
+  <header class="reader-library-header" lang="en">
+    <h1>Library</h1>
+    <a href="/rss.xml">RSS</a>
+  </header>
+  <div class="library-tools" lang="en">
+    <label for="library-search">Find</label>
+    <input id="library-search" type="search" placeholder="Title, topic or author" />
+    <Select id="library-sort" label="Sort library">
+      <option value="date">Publication date</option>
+      <option value="title">Title</option>
+      <option value="recent">Recently opened</option>
+    </Select>
+    <Select id="library-view" label="Library view">
+      <option value="covers">Covers</option>
+      <option value="list">List</option>
+    </Select>
+  </div>
+  {tag && (
+    <p class="reader-tag-filter" lang="en">
+      <span>
+        Tag: <strong>{tag}</strong>
+      </span>
+      <a href="/blog/">Show all</a>
+    </p>
+  )}
+  {announcements.length > 0 && (
+    <section class="reader-announcements" aria-labelledby="reader-announcements-title">
+      <h2 id="reader-announcements-title" class="reader-announcements-title">
+        <PixelIcon name="mail" size={16} />
+        <span lang="zh-CN">公告</span>
+        <span aria-hidden="true"> / </span>
+        <span lang="en">Announcements</span>
+      </h2>
+      {announcements.map((post) => (
+        <article
+          class="reader-announcement"
+          data-post
+          data-reader-book={post.id}
+          data-category={post.data.category}
+          data-date={post.data.published.toISOString()}
+          data-title={post.data.title}
+          data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')} ${post.data.category ?? ''} MiraHikari`.toLocaleLowerCase()}
+        >
+          <span class="reader-announcement-mark" aria-hidden="true">
+            <PixelIcon name="mail" size={16} />
+          </span>
+          <div class="reader-announcement-copy">
+            <h3>
+              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              <span class="reader-announcement-badge" lang="zh-CN">
+                {post.data.category}
+              </span>
+            </h3>
+            <p>{post.data.description}</p>
+            <p class="reader-announcement-meta">
+              <time datetime={post.data.published.toISOString()}>
+                {post.data.published.toISOString().slice(0, 10)}
+              </time>
+              {post.data.version && <span> · v{post.data.version}</span>}
+              <span class="reader-book-progress"></span>
+            </p>
+          </div>
+        </article>
+      ))}
+    </section>
+  )}
+  {posts.length === 0 && (
+    <p class="reader-tag-empty" lang="en">
+      No publications match this tag.
+    </p>
+  )}
+  <div class="reader-shelf" data-library-view="covers">
+    {articles.map((post) => (
+      <article
+        class="reader-book"
+        data-post
+        data-reader-book={post.id}
+        data-date={post.data.published.toISOString()}
+        data-title={post.data.title}
+        data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')} MiraHikari`.toLocaleLowerCase()}
+      >
+        <a class="reader-cover" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}>
+          <PortfolioImage
+            src={post.data.heroImage ?? '/social-card.png'}
+            alt={post.data.heroAlt ?? post.data.title}
+            loading="lazy"
+          />
+        </a>
+        <div>
+          <h2>
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          </h2>
+          <time datetime={post.data.published.toISOString()}>
+            {post.data.published.toISOString().slice(0, 10)}
+          </time>
+          <p>{post.data.description}</p>
+          <div class="reader-book-progress"></div>
+        </div>
+      </article>
+    ))}
+  </div>
+  {documents.length > 0 && (
+    <footer class="source-documents">
+      <h2 lang="en">Source-site documents</h2>
+      {documents.map((post) => (
+        <p>
+          <a href={`/blog/${post.id}/`}>{post.data.title}</a> ·{' '}
+          {(post.data.updated ?? post.data.published).toISOString().slice(0, 10)}
+        </p>
+      ))}
+    </footer>
+  )}
+</div>

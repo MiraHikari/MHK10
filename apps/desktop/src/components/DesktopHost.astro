@@ -1,0 +1,508 @@
+---
+import { BEZEL_HELP } from '../lib/ui/help';
+import AssistantComposer from './AssistantComposer.astro';
+---
+
+<main id="machine">
+  <div id="viewport">
+    <div id="crt">
+      <canvas
+        id="screen"
+        width="640"
+        height="360"
+        tabindex="0"
+        aria-label="MHK10 interactive desktop"
+        aria-describedby="controls-hint"
+      >
+        MHK10 requires canvas support. Use Help for controls.
+      </canvas>
+      <AssistantComposer />
+      <button id="startup-skip" type="button" hidden aria-describedby="startup-keys">
+        Skip startup
+      </button>
+      <button id="eject-restart" type="button" hidden>
+        Restart MHK10
+      </button>
+      <span id="startup-keys" hidden>
+        Escape or clicking the screen also skips startup.
+      </span>
+    </div>
+  </div>
+  <footer id="monitor-controls" aria-label="Monitor controls">
+    <span class="machine-label">
+      <span class="power-led" aria-hidden="true"></span> MHK10
+    </span>
+    <span id="controls-hint">Double-click to open · F1 for help</span>
+    <div class="monitor-buttons">
+      <button
+        id="keyboard-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="keyboard-panel"
+      >
+        Keyboard
+      </button>
+      <button
+        id="scale-toggle"
+        type="button"
+        aria-pressed="true"
+        title="Use whole pixel scaling for sharper text"
+      >
+        Pixel scale
+      </button>
+      <button
+        id="crt-toggle"
+        type="button"
+        aria-pressed="true"
+        title="Toggle scanlines and screen shading"
+      >
+        CRT
+      </button>
+      <button id="fullscreen" type="button">
+        Full screen
+      </button>
+      <button id="help" type="button">
+        Help
+      </button>
+    </div>
+  </footer>
+  <nav id="touch-controls" aria-label="Touch desktop controls">
+    <button id="mobile-zoom" type="button">
+      Zoom
+    </button>
+    <button id="mobile-pan" type="button" aria-pressed="false" disabled>
+      Pan
+    </button>
+    <button type="button" data-desktop-key="StartMenu">
+      Start
+    </button>
+    <button type="button" data-desktop-key="Enter">
+      Open
+    </button>
+    <button type="button" data-desktop-key="Escape">
+      Esc
+    </button>
+    <button type="button" data-desktop-key="CloseWindow">
+      Close
+    </button>
+    <button type="button" data-desktop-key="MaximizeWindow">
+      Max
+    </button>
+    <button type="button" data-desktop-key="SystemMenu" aria-label="Window menu">
+      Menu
+    </button>
+    <button type="button" data-desktop-key="ContextMenu" aria-label="Desktop menu">
+      Desktop
+    </button>
+    <button id="right-click-toggle" type="button" aria-pressed="false">
+      Right
+    </button>
+    <button
+      type="button"
+      data-desktop-wheel="-1"
+      aria-label="Scroll up at the last touched position"
+    >
+      ↑
+    </button>
+    <button
+      type="button"
+      data-desktop-wheel="1"
+      aria-label="Scroll down at the last touched position"
+    >
+      ↓
+    </button>
+    <span>Tap to select, double-tap to open. Landscape gives you more room.</span>
+  </nav>
+  <form id="keyboard-panel" hidden aria-label="Desktop text input">
+    <label for="desktop-text">Select a text field on the desktop, then write here.</label>
+    <div class="text-entry">
+      <textarea
+        id="desktop-text"
+        rows="2"
+        placeholder="Write text to insert…"
+        autocapitalize="off"
+        spellcheck="false"
+      ></textarea>
+      <button type="submit">Insert text</button>
+    </div>
+    <div class="keyboard-keys">
+      <button type="button" data-desktop-key="Backspace">
+        Backspace
+      </button>
+      <button type="button" data-desktop-key="ArrowLeft" aria-label="Move caret left">
+        ←
+      </button>
+      <button type="button" data-desktop-key="ArrowRight" aria-label="Move caret right">
+        →
+      </button>
+      <button type="button" data-desktop-key="Enter">
+        Enter / Send
+      </button>
+      <button type="button" data-desktop-key="Save">
+        Save
+      </button>
+    </div>
+    <span id="keyboard-status" role="status">
+      Text is inserted into the active application.
+    </span>
+  </form>
+  <p id="boot-hint" role="status">
+    Preparing the MHK10 display…
+  </p>
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <h1 id="help-title">Welcome to MHK10</h1>
+    <p>Controls for the interactive desktop.</p>
+    <dl>
+      {BEZEL_HELP.map((topic) => (
+        <>
+          <dt>{topic.title}</dt>
+          <dd>{topic.text}</dd>
+        </>
+      ))}
+    </dl>
+    <form method="dialog">
+      <button autofocus>Return to desktop</button>
+    </form>
+  </dialog>
+  <noscript>This desktop needs JavaScript. Enable JavaScript and reload to boot.</noscript>
+</main>
+
+<style is:global>
+  body {
+    margin: 0;
+    background: #000;
+    color: #c0c0c0;
+    font:
+      12px MSS,
+      monospace;
+  }
+  #machine {
+    height: 100vh;
+    height: var(--visible-height, 100dvh);
+    box-sizing: border-box;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+      env(safe-area-inset-left);
+    display: flex;
+    flex-direction: column;
+    background: #000;
+  }
+  #viewport {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  #viewport.is-zoomed {
+    display: block;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  #viewport.is-zoomed #crt {
+    margin: 0;
+  }
+  .is-panning .html-window-layer iframe {
+    pointer-events: none !important;
+  }
+  #crt {
+    position: relative;
+    width: min(100vw, 177.78vh);
+    aspect-ratio: 16 / 9;
+  }
+  #screen {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    cursor: none;
+    touch-action: none;
+  }
+  #screen:focus-visible {
+    outline: 1px dotted #fff;
+    outline-offset: 2px;
+  }
+  #machine #startup-skip {
+    position: absolute;
+    z-index: 1000000;
+    right: max(10px, 2.5%);
+    bottom: 8px;
+    padding: 6px 12px;
+    border-color: #808080;
+    background: #000;
+    color: #fff;
+    font: 12px monospace;
+  }
+  #machine #eject-restart {
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    z-index: 4;
+    border: 1px solid #888;
+    color: white;
+    background: black;
+    font:
+      12px/1.25 MSS,
+      sans-serif;
+  }
+  #machine #startup-skip:hover,
+  #machine #startup-skip:focus-visible {
+    border-color: #fff;
+    color: #fff;
+  }
+  #machine #startup-skip:active {
+    background: #c0c0c0;
+    color: #000;
+  }
+  @media (pointer: coarse) and (orientation: portrait) {
+    #viewport:not(.is-zoomed) #startup-skip {
+      top: calc(100% + 8px);
+      bottom: auto;
+    }
+  }
+  #screen[data-startup-phase] {
+    cursor: default;
+  }
+  #viewport:not(.is-zoomed):has(#screen:focus-visible) {
+    overflow: visible;
+  }
+  #crt::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, transparent 0 66.6%, rgb(0 0 0 / 12%) 66.6% 100%) 0 0 /
+        100% calc(100% / var(--logical-height, 360)),
+      radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 35%) 100%);
+  }
+  #crt.clean::after {
+    display: none;
+  }
+  #monitor-controls {
+    min-height: 36px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-top: 1px solid #333;
+  }
+  .machine-label {
+    white-space: nowrap;
+    font-weight: bold;
+    color: #888;
+    letter-spacing: 1px;
+  }
+  .power-led {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 5px;
+    background: #0f0;
+  }
+  #controls-hint {
+    color: #888;
+    flex: 1;
+  }
+  .monitor-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: auto;
+  }
+  #touch-controls {
+    display: none;
+  }
+  #keyboard-panel {
+    flex: none;
+    padding: 8px 12px;
+    border-top: 1px solid #666;
+    background: #111;
+    font: 12px monospace;
+  }
+  #keyboard-panel[hidden] {
+    display: none;
+  }
+  #keyboard-panel label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .text-entry {
+    display: flex;
+    gap: 8px;
+  }
+  #desktop-text {
+    min-width: 0;
+    flex: 1;
+    resize: none;
+    background: #fff;
+    color: #000;
+    border: 2px inset #aaa;
+    border-radius: 0;
+    font: 16px monospace;
+  }
+  .keyboard-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0;
+  }
+  #machine button:not(:where(.assistant-compose *)) {
+    min-height: 24px;
+    padding: 3px 9px;
+    border: 1px solid #666;
+    border-top-color: #bbb;
+    border-left-color: #bbb;
+    border-radius: 0;
+    background: #222;
+    color: #c0c0c0;
+    font: inherit;
+    cursor: pointer;
+  }
+  #machine button:not(:where(.assistant-compose *)):hover {
+    background: #333;
+    color: #fff;
+  }
+  #machine button:not(:where(.assistant-compose *)):active,
+  #machine button:not(:where(.assistant-compose *))[aria-pressed='true'] {
+    border-color: #555;
+    border-bottom-color: #aaa;
+    border-right-color: #aaa;
+    background: #111;
+  }
+  #machine button:not(:where(.assistant-compose *)):focus-visible {
+    outline: 1px dotted #fff;
+    outline-offset: 3px;
+  }
+  #boot-hint {
+    position: fixed;
+    left: 12px;
+    top: 8px;
+    margin: 0;
+    color: #0f0;
+    font: 12px monospace;
+  }
+  #help-dialog {
+    max-width: min(540px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    padding: 3px 16px 16px;
+    border: 2px outset #fff;
+    border-radius: 0;
+    background: #c0c0c0;
+    color: #000;
+    font:
+      13px MSS,
+      sans-serif;
+  }
+  #help-dialog::backdrop {
+    background: rgb(0 0 0 / 70%);
+  }
+  #help-title {
+    font-size: 14px;
+    margin: 0 -13px 14px;
+    padding: 6px;
+    background: #000080;
+    color: #fff;
+  }
+  #help-dialog dl {
+    line-height: 1.5;
+  }
+  #help-dialog dt {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  #help-dialog dd {
+    margin: 2px 0 0;
+  }
+  #help-dialog form {
+    text-align: right;
+  }
+  #help-dialog button {
+    background: #c0c0c0;
+    color: #000;
+    border: 2px outset #fff;
+  }
+  @media (max-width: 700px) {
+    #controls-hint {
+      display: none;
+    }
+    #monitor-controls {
+      gap: 8px;
+      padding: 6px 8px;
+    }
+    .machine-label {
+      font-size: 10px;
+    }
+  }
+  @media (pointer: coarse), (max-width: 700px) {
+    #machine {
+      overflow-y: auto;
+    }
+    #viewport {
+      flex: 1 0 120px;
+    }
+    #machine button:not(:where(.assistant-compose *)) {
+      min-height: 44px;
+      min-width: 44px;
+      font-family: monospace;
+    }
+    #monitor-controls {
+      flex: none;
+      gap: 6px;
+      padding: 5px 8px;
+    }
+    .machine-label,
+    #controls-hint {
+      display: none;
+    }
+    .monitor-buttons {
+      margin: 0;
+      width: 100%;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    .monitor-buttons button {
+      flex: 0 0 auto;
+      padding: 3px 8px;
+    }
+    #touch-controls {
+      flex: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      overflow-x: visible;
+      gap: 5px;
+      padding: 5px 8px;
+      border-top: 1px solid #333;
+    }
+    #touch-controls span {
+      display: none;
+    }
+    #touch-controls button {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 3px 8px;
+    }
+    #keyboard-panel {
+      padding: 6px 8px;
+    }
+    #keyboard-status {
+      font-size: 11px;
+    }
+  }
+  @media (pointer: coarse) and (orientation: landscape) {
+    #touch-controls span {
+      display: none;
+    }
+    #monitor-controls {
+      min-height: 0;
+    }
+    .monitor-buttons {
+      width: auto;
+    }
+    #keyboard-panel label,
+    #keyboard-status {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  label?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { label = 'Application menu', class: className = '', ...attributes } = Astro.props;
+---
+
+<nav
+  data-hybrid-menubar
+  role="menubar"
+  aria-label={label}
+  class:list={['hybrid-menubar', className]}
+  {...attributes}
+>
+  <slot />
+</nav>

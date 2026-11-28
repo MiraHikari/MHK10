@@ -1,0 +1,13 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+const { label, class: className = '', ...attributes } = Astro.props;
+---
+
+<div role="toolbar" aria-label={label} class:list={['hybrid-toolbar', className]} {...attributes}>
+  <slot />
+</div>

@@ -1,0 +1,822 @@
+@font-face {
+  font-family: 'MS Pixel';
+  src: url('98.css/dist/ms_sans_serif.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MS Pixel';
+  src: url('98.css/dist/ms_sans_serif_bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+:root {
+  --taskbar-h: 22px;
+  font-family: 'MS Pixel', MSS, Tahoma, sans-serif;
+  color: var(--ink);
+  background: var(--desk);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-size: 14px;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+button {
+  cursor: pointer;
+  color: var(--ink);
+}
+button:disabled {
+  cursor: default;
+}
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px dotted currentColor;
+  outline-offset: 3px;
+}
+[hidden] {
+  display: none !important;
+}
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 8px;
+  z-index: 99999;
+  padding: 12px;
+  background: white;
+  color: navy;
+}
+.skip-link:focus {
+  top: 8px;
+}
+.desktop {
+  height: calc(100dvh - var(--taskbar-h));
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+  background: var(--desk);
+  isolation: isolate;
+}
+.desktop-icons {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  display: grid;
+  grid-template-rows: repeat(5, 88px);
+  grid-auto-flow: column;
+  grid-auto-columns: 86px;
+  gap: 10px;
+  z-index: 1;
+}
+.desktop-icons a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  text-shadow: 1px 1px #000;
+  font-size: 12px;
+  padding: 4px;
+  text-align: center;
+  user-select: none;
+}
+.desktop-icons a span {
+  padding: 1px 3px;
+}
+.desktop-icons a.is-selected span,
+.desktop-icons a:focus-visible span {
+  background: navy;
+  outline: 1px dotted white;
+}
+.desktop-icons a:hover {
+  background: rgb(255 255 255 / 8%);
+}
+.os-window {
+  position: absolute;
+  left: clamp(190px, 18vw, 330px);
+  top: clamp(20px, 6vh, 80px);
+  width: min(910px, calc(100% - 240px));
+  height: min(700px, calc(100% - 75px));
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  border: 1px solid;
+  border-color: var(--hi) #000 #000 var(--hi);
+  box-shadow:
+    inset 1px 1px var(--face),
+    inset -1px -1px var(--line),
+    2px 2px 0 rgb(0 0 0 / 35%);
+  background: var(--face);
+  min-width: 280px;
+  min-height: 220px;
+  z-index: 5;
+}
+.os-window.is-active {
+  z-index: 10;
+}
+.window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 30px;
+  min-height: 30px;
+  padding: 3px 3px 3px 7px;
+  background: #808080;
+  color: #fff;
+  user-select: none;
+  touch-action: none;
+  cursor: default;
+}
+.is-active > .window-titlebar {
+  background: var(--title);
+  color: var(--title-text);
+}
+.window-caption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 700;
+}
+.window-controls {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.window-controls button {
+  width: 23px;
+  height: 22px;
+  display: grid;
+  place-content: center;
+  border: 2px solid;
+  border-color: white #404040 #404040 white;
+  background: var(--face);
+  color: #000;
+  padding: 0;
+  font:
+    bold 18px/1 Arial,
+    sans-serif;
+}
+.window-controls button:active {
+  border-color: #404040 white white #404040;
+}
+.window-menubar {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 3px 4px;
+  min-height: 31px;
+  border-bottom: 1px solid var(--line);
+}
+.window-menubar a {
+  padding: 3px 9px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 12px;
+}
+.window-menubar a:hover {
+  background: var(--title);
+  color: var(--title-text);
+}
+.window-menubar .direct-link {
+  margin-left: auto;
+}
+.window-address {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  font-size: 12px;
+  min-width: 0;
+}
+.address-value {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: white;
+  color: #222;
+  border: 2px inset #eee;
+  padding: 3px 6px;
+  font-family: monospace;
+}
+.window-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: var(--paper);
+  overscroll-behavior: contain;
+  scrollbar-color: #aaa #e5e5e5;
+}
+.window-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: var(--paper);
+}
+.window-status {
+  display: flex;
+  gap: 3px;
+  height: 24px;
+  padding-top: 3px;
+  font-size: 11px;
+}
+.window-status span {
+  border: 1px inset #eee;
+  padding: 2px 6px;
+}
+.window-status span:first-child {
+  flex: 1;
+}
+.os-window.is-maximized {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.page-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 32px;
+}
+.page-shell h1 {
+  font-size: clamp(26px, 4vw, 38px);
+  letter-spacing: -1px;
+  line-height: 1.25;
+}
+.page-shell p {
+  line-height: 1.8;
+}
+.page-shell img {
+  max-width: 100%;
+}
+.taskbar {
+  position: fixed;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: var(--taskbar-h);
+  padding: 1px 3px;
+  background: var(--face);
+  border-top: 2px solid white;
+  z-index: 10000;
+}
+.taskbar button {
+  border: 2px solid;
+  border-color: white var(--shadow) var(--shadow) white;
+  background: var(--face);
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+.taskbar button[aria-pressed='true'],
+.taskbar button.is-active,
+.taskbar button:active {
+  border-color: var(--shadow) white white var(--shadow);
+  background-image: repeating-conic-gradient(#ffffff55 0% 25%, transparent 0% 50%);
+  background-size: 2px 2px;
+}
+.start-button {
+  flex-shrink: 0;
+}
+.task-buttons {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+  min-width: 0;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.task-buttons button {
+  min-width: 40px;
+  max-width: 180px;
+  flex: 1 1 130px;
+  justify-content: flex-start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+}
+.task-buttons img {
+  width: 18px;
+  height: 18px;
+  image-rendering: pixelated;
+}
+.doom-tray {
+  font-size: 11px;
+}
+.doom-tray b {
+  color: #800000;
+}
+.system-clock {
+  min-width: 53px;
+  padding: 7px 6px;
+  border: 2px inset #eee;
+  font:
+    12px 'MS Pixel',
+    sans-serif;
+  text-align: center;
+}
+.start-menu {
+  position: fixed;
+  left: 3px;
+  bottom: var(--taskbar-h);
+  width: 280px;
+  max-height: calc(100dvh - var(--taskbar-h) - 10px);
+  overflow: auto;
+  z-index: 10001;
+  background: var(--face);
+  border: 2px outset white;
+  display: flex;
+}
+.start-brand {
+  width: 34px;
+  flex-shrink: 0;
+  background: #808080;
+  color: #c0c0c0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding: 12px 5px;
+  font-size: 20px;
+}
+.start-brand b {
+  color: white;
+}
+.start-items {
+  flex: 1;
+  min-width: 0;
+  padding: 4px;
+}
+.start-items p {
+  margin: 6px 8px 10px;
+  font: bold 12px monospace;
+}
+.start-items a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+}
+.start-items a:hover,
+.start-items a:focus {
+  background: var(--title);
+  color: var(--title-text);
+}
+.start-items label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 8px;
+}
+.start-items select {
+  width: 140px;
+  min-height: 30px;
+}
+.start-separator {
+  height: 2px;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid white;
+  margin: 5px;
+}
+.is-embedded .desktop-icons,
+.is-embedded .taskbar,
+.is-embedded .start-menu,
+.is-embedded .skip-link {
+  display: none !important;
+}
+.is-embedded .desktop {
+  min-height: 0;
+  height: auto;
+  overflow: visible;
+  background: var(--paper);
+}
+.is-embedded .initial-window {
+  display: block;
+  position: static;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+.is-embedded .initial-window > .window-titlebar,
+.is-embedded .initial-window > .window-menubar,
+.is-embedded .initial-window > .window-address,
+.is-embedded .initial-window > .window-status {
+  display: none;
+}
+.is-embedded .window-content {
+  overflow: visible;
+}
+.is-embedded {
+  background: var(--paper);
+}
+@media (max-width: 760px) {
+  :root {
+    --taskbar-h: calc(52px + env(safe-area-inset-bottom));
+  }
+  .desktop {
+    min-height: 200px;
+  }
+  .desktop-icons {
+    left: 8px;
+    top: 8px;
+    grid-template-rows: repeat(5, 78px);
+    grid-auto-columns: 76px;
+    gap: 4px;
+  }
+  .os-window {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0;
+    min-height: 0;
+  }
+  .window-titlebar {
+    min-height: 42px;
+    height: 42px;
+  }
+  .window-controls button {
+    width: 34px;
+    height: 32px;
+  }
+  .window-menubar {
+    min-height: 38px;
+  }
+  .window-menubar a {
+    padding: 7px 8px;
+  }
+  .window-address {
+    display: none;
+  }
+  .window-status {
+    height: 22px;
+  }
+  .taskbar button {
+    height: 40px;
+  }
+  .taskbar {
+    gap: 3px;
+  }
+  .taskbar #show-desktop {
+    display: none;
+  }
+  .task-buttons button {
+    flex-basis: 40px;
+    min-width: 40px;
+    padding: 5px;
+    font-size: 0;
+  }
+  .task-buttons button img {
+    width: 24px;
+    height: 24px;
+  }
+  .doom-tray span,
+  .system-clock {
+    display: none;
+  }
+  .doom-tray {
+    padding: 2px 5px !important;
+  }
+  .start-items a {
+    min-height: 44px;
+  }
+  .page-shell {
+    padding: 22px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media print {
+  .desktop-icons,
+  .taskbar,
+  .start-menu,
+  .window-titlebar,
+  .window-menubar,
+  .window-address,
+  .window-status {
+    display: none !important;
+  }
+  .desktop,
+  .os-window,
+  .window-content {
+    position: static !important;
+    height: auto !important;
+    width: 100% !important;
+    overflow: visible !important;
+    box-shadow: none;
+    border: 0;
+  }
+}
+/* Hybrid mode keeps the original 640x360 system as the only desktop chrome. */
+#machine {
+  display: none;
+}
+html:not(.hybrid-mode) #machine {
+  display: none;
+}
+.hybrid-mode #machine {
+  display: flex;
+}
+.hybrid-mode #desktop,
+.hybrid-mode > .taskbar,
+.hybrid-mode body > .taskbar,
+.hybrid-mode body > .start-menu {
+  display: none !important;
+}
+.is-embedded #machine {
+  display: none !important;
+}
+.is-embedded body {
+  background: var(--face);
+  color: var(--ink);
+  font:
+    11px 'MS Pixel',
+    MSS,
+    Tahoma,
+    sans-serif;
+}
+.is-embedded .page-shell {
+  padding: 12px;
+  margin: 0;
+  max-width: none;
+}
+.is-embedded .page-shell h1 {
+  font-size: 16px;
+  letter-spacing: 0;
+}
+.is-embedded .page-shell h2 {
+  font-size: 13px;
+}
+.is-embedded .page-shell p {
+  font-size: 11px;
+  line-height: 1.65;
+}
+.is-embedded .welcome {
+  padding: 14px;
+}
+.is-embedded .welcome .welcome-heading {
+  gap: 12px;
+}
+.is-embedded .welcome .welcome-heading > img {
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+  border: 2px inset white;
+}
+.is-embedded .welcome h1 {
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.is-embedded .welcome .edition {
+  display: none;
+}
+.is-embedded .welcome .intro {
+  margin: 12px 0;
+}
+.is-embedded .welcome-split {
+  gap: 12px;
+}
+.is-embedded .folder-card {
+  padding: 8px;
+}
+.is-embedded .folder-card img {
+  width: 24px;
+  height: 24px;
+}
+.is-embedded .folder-card strong {
+  font-size: 11px;
+}
+.is-embedded .folder-card span {
+  font-size: 10px;
+}
+.is-embedded .latest-note {
+  margin-top: 10px;
+  padding: 10px 0;
+}
+.is-embedded .welcome-footer {
+  margin-top: 8px;
+}
+.is-embedded .online-dot {
+  box-shadow: none;
+  width: 5px;
+  height: 5px;
+}
+#crt::after {
+  z-index: 999999;
+}
+html.is-embedded .welcome-split {
+  grid-template-columns: 1.1fr 1fr;
+}
+html.is-embedded .featured-image {
+  box-shadow: none;
+}
+html.is-embedded .welcome .welcome-footer {
+  font-size: 11px;
+}
+html.is-embedded .welcome .intro {
+  font-size: 11px;
+}
+html.is-embedded .welcome .eyebrow {
+  font:
+    10px MSS,
+    'MS Pixel',
+    monospace;
+  letter-spacing: 0;
+}
+html.is-embedded .welcome .welcome-heading h1 {
+  font:
+    700 16px MSS,
+    'MS Pixel',
+    sans-serif;
+  letter-spacing: 0;
+}
+
+/* Embedded clients use the same 11px MS Sans Serif metrics as the canvas.
+   Keep sizing in logical desktop pixels; the monitor alone applies scaling. */
+html.is-embedded {
+  --paper: #fff;
+  --ink: #000;
+  color-scheme: light;
+  font-synthesis: none;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+}
+html.is-embedded body {
+  font:
+    11px/14px MSS,
+    'MS Pixel',
+    Tahoma,
+    sans-serif;
+  background: var(--face);
+}
+html.is-embedded .page-shell {
+  padding: 8px;
+}
+html.is-embedded .page-shell h1,
+html.is-embedded .page-shell h2 {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+html.is-embedded .page-shell p {
+  font-size: 11px;
+  line-height: 14px;
+}
+html.is-embedded .window-content {
+  background: var(--face);
+}
+html.is-embedded :is(button, input, select, textarea) {
+  border-radius: 0;
+}
+html.is-embedded :focus-visible {
+  outline-width: 1px;
+  outline-offset: 1px;
+}
+/* Use WebKit parts in Chromium/Safari. Setting scrollbar-color to a colour
+   would override these native parts in current Chromium. */
+html.is-embedded,
+html.is-embedded * {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+html.is-embedded::-webkit-scrollbar,
+html.is-embedded ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: var(--face);
+}
+html.is-embedded::-webkit-scrollbar-track,
+html.is-embedded ::-webkit-scrollbar-track {
+  background-color: var(--face);
+  background-image: repeating-conic-gradient(#fff 0% 25%, transparent 0% 50%);
+  background-size: 2px 2px;
+}
+html.is-embedded::-webkit-scrollbar-thumb,
+html.is-embedded ::-webkit-scrollbar-thumb {
+  min-height: 16px;
+  min-width: 16px;
+  background: var(--face);
+  border: 1px solid;
+  border-color: #fff #000 #000 #fff;
+  border-radius: 0;
+  box-shadow:
+    inset 1px 1px var(--face),
+    inset -1px -1px #808080;
+}
+html.is-embedded::-webkit-scrollbar-button,
+html.is-embedded ::-webkit-scrollbar-button {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--face);
+  border: 1px solid;
+  border-color: #fff #000 #000 #fff;
+  box-shadow: inset -1px -1px #808080;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+html.is-embedded::-webkit-scrollbar-button:vertical:decrement,
+html.is-embedded ::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v1H3zM2 1h3v1H2zM1 2h5v1H1zM0 3h7v1H0z'/%3E%3C/svg%3E");
+}
+html.is-embedded::-webkit-scrollbar-button:vertical:increment,
+html.is-embedded ::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H0zM1 1h5v1H1zM2 2h3v1H2zM3 3h1v1H3z'/%3E%3C/svg%3E");
+}
+html.is-embedded::-webkit-scrollbar-button:horizontal:decrement,
+html.is-embedded ::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v7H3zM2 1h1v5H2zM1 2h1v3H1zM0 3h1v1H0z'/%3E%3C/svg%3E");
+}
+html.is-embedded::-webkit-scrollbar-button:horizontal:increment,
+html.is-embedded ::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z'/%3E%3C/svg%3E");
+}
+html.is-embedded::-webkit-scrollbar-button:start:increment,
+html.is-embedded::-webkit-scrollbar-button:end:decrement,
+html.is-embedded ::-webkit-scrollbar-button:start:increment,
+html.is-embedded ::-webkit-scrollbar-button:end:decrement {
+  display: none;
+}
+html.is-embedded::-webkit-scrollbar-corner,
+html.is-embedded ::-webkit-scrollbar-corner {
+  background: var(--face);
+}
+@supports not selector(::-webkit-scrollbar) {
+  html.is-embedded,
+  html.is-embedded * {
+    scrollbar-color: #c0c0c0 #dfdfdf;
+  }
+}
+html.is-embedded,
+html.is-embedded * {
+  cursor: var(--cursor-arrow, default);
+}
+html.is-embedded :is(input, textarea, [contenteditable='true']),
+html.is-embedded .prose {
+  cursor: var(--cursor-text, text);
+}
+html.is-embedded [aria-busy='true'] {
+  cursor: var(--cursor-wait, wait);
+}
+/* Blog text is a separate 12px CJK pixel grid, not the 11px UI grid. */
+html.is-embedded .reading-room .prose,
+html.is-embedded .reading-room .prose :is(p, li, blockquote, code),
+html.is-embedded .reading-room .description,
+html.is-embedded .journal .post-row :is(h2, a, p),
+html.is-embedded .reading-room aside ol {
+  font-family: 'Zpix', SimSun, monospace;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+}
+html.is-embedded .reading-room h1 {
+  font-family: 'Zpix', SimSun, monospace;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+}

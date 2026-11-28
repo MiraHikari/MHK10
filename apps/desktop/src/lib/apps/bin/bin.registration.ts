@@ -1,0 +1,15 @@
+export const registration = {
+  id: 'bin',
+  name: 'Recycle Bin',
+  icon: 'bin',
+  kind: 'canvas',
+  route: '/apps/bin/',
+  title: 'Recycle Bin',
+  w: 330,
+  h: 236,
+  x: 290,
+  y: 54,
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  startMenuFolder: 'accessories',
+} as const;

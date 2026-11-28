@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DesktopHost from '../components/DesktopHost.astro';
+---
+
+<Layout>
+  <DesktopHost />
+</Layout>
+
+<script>
+  import { mountDesktopEntry } from '../lib/os/host/desktop-entry';
+  void mountDesktopEntry(false);
+</script>

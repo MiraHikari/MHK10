@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { mediaForAsset } from '../data/media';
+interface Props extends Omit<HTMLAttributes<'img'>, 'src'> {
+  src: string;
+}
+const { src, ...attributes } = Astro.props;
+const media = mediaForAsset(src);
+const original = media?.display ?? src;
+---
+
+<img
+  {...attributes}
+  src={original}
+  data-original-src={original}
+  data-pixel-src={media?.preview}
+  style="image-rendering:auto"
+/>

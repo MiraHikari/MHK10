@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App';
+import { getActiveProjects } from '@/lib/projects';
+import { getArticleList } from '@/lib/blog';
+import { pageTitle } from '@/lib/page-title';
+import '@/styles/global.css';
+
+const projectData = await getActiveProjects();
+const articles = await getArticleList();
+---
+
+<Layout title={pageTitle([])}>
+  <App client:load projects={projectData} initialSection="about" articles={articles} />
+</Layout>

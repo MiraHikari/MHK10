@@ -1,0 +1,18 @@
+export const registration = {
+  id: 'calculator',
+  name: 'Calculator',
+  icon: 'calculator',
+  kind: 'canvas',
+  route: '/apps/calculator/',
+  title: 'Calculator',
+  w: 220,
+  h: 232,
+  x: 120,
+  y: 30,
+  ctl: 'x',
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  shortcut: true,
+  runAliases: ['calc'],
+  startMenuFolder: 'accessories',
+} as const;

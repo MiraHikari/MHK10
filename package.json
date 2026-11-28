@@ -1,0 +1,54 @@
+{
+  "name": "mirahikari-site",
+  "version": "1.0.0",
+  "description": "MiraHikari's general site and MHK10 desktop with a shared content and reading core",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:general": "vp run @mhk/general#dev",
+    "dev:desktop": "vp run @mhk/desktop#dev",
+    "build": "vp run --filter @mhk/* build",
+    "build:general": "vp run @mhk/general#build",
+    "build:desktop": "vp run @mhk/desktop#build",
+    "preview": "node scripts/preview.mjs",
+    "check": "vp run --filter @mhk/* check && npm run check:root",
+    "check:root": "tsc --noEmit -p tsconfig.json",
+    "test": "vp test",
+    "lint": "vp lint",
+    "format": "node scripts/format.mjs",
+    "format:check": "node scripts/format.mjs --check",
+    "format:baseline": "npm run format:baseline --workspace @mhk/desktop",
+    "verify:architecture": "npm run verify:architecture --workspaces --if-present",
+    "verify:site": "npm run verify:site --workspaces --if-present",
+    "test:e2e": "npm run test:e2e --workspace @mhk/desktop --",
+    "test:e2e:fusion": "playwright test --config playwright.fusion.config.ts",
+    "verify": "node scripts/verify.mjs",
+    "build:verify": "node scripts/build-configs.mjs e2e fusion",
+    "content:align": "node apps/desktop/scripts/align-personal-content.mjs --write",
+    "content:check": "node apps/desktop/scripts/align-personal-content.mjs && node apps/desktop/scripts/check-media-freshness.mjs",
+    "generate:app-catalog": "npm run generate:app-catalog --workspace @mhk/desktop",
+    "favicons:generate": "npm run favicons:generate --workspace @mhk/desktop",
+    "check:tools": "vp check"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "prettier": "3.9.9",
+    "@playwright/test": "1.63.0",
+    "@astrojs/compiler-rs": "0.5.1",
+    "prettier-plugin-astro": "1.1.0",
+    "vite-plus": "1.0.0"
+  },
+  "engines": {
+    "node": "24.x",
+    "npm": "11.x"
+  },
+  "packageManager": "npm@11.9.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "overrides": {
+    "vitest": "5.0.1"
+  }
+}

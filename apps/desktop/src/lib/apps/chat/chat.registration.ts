@@ -1,0 +1,15 @@
+export const registration = {
+  id: 'chat',
+  name: 'Chat',
+  icon: 'chat',
+  kind: 'canvas',
+  route: '/apps/chat/',
+  title: 'Chat - MHK10 Assistant',
+  w: 400,
+  h: 240,
+  x: 60,
+  y: 12,
+  menu: 'Programs',
+  desktop: ['canvas', 'hybrid'],
+  shortcut: true,
+} as const;

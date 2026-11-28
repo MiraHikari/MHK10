@@ -1,0 +1,163 @@
+---
+import BootLoader from '@/components/effects/BootLoader.astro';
+import Cursor from '@/components/effects/Cursor';
+import BaseHead from '@/components/seo/BaseHead.astro';
+import { motionDuration, motionEaseAssembleCss, motionEaseCss } from '@/lib/motion';
+import { STORAGE_KEYS } from '@/lib/storage/keys';
+import { parseDesktopDeployment } from '@/hooks/desktop-deployment-model';
+import { FUSION_QUERY } from '@mhk/site-core/fusion/protocol-model';
+import { faviconHref } from '@/data/favicon';
+import { SECTIONS, SECTION_MAP, getSectionIdFromPath, sectionAccentTokens } from '@/lib/sections';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  canonical?: string;
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  authors?: string[];
+  tags?: string[];
+  keywords?: string[];
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** 轻量页（404 等）：BootLoader 以简化版展示，不播完整仪式、不消费首访标记。 */
+  minimalBoot?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  type,
+  canonical,
+  noindex,
+  publishedTime,
+  modifiedTime,
+  authors,
+  tags,
+  keywords,
+  jsonLd,
+  minimalBoot = false,
+} = Astro.props;
+
+// /blog/[slug] 落在 SECTION_PATH_MAP 之外（会回退根章节），但文章页的
+// 章节语境是 blog：SSR 的 <html> accent token 直接按 blog 主题输出，
+// 避免水合前首帧闪烁错误强调色。
+const initialId = Astro.url.pathname.startsWith('/blog/')
+  ? 'blog'
+  : getSectionIdFromPath(Astro.url.pathname);
+const initial = SECTION_MAP[initialId] ?? SECTIONS[0];
+const tokens = sectionAccentTokens(initial);
+
+// Win95 融合开关：未配置 PUBLIC_DESK_URL 时整体旁路，不输出内联脚本
+// （kill switch——B 站子域未就绪也能独立部署 A 站改动）。
+const deskUrl = parseDesktopDeployment(import.meta.env.PUBLIC_DESK_URL);
+const displayModeKey = STORAGE_KEYS.displayMode;
+const displayFailedKey = STORAGE_KEYS.desktopFailed;
+// The inline script mirrors resolveDisplayMode() from display-mode-model.ts;
+// only serializable storage keys are shared because it runs before hydration.
+// The desktop favicon variant is pre-stamped so the inline swap below stays a
+// pure assignment and never rediscovers the `?v=` shape.
+const desktopFavicon = {
+  icon: faviconHref('win95'),
+  apple: faviconHref('win95', 'apple'),
+};
+---
+
+<!doctype html>
+<html
+  lang="zh-CN"
+  class="dark"
+  style={`--section-accent:${initial.accent};--section-accent-soft:${initial.accentSoft};--section-accent-ink:${tokens.ink};--section-accent-on:${tokens.on};--ease-brand:${motionEaseCss};--ease-assemble:${motionEaseAssembleCss};--scene-entry-duration:${motionDuration.entry}s;--scene-work-delay:${motionDuration.entryWorkDelay}s;--scene-hero-glyph-duration:${motionDuration.heroGlyph}s;--scene-hero-glyph-stagger:${motionDuration.heroGlyphStagger}s;--scene-hero-rail-duration:${motionDuration.heroRail}s;--scene-hero-rail-delay:${motionDuration.heroRailDelay}s;--scene-hero-intro-delay:${motionDuration.heroIntroDelay}s;--scene-hero-bottom-delay:${motionDuration.heroBottomDelay}s;--scene-enter-duration:${motionDuration.sectionEnter}s;--scene-content-delay:${motionDuration.sectionContentDelay}s;--scene-control-duration:${motionDuration.control}s;--fusion-entry-duration:${motionDuration.presentation}s;`}
+>
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      canonical={canonical}
+      noindex={noindex}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      authors={authors}
+      tags={tags}
+      keywords={keywords}
+      jsonLd={jsonLd}
+    />
+    {/* 防闪烁：水合前决定本次会话的显示模式。已存偏好跟随所有路由；
+        无偏好时通用版总是先出现——桌面只作为推荐，绝不静默接管。
+        useDisplayMode 从该 dataset 惰性起步，二者共用同一信号。 */}
+    {deskUrl && <script
+      is:inline
+      define:vars={{
+        displayModeKey,
+        displayFailedKey,
+        fusionQuery: FUSION_QUERY,
+      }}
+    >
+      (() => {
+        const explicit = new URLSearchParams(location.search).get(fusionQuery.view);
+        if (explicit === fusionQuery.classic || explicit === fusionQuery.win95) {
+          document.documentElement.dataset.displayTarget = explicit;
+          try {
+            localStorage.setItem(displayModeKey, explicit);
+          } catch {}
+          // Explicit entry is the retry signal: clear this session's failed
+          // handoff cooldown so the choice sticks on the next reload too.
+          try {
+            sessionStorage.removeItem(displayFailedKey);
+          } catch {}
+          return;
+        }
+        // A failed desktop handoff suppresses automatic entry for the rest of
+        // the session while the saved win95 preference is preserved.
+        let failedThisSession = null;
+        try {
+          failedThisSession = sessionStorage.getItem(displayFailedKey);
+        } catch {
+          // 隐私模式 / 站点数据被禁：按无冷却处理。
+        }
+        const desktopCoolingDown = failedThisSession === 'win95';
+        // A saved choice follows the visitor to every route: opening a deep
+        // link directly must not reset the presentation they already chose.
+        let stored = null;
+        try {
+          stored = localStorage.getItem(displayModeKey);
+        } catch {
+          // 隐私模式 / 站点数据被禁：按无偏好处理。
+        }
+        if (stored === 'win95') {
+          if (!desktopCoolingDown) document.documentElement.dataset.displayTarget = 'win95';
+          return;
+        }
+        // No saved choice (or a saved classic one): the general site paints
+        // first on every route, including the site entry. The desktop is
+        // offered by the recommendation card, never forced.
+        return;
+      })();
+    </script>}
+    {/* SSR 出口只渲染 classic 图标；这里在首绘前跟随已确定的桌面目标，
+        避免 Win95 会话先闪一枚 classic 标签图标（BaseHead 以
+        data-site-favicon 标识，运行时真正的切换仍走 syncFavicon）。 */}
+    {deskUrl && <script is:inline define:vars={{ desktopFavicon }}>
+      (() => {
+        if (document.documentElement.dataset.displayTarget !== 'win95') return;
+        const icon = document.head.querySelector('link[data-site-favicon="icon"]');
+        if (icon) icon.href = desktopFavicon.icon;
+        const apple = document.head.querySelector('link[data-site-favicon="apple"]');
+        if (apple) apple.href = desktopFavicon.apple;
+      })();
+    </script>}
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">
+      跳到主要内容
+    </a>
+    <BootLoader minimal={minimalBoot} sectionEn={initial.en} sectionZh={initial.zh} />
+    <slot />
+    <Cursor client:media="(pointer: fine)" />
+  </body>
+</html>

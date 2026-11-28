@@ -1,0 +1,146 @@
+---
+import PortfolioImage from '../../../components/PortfolioImage.astro';
+import PixelIcon from '../../../components/PixelIcon.astro';
+import Button from '../../../components/hybrid/Button.astro';
+import Select from '../../../components/hybrid/Select.astro';
+import TextField from '../../../components/hybrid/TextField.astro';
+import Toolbar from '../../../components/hybrid/Toolbar.astro';
+import { projects } from '../../../data/profile';
+import { mediaHref } from '../../../data/media';
+const tags = [...new Set(projects.flatMap((project) => project.tags))].sort((a, b) =>
+  a.localeCompare(b, 'en'),
+);
+---
+
+<div class="project-browser" data-project-browser>
+  <Toolbar label="Project tools" class="project-tools" data-project-tools hidden lang="en">
+    <label class="project-query-label" for="project-query">
+      Find
+      <TextField
+        label="Find projects"
+        type="search"
+        id="project-query"
+        maxlength="120"
+        autocomplete="off"
+        placeholder="Name, work or technology"
+      />
+    </label>
+    <label for="project-tag">Technology</label>
+    <Select id="project-tag" aria-label="Project technology">
+      <option value="">All technologies</option>
+      {tags.map((tag) => (
+        <option value={tag}>{tag}</option>
+      ))}
+    </Select>
+    <Select id="project-sort" aria-label="Project order">
+      <option value="curated">Curated order</option>
+      <option value="newest">Newest first</option>
+      <option value="name">Name</option>
+    </Select>
+    <Button data-project-clear>Clear filters</Button>
+  </Toolbar>
+  <aside class="project-index">
+    <div class="record-column-heading" lang="en">
+      Name
+    </div>
+    <ul role="listbox" aria-label="Projects" data-project-list>
+      {projects.map((project, index) => (
+        <li role="presentation">
+          <a
+            href={`#project-${project.id}`}
+            role="option"
+            aria-selected={index === 0}
+            tabindex={index === 0 ? 0 : -1}
+            data-project-select={project.id}
+          >
+            <PixelIcon name="exe" size={16} />
+            <span data-cjk lang="zh-CN">
+              {project.title}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+  <div class="project-records">
+    <p class="project-empty" data-project-empty hidden lang="en">
+      No projects match these filters. Try another word or choose All technologies.
+    </p>
+    {projects.map((project) => (
+      <article id={`project-${project.id}`} data-project-id={project.id} class="project-record">
+        <header class="project-record-header">
+          <div class="project-title-row">
+            <h3 data-cjk lang="zh-CN">
+              {project.title}
+            </h3>
+            {project.featured && (
+              <span class="pixel-badge badge-accent status-badge" lang="en">
+                Featured
+              </span>
+            )}
+          </div>
+          <div class="project-meta" lang="en">
+            <time datetime={project.date}>{project.date}</time>
+            <span>{project.tags.length} technologies</span>
+          </div>
+        </header>
+        <p data-cjk lang="zh-CN" data-project-description>
+          {project.description}
+        </p>
+        <a
+          class="project-art"
+          href={mediaHref(project.preview)}
+          data-app-link="acdsee"
+          aria-label={`View ${project.title} image`}
+        >
+          <PortfolioImage
+            src={project.preview}
+            alt={`${project.title} 项目画面`}
+            width="640"
+            height="360"
+            loading="lazy"
+          />
+          <span class="project-art-caption" lang="en">
+            Inspect image in ACDSee
+          </span>
+        </a>
+        <fieldset>
+          <legend>My contribution</legend>
+          <p data-cjk lang="zh-CN" data-project-summary>
+            {project.summary}
+          </p>
+          <ul data-cjk lang="zh-CN" data-project-highlights>
+            {project.highlights.map((highlight) => (
+              <li>{highlight}</li>
+            ))}
+          </ul>
+        </fieldset>
+        <fieldset>
+          <legend>Technologies</legend>
+          <p class="project-tags">
+            {project.tags.map((tag) => (
+              <span class="pixel-chip" data-project-tag>
+                {tag}
+              </span>
+            ))}
+          </p>
+        </fieldset>
+        <nav class="record-actions" aria-label="Project links">
+          <a class="hybrid-button" href={project.href} target="_blank" rel="noopener noreferrer">
+            Open project
+          </a>
+          {project.github && project.github !== project.href && (
+            <a
+              class="hybrid-button"
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Source
+            </a>
+          )}
+        </nav>
+      </article>
+    ))}
+  </div>
+</div>

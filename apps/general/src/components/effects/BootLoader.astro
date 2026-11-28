@@ -1,0 +1,406 @@
+---
+import './boot-loader.css';
+import { BOOT_LAST_RESORT_MS, BOOT_READY_EVENT } from '@/lib/boot-sequence';
+import { STORAGE_KEYS } from '@/lib/storage/keys';
+
+interface Props {
+  /** 轻量页（404 等）：简化版展示，不播完整动画仪式，也不读写首访标记。 */
+  minimal?: boolean;
+  /** Current section identity for the loader's editorial context line. */
+  sectionEn?: string;
+  sectionZh?: string;
+}
+
+const { minimal = false, sectionEn = 'MIRAHIKARI', sectionZh = '个人站点' } = Astro.props;
+
+/** Inline script cannot import modules; stamp values from their owners. */
+const loaderSeenKey = STORAGE_KEYS.loaderSeen;
+const motionLevelKey = STORAGE_KEYS.motionLevel;
+
+type Segment = readonly [number, number, number, number];
+
+const GLYPHS: Record<string, readonly Segment[]> = {
+  A: [
+    [0, 40, 10, 0],
+    [10, 0, 20, 40],
+    [5, 24, 15, 24],
+  ],
+  H: [
+    [0, 0, 0, 40],
+    [20, 0, 20, 40],
+    [0, 20, 20, 20],
+  ],
+  I: [
+    [0, 0, 20, 0],
+    [10, 0, 10, 40],
+    [0, 40, 20, 40],
+  ],
+  K: [
+    [0, 0, 0, 40],
+    [20, 0, 0, 20],
+    [0, 20, 20, 40],
+  ],
+  M: [
+    [0, 40, 0, 0],
+    [0, 0, 10, 20],
+    [10, 20, 20, 0],
+    [20, 0, 20, 40],
+  ],
+  R: [
+    [0, 0, 0, 40],
+    [0, 0, 20, 0],
+    [20, 0, 20, 20],
+    [0, 20, 20, 20],
+    [10, 20, 20, 40],
+  ],
+};
+
+const BRAND = 'MIRAHIKARI';
+const GLYPH_ADVANCE = 32;
+const LOGO_CENTER_X = (BRAND.length * GLYPH_ADVANCE) / 2;
+const LOGO_CENTER_Y = 25;
+const ENTRY_DISTANCE = 300;
+
+/** Deterministic scatter in [0.1, 0.5] — Astro frontmatter runs at build time. */
+function lineDelay(lineIndex: number) {
+  const hash = ((lineIndex * 1103515245 + 12345) >>> 0) % 1000;
+  return 0.1 + (hash / 1000) * 0.4;
+}
+
+const brandLines = BRAND.split('').flatMap((character, characterIndex) => {
+  const offsetX = characterIndex * GLYPH_ADVANCE;
+
+  return (GLYPHS[character] ?? []).map((segment, segmentIndex) => {
+    const [relativeX1, relativeY1, relativeX2, relativeY2] = segment;
+    const x1 = offsetX + relativeX1;
+    const y1 = relativeY1 + 5;
+    const x2 = offsetX + relativeX2;
+    const y2 = relativeY2 + 5;
+    const midpointX = (x1 + x2) / 2;
+    const midpointY = (y1 + y2) / 2;
+    const isHorizontal = Math.abs(y1 - y2) < 0.1;
+    const isVertical = Math.abs(x1 - x2) < 0.1;
+    const lineIndex = characterIndex * 5 + segmentIndex;
+
+    return {
+      x1,
+      y1,
+      x2,
+      y2,
+      entryX: isVertical ? 0 : (midpointX < LOGO_CENTER_X ? -1 : 1) * ENTRY_DISTANCE,
+      entryY: isHorizontal ? 0 : (midpointY < LOGO_CENTER_Y ? -1 : 1) * ENTRY_DISTANCE,
+      delay: lineDelay(lineIndex),
+    };
+  });
+});
+---
+
+<div
+  id="boot-loader"
+  class="boot-loader"
+  data-mode="classic"
+  data-minimal={minimal || undefined}
+  data-loader-seen-key={loaderSeenKey}
+  data-loader-motion-key={motionLevelKey}
+  data-loader-last-resort={BOOT_LAST_RESORT_MS}
+  data-loader-ready-event={BOOT_READY_EVENT}
+  role="status"
+  aria-label="页面正在思考"
+  aria-live="polite"
+>
+  <div class="boot-loader__classic" data-loader-variant="classic">
+    <div class="boot-loader__accent" aria-hidden="true">
+      <div class="boot-loader__accent-fill"></div>
+    </div>
+
+    <div class="boot-loader__log" aria-hidden="true">
+      <p style="--line-index: 0">
+        [ 0.000000] mirahikari-os 1.0.0-release (gcc 14.2.0) #1 SMP PREEMPT x86_64
+      </p>
+      <p style="--line-index: 1">
+        [ 0.003814] BIOS-e820: [mem 0x0000000000000000-0x000000007fffffff] usable
+      </p>
+      <p style="--line-index: 2">[ 0.008217] ACPI: RSDP 0x00000000000F0490 000024 (v02 MIRA)</p>
+      <p style="--line-index: 3" data-loader-hardware>
+        [ 0.014903] smpboot: Detected 12 logical processors
+      </p>
+      <p style="--line-index: 4">
+        [ 0.022518] Memory: 16384496K/33554432K available (16384K kernel code)
+      </p>
+      <p style="--line-index: 5">
+        [ 0.031264] pci 0000:01:00.0: [10de:2684] type 00 BAR 0 [mem 0xfe000000-0xffffffff]
+      </p>
+      <p style="--line-index: 6" data-loader-display>
+        [ 0.039817] drm: framebuffer initialized at 0xfe000000
+      </p>
+      <p style="--line-index: 7">
+        [ 0.048290] init[1]: reached target —{' '}
+        <span class="boot-loader__ready" data-loader-ready>
+          system ready
+        </span>
+      </p>
+    </div>
+
+    <svg class="boot-loader__brand" viewBox="0 0 330 50" role="img" aria-label="MIRAHIKARI">
+      {brandLines.map((line) => (
+        <line
+          x1={line.x1}
+          y1={line.y1}
+          x2={line.x2}
+          y2={line.y2}
+          style={`--entry-x: ${line.entryX}px; --entry-y: ${line.entryY}px; --entry-delay: ${line.delay}s`}
+        />
+      ))}
+    </svg>
+
+    <div class="boot-loader__footer" aria-hidden="true">
+      <div class="boot-loader__pipe"></div>
+      <div class="boot-loader__percentage" data-loader-percentage>
+        0%
+      </div>
+      <div class="boot-loader__status">
+        <span data-loader-status>THINKING</span>
+        <span class="boot-loader__cursor">…</span>
+      </div>
+    </div>
+    <div class="boot-loader__baseline" aria-hidden="true"></div>
+    <p class="boot-loader__context" aria-hidden="true">
+      <span class="boot-loader__context-index">// BOOT</span>
+      <span class="boot-loader__context-section">
+        {sectionEn} <span class="boot-loader__context-sep">/</span> {sectionZh}
+      </span>
+    </p>
+  </div>
+
+  <span class="boot-loader__sr" role="status" aria-live="polite" data-loader-sr>
+    正在加载 0%
+  </span>
+</div>
+
+<noscript>
+  <style is:inline>
+    #boot-loader {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<!-- 首屏关键规则内联：遮罩固定定位与底色，避免样式表到达前的 FOUC；
+     其余 BEM 规则见 boot-loader.css。 -->
+<style is:inline>
+  #boot-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const loader = document.getElementById('boot-loader');
+    if (!loader) return;
+    const root = document.documentElement;
+
+    const READY_EVENT = loader.dataset.loaderReadyEvent || '';
+    const CONTENT_READY_EVENT = 'portfolio:boot-ready';
+    // Keys and timing stamped from their owners via data-*. A missing timing
+    // stamp degrades to 0 ms (immediate dismissal), never to a second budget.
+    const LOADER_SEEN = loader.dataset.loaderSeenKey || 'mirahikari-portfolio:ui:loader-seen';
+    const MOTION_KEY = loader.dataset.loaderMotionKey || '';
+    const LAST_RESORT_MS = Number(loader.dataset.loaderLastResort);
+    // minimal（404 轻量页）由构建期 data 属性标记：不播完整仪式、不读写首访标记。
+    const minimal = loader.dataset.minimal !== undefined;
+    const desktopLanding = !minimal && root.dataset.displayTarget === 'win95';
+    const fallbackMs = Number.isFinite(LAST_RESORT_MS) ? LAST_RESORT_MS : 0;
+
+    /** Canonical session flag only; legacy keys are no longer migrated. */
+    const readLoaderSeen = () => {
+      try {
+        return sessionStorage.getItem(LOADER_SEEN) === '1';
+      } catch {
+        // Storage can be unavailable in privacy-restricted browsing contexts.
+        return false;
+      }
+    };
+
+    const markLoaderSeen = () => {
+      try {
+        sessionStorage.setItem(LOADER_SEEN, '1');
+      } catch {
+        // The loader remains functional when session storage is unavailable.
+      }
+    };
+
+    // Assigned once the progress loop arms. Released on every completion path:
+    // minimal and reduced-motion pages finish without the bundle's signal, so
+    // without this the listener would stay attached for the page lifetime.
+    let stopWaitingForBootReady = () => {};
+
+    const announceReady = () => {
+      // Single writer of `window.__loaderDone`; the React hook only reads it.
+      stopWaitingForBootReady();
+      if (!window.__loaderDone) {
+        window.__loaderDone = true;
+        if (!minimal && !desktopLanding) markLoaderSeen();
+        window.dispatchEvent(new CustomEvent(READY_EVENT));
+      }
+      document.documentElement.removeAttribute('aria-busy');
+    };
+
+    // 异常兜底：任何异常路径都保证遮罩必消失，并按完成语义广播。
+    const forceDismiss = () => {
+      root.removeAttribute('data-desktop-landing');
+      announceReady();
+      loader.remove();
+    };
+
+    try {
+      let storedMotion = null;
+      try {
+        storedMotion = localStorage.getItem(MOTION_KEY);
+      } catch {
+        // Unavailable storage leaves the operating-system preference authoritative.
+      }
+      const forcedMotion = storedMotion === 'full' || storedMotion === 'mobile';
+      const reducedMotion =
+        storedMotion === 'reduced' ||
+        (!forcedMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      root.classList.toggle('motion-forced', forcedMotion);
+      root.classList.toggle('motion-suppressed', storedMotion === 'reduced');
+      const seen = !minimal && readLoaderSeen();
+
+      if (window.__loaderDone) {
+        loader.remove();
+        document.documentElement.removeAttribute('aria-busy');
+        return;
+      }
+
+      if (desktopLanding) {
+        root.dataset.desktopLanding = '';
+        loader.dataset.mode = 'win95';
+        loader.setAttribute('aria-hidden', 'true');
+        loader.replaceChildren();
+        window.addEventListener(CONTENT_READY_EVENT, forceDismiss, { once: true });
+        const fallbackId = window.setTimeout(forceDismiss, fallbackMs);
+        stopWaitingForBootReady = () => {
+          window.clearTimeout(fallbackId);
+          window.removeEventListener(CONTENT_READY_EVENT, forceDismiss);
+        };
+        return;
+      }
+
+      document.documentElement.setAttribute('aria-busy', 'true');
+
+      // Elegant short revisit: logo already assembled, log still visible.
+      // Reduced-motion skips the theatrical assemble entirely; minimal (404)
+      // pages show only the quiet percentage — no ceremony, no seen marker.
+      if (minimal) {
+        loader.classList.add('boot-loader--minimal');
+      } else if (reducedMotion) {
+        loader.classList.add('boot-loader--instant');
+      } else if (seen) {
+        loader.classList.add('boot-loader--revisit');
+      }
+
+      const percentageEls = loader.querySelectorAll('[data-loader-percentage]');
+      const readyLabel = loader.querySelector('[data-loader-ready]');
+      const statusLabel = loader.querySelector('[data-loader-status]');
+      const sr = loader.querySelector('[data-loader-sr]');
+      const hardware = loader.querySelector('[data-loader-hardware]');
+      const display = loader.querySelector('[data-loader-display]');
+      let completed = false;
+      let animationFrameId = 0;
+      let fallbackId = 0;
+
+      if (hardware) {
+        const logicalProcessors = window.navigator.hardwareConcurrency || 12;
+        hardware.textContent = `[    0.014903] smpboot: Detected ${logicalProcessors} logical processors`;
+      }
+      if (display) {
+        display.textContent = `[    0.039817] drm: framebuffer [${screen.width}x${screen.height}] initialized at 0xfe000000`;
+      }
+      if (statusLabel) statusLabel.textContent = 'THINKING';
+
+      const setProgress = (progress) => {
+        const value = Math.round(progress * 100);
+        loader.style.setProperty('--loader-progress', String(progress));
+        for (const element of percentageEls) element.textContent = `${value}%`;
+        if (sr) sr.textContent = `正在加载 ${value}%`;
+      };
+
+      const dismiss = () => {
+        if (reducedMotion) {
+          loader.remove();
+          return;
+        }
+        loader.dataset.dismissed = 'true';
+        loader.setAttribute('aria-label', '页面思考完成');
+        window.setTimeout(() => {
+          if (!loader.isConnected) return;
+          loader.classList.add('boot-loader--exit');
+          loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+          window.setTimeout(() => loader.remove(), 700);
+        }, 300);
+      };
+
+      const complete = () => {
+        if (completed) return;
+        completed = true;
+        window.cancelAnimationFrame(animationFrameId);
+        window.clearTimeout(fallbackId);
+        setProgress(1);
+        if (readyLabel) readyLabel.classList.add('boot-loader__ready--visible');
+        if (sr) sr.textContent = '页面加载完成';
+        announceReady();
+        dismiss();
+      };
+
+      // 双轨进度：最短展示（首访 600ms / 回访 300ms / reduced 0ms /
+      // minimal 400ms）+ 真实就绪信号（portfolio:boot-ready）。信号未齐时进度停在 90%。
+      // 完成期限：BOOT_LAST_RESORT_MS（lib/boot-sequence.ts）。到达即由
+      // complete() 收场；这是遮罩完成语义的唯一兜底管辖，模块侧的 content
+      // timeout 只负责内容交接，mask 安全网负责 inline 从未执行的情况。
+      // 注意这是「完成」期限而非「消失」期限：dismiss() 之后还有 hold +
+      // 退出过渡，元素最晚在约 +1s 才真正移除。
+      const duration = minimal ? 400 : reducedMotion ? 0 : seen ? 300 : 600;
+      let bootReady = false;
+      let minElapsed = false;
+
+      const signalsReady = () => minimal || reducedMotion || bootReady;
+      const tryComplete = () => {
+        if (minElapsed && signalsReady()) complete();
+      };
+
+      const handleBootReady = () => {
+        bootReady = true;
+        tryComplete();
+      };
+      window.addEventListener(CONTENT_READY_EVENT, handleBootReady, { once: true });
+      stopWaitingForBootReady = () =>
+        window.removeEventListener(CONTENT_READY_EVENT, handleBootReady);
+
+      const startedAt = performance.now();
+      const tick = (now) => {
+        const elapsed = duration === 0 ? 1 : Math.min((now - startedAt) / duration, 1);
+        // 诚实进度：信号未齐时最多显示 90%，齐备后由 complete() 直接刷满。
+        const eased = (1 - Math.pow(1 - elapsed, 3)) * (signalsReady() ? 1 : 0.9);
+        setProgress(eased);
+
+        if (elapsed < 1) animationFrameId = window.requestAnimationFrame(tick);
+        else {
+          minElapsed = true;
+          tryComplete();
+        }
+      };
+
+      // 最后兜底 — bundle 从未水合时保证遮罩绝非常驻；这是遮罩移除的唯一
+      // 兜底管辖。模块侧的 content timeout 只负责内容交接，不碰 DOM。
+      fallbackId = window.setTimeout(complete, fallbackMs);
+      animationFrameId = window.requestAnimationFrame(tick);
+    } catch {
+      forceDismiss();
+    }
+  })();
+</script>

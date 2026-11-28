@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "types": ["node", "vite/client"] },
+  "include": ["playwright.config.ts", "src/fusion-events.d.ts", "tests/e2e/**/*.ts"],
+  "exclude": ["node_modules", "dist", "source-repo"]
+}

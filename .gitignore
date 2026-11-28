@@ -1,0 +1,31 @@
+node_modules/
+dist/
+.astro/
+.tmp/
+.cache/
+source-repo/
+artifacts/
+test-results/
+playwright-report/
+qa-captures/
+coverage/
+.verify/
+.edgeone/
+.playwright-mcp/
+codex-session-*.md
+.env
+.env.*
+!.env.example
+.vitest/
+*.tsbuildinfo
+
+# R2 source images stay outside Git; the desktop copies under
+# apps/desktop/public/images are generated and tracked.
+apps/general/public/images/
+
+# Local real-content overrides (never published; the repo ships template data).
+packages/site-core/content/local/
+apps/desktop/src/data/local/
+
+# Session logs
+session-*.md

@@ -1,0 +1,13 @@
+/* ============================================================================
+   global.css — 公共站点样式聚合入口。
+   只负责按顺序引入 Tailwind 与各分层样式；具体规则见 foundations/ 与
+   features/。后台独立入口为 admin.css，勿在本文件追加后台专属规则。
+   ========================================================================== */
+
+@import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
+@import './foundations/tokens.css';
+@import './foundations/theme.css';
+@import './foundations/base.css';
+@import './foundations/utilities.css';
+@import './foundations/motion.css';
